@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{18734781-B430-4945-959A-61D5D3DF65F5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>VanManager.My.MyApplication</StartupObject>
+    <RootNamespace>VanManager</RootNamespace>
+    <AssemblyName>VanManager</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>ftp://ftp.box.com/PROJECTS SETUP/VanManager/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <TargetCulture>el</TargetCulture>
+    <ProductName>Van Manager</ProductName>
+    <PublisherName>John Mavroselinos</PublisherName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>VanManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>VanManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FlexCell, Version=4.4.2.0, Culture=neutral, PublicKeyToken=6f86587eb70ee309, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Data.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf" />
+    <Reference Include="Janus.Windows.ButtonBar.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Windows.CalendarCombo.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Windows.Common.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf" />
+    <Reference Include="Janus.Windows.ExplorerBar.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Windows.FilterEditor.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Windows.GridEX.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Windows.Ribbon.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Windows.Schedule.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Janus.Windows.UI.v4, Version=4.0.51.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CLASS\ApplicationEvents.vb" />
+    <Compile Include="CLASS\ConvertNumToWords.vb" />
+    <Compile Include="FORMS\frmArea.Designer.vb">
+      <DependentUpon>frmArea.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmArea.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmCollection.Designer.vb">
+      <DependentUpon>frmCollection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmCollection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmCollections.Designer.vb">
+      <DependentUpon>frmCollections.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmCollections.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmCou.Designer.vb">
+      <DependentUpon>frmCou.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmCou.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmCus.Designer.vb">
+      <DependentUpon>frmCus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmCus.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmCUSTYPE.Designer.vb">
+      <DependentUpon>frmCUSTYPE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmCUSTYPE.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmDRV.Designer.vb">
+      <DependentUpon>frmDRV.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmDRV.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmES.Designer.vb">
+      <DependentUpon>frmES.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmES.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmEX.Designer.vb">
+      <DependentUpon>frmEX.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmEX.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmEXcat.Designer.vb">
+      <DependentUpon>frmEXcat.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmEXcat.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmFieldChooser.designer.vb">
+      <DependentUpon>frmFieldChooser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmFieldChooser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmFilter.Designer.vb">
+      <DependentUpon>frmFilter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmFilter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmHelpers.Designer.vb">
+      <DependentUpon>frmHelpers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmHelpers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmInvoice.Designer.vb">
+      <DependentUpon>frmInvoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmInvoice.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmDoy.Designer.vb">
+      <DependentUpon>frmDoy.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmDoy.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmParking.Designer.vb">
+      <DependentUpon>frmParking.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmParking.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmPAY.Designer.vb">
+      <DependentUpon>frmPAY.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmPAY.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmPOI.Designer.vb">
+      <DependentUpon>frmPOI.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmPOI.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmPPreview.Designer.vb">
+      <DependentUpon>frmPPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmPPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmPrf.Designer.vb">
+      <DependentUpon>frmPrf.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmPrf.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmPrintPreview.Designer.vb">
+      <DependentUpon>frmPrintPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmPrintPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmReportFilters.Designer.vb">
+      <DependentUpon>frmReportFilters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmReportFilters.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\FrmRoute.Designer.vb">
+      <DependentUpon>FrmRoute.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\FrmRoute.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmSplash.Designer.vb">
+      <DependentUpon>frmSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmSti.Designer.vb">
+      <DependentUpon>frmSti.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmSti.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmSygInvoices.Designer.vb">
+      <DependentUpon>frmSygInvoices.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmSygInvoices.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmVeh.Designer.vb">
+      <DependentUpon>frmVeh.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmVeh.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmVeht.Designer.vb">
+      <DependentUpon>frmVeht.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmVeht.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODULES\Main.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FORMS\frmArea.resx">
+      <DependentUpon>frmArea.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmCollection.resx">
+      <DependentUpon>frmCollection.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmCollections.resx">
+      <DependentUpon>frmCollections.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmCou.resx">
+      <DependentUpon>frmCou.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmCus.resx">
+      <DependentUpon>frmCus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmCUSTYPE.resx">
+      <DependentUpon>frmCUSTYPE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmDRV.resx">
+      <DependentUpon>frmDRV.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmES.resx">
+      <DependentUpon>frmES.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmEX.resx">
+      <DependentUpon>frmEX.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmEXcat.resx">
+      <DependentUpon>frmEXcat.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmFieldChooser.resx">
+      <DependentUpon>frmFieldChooser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmFilter.resx">
+      <DependentUpon>frmFilter.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmHelpers.resx">
+      <DependentUpon>frmHelpers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmInvoice.resx">
+      <DependentUpon>frmInvoice.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmMain.resx">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmDoy.resx">
+      <DependentUpon>frmDoy.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmParking.resx">
+      <DependentUpon>frmParking.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmPAY.resx">
+      <DependentUpon>frmPAY.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmPOI.resx">
+      <DependentUpon>frmPOI.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmPPreview.resx">
+      <DependentUpon>frmPPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmPrf.resx">
+      <DependentUpon>frmPrf.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmPrintPreview.resx">
+      <DependentUpon>frmPrintPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmReportFilters.resx">
+      <DependentUpon>frmReportFilters.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\FrmRoute.resx">
+      <DependentUpon>FrmRoute.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmSplash.resx">
+      <DependentUpon>frmSplash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmSti.resx">
+      <DependentUpon>frmSti.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmSygInvoices.resx">
+      <DependentUpon>frmSygInvoices.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmVeh.resx">
+      <DependentUpon>frmVeh.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmVeht.resx">
+      <DependentUpon>frmVeht.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
