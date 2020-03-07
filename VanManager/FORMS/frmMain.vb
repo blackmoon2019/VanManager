@@ -938,7 +938,7 @@ Public Class frmMain
         cboMONTHS_ValueChanged(sender, e)
     End Sub
 
-    Private Sub GridMain_MouseUp(sender As Object, e As MouseEventArgs)
+    Private Sub GridMain_MouseUp(sender As Object, e As MouseEventArgs) Handles GridMain.MouseUp
         If e.Button = System.Windows.Forms.MouseButtons.Right Then
             If GridMain.HitTest(e.X, e.Y) = GridArea.ColumnHeader Then
                 Dim colClicked As GridEXColumn = GridMain.ColumnFromPoint(e.X, e.Y)
@@ -957,7 +957,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub GridMain_DoubleClick(sender As Object, e As EventArgs)
+    Private Sub GridMain_DoubleClick(sender As Object, e As EventArgs) Handles GridMain.DoubleClick
         Dim clickArea As GridArea = GridMain.HitTest()
         Dim FRMS As New Form
         Dim Row1 As Janus.Windows.GridEX.GridEXRow
@@ -1014,7 +1014,7 @@ Public Class frmMain
         FRMS.Show()
     End Sub
 
-    Private Sub GridMain_DeletingRecord(sender As Object, e As RowActionCancelEventArgs)
+    Private Sub GridMain_DeletingRecord(sender As Object, e As RowActionCancelEventArgs) Handles GridMain.DeletingRecord
         Dim sSQL As String
         Try
             If Frm = FormName.INV Then e.Cancel = True : Exit Sub
@@ -1082,7 +1082,4 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub GridMain_FormattingRow_1(sender As Object, e As RowLoadEventArgs)
-
-    End Sub
 End Class
