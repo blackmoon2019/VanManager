@@ -49,8 +49,8 @@ Partial Class frmMain
         Dim BBMain_Item_2_8 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_2_9 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim cboYears_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cboMONTHS_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
+        Dim cboMONTHS_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim GridMain_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.comManager = New Janus.Windows.UI.CommandBars.UICommandManager(Me.components)
         Me.BottomRebar1 = New Janus.Windows.UI.CommandBars.UIRebar()
@@ -112,6 +112,8 @@ Partial Class frmMain
         Me.UiRebar4 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiRebar1 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiPanelManager1 = New Janus.Windows.UI.Dock.UIPanelManager(Me.components)
+        Me.MainPanel = New Janus.Windows.UI.Dock.UIPanel()
+        Me.MainPanelContainer = New Janus.Windows.UI.Dock.UIPanelInnerContainer()
         Me.GridMain = New Janus.Windows.GridEX.GridEX()
         CType(Me.comManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BottomRebar1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -135,6 +137,9 @@ Partial Class frmMain
         CType(Me.UiRebar4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UiRebar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UiPanelManager1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MainPanel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MainPanel.SuspendLayout()
+        Me.MainPanelContainer.SuspendLayout()
         CType(Me.GridMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -461,7 +466,7 @@ Partial Class frmMain
         Me.BBMain.Location = New System.Drawing.Point(0, 144)
         Me.BBMain.Name = "BBMain"
         Me.BBMain.ShadowOnHover = True
-        Me.BBMain.Size = New System.Drawing.Size(131, 359)
+        Me.BBMain.Size = New System.Drawing.Size(131, 360)
         Me.BBMain.TabIndex = 9
         Me.BBMain.Text = "ButtonBar1"
         Me.BBMain.VisualStyle = Janus.Windows.ButtonBar.VisualStyle.Office2010
@@ -735,6 +740,31 @@ Partial Class frmMain
         'UiPanelManager1
         '
         Me.UiPanelManager1.ContainerControl = Me
+        Me.MainPanel.Id = New System.Guid("1bdc9f41-ebfb-4db9-a209-de9cb7556bf0")
+        Me.UiPanelManager1.Panels.Add(Me.MainPanel)
+        '
+        'Design Time Panel Info:
+        '
+        Me.UiPanelManager1.BeginPanelInfo()
+        Me.UiPanelManager1.AddDockPanelInfo(New System.Guid("1bdc9f41-ebfb-4db9-a209-de9cb7556bf0"), Janus.Windows.UI.Dock.PanelDockStyle.Fill, New System.Drawing.Size(1139, 354), True)
+        Me.UiPanelManager1.EndPanelInfo()
+        '
+        'MainPanel
+        '
+        Me.MainPanel.InnerContainer = Me.MainPanelContainer
+        Me.MainPanel.Location = New System.Drawing.Point(134, 147)
+        Me.MainPanel.Name = "MainPanel"
+        Me.MainPanel.Size = New System.Drawing.Size(1139, 354)
+        Me.MainPanel.TabIndex = 4
+        Me.MainPanel.Text = "Panel 0"
+        '
+        'MainPanelContainer
+        '
+        Me.MainPanelContainer.Controls.Add(Me.GridMain)
+        Me.MainPanelContainer.Location = New System.Drawing.Point(1, 23)
+        Me.MainPanelContainer.Name = "MainPanelContainer"
+        Me.MainPanelContainer.Size = New System.Drawing.Size(1137, 330)
+        Me.MainPanelContainer.TabIndex = 0
         '
         'GridMain
         '
@@ -749,22 +779,22 @@ Partial Class frmMain
         Me.GridMain.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic
         Me.GridMain.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown
         Me.GridMain.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges
-        Me.GridMain.Location = New System.Drawing.Point(134, 147)
+        Me.GridMain.Location = New System.Drawing.Point(0, 0)
         Me.GridMain.Name = "GridMain"
         Me.GridMain.RecordNavigator = True
         Me.GridMain.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridMain.Size = New System.Drawing.Size(1139, 353)
-        Me.GridMain.TabIndex = 15
+        Me.GridMain.Size = New System.Drawing.Size(1137, 330)
+        Me.GridMain.TabIndex = 16
         Me.GridMain.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1276, 503)
-        Me.Controls.Add(Me.GridMain)
+        Me.ClientSize = New System.Drawing.Size(1276, 504)
         Me.Controls.Add(Me.grpSearch)
         Me.Controls.Add(Me.UiGroupBox1)
+        Me.Controls.Add(Me.MainPanel)
         Me.Controls.Add(Me.BBMain)
         Me.Controls.Add(Me.RBMain)
         Me.Controls.Add(Me.UiRebar1)
@@ -796,6 +826,9 @@ Partial Class frmMain
         CType(Me.UiRebar4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UiRebar1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UiPanelManager1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MainPanel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MainPanel.ResumeLayout(False)
+        Me.MainPanelContainer.ResumeLayout(False)
         CType(Me.GridMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -860,5 +893,7 @@ Partial Class frmMain
     Friend WithEvents cboMONTHS As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents Label3 As Label
     Friend WithEvents UiPanelManager1 As Janus.Windows.UI.Dock.UIPanelManager
+    Friend WithEvents MainPanel As Janus.Windows.UI.Dock.UIPanel
+    Friend WithEvents MainPanelContainer As Janus.Windows.UI.Dock.UIPanelInnerContainer
     Friend WithEvents GridMain As Janus.Windows.GridEX.GridEX
 End Class
