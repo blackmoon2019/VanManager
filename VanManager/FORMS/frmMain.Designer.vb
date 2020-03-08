@@ -461,7 +461,7 @@ Partial Class frmMain
         Me.BBMain.Location = New System.Drawing.Point(0, 144)
         Me.BBMain.Name = "BBMain"
         Me.BBMain.ShadowOnHover = True
-        Me.BBMain.Size = New System.Drawing.Size(131, 360)
+        Me.BBMain.Size = New System.Drawing.Size(131, 359)
         Me.BBMain.TabIndex = 9
         Me.BBMain.Text = "ButtonBar1"
         Me.BBMain.VisualStyle = Janus.Windows.ButtonBar.VisualStyle.Office2010
@@ -753,7 +753,7 @@ Partial Class frmMain
         Me.GridMain.Name = "GridMain"
         Me.GridMain.RecordNavigator = True
         Me.GridMain.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridMain.Size = New System.Drawing.Size(1139, 354)
+        Me.GridMain.Size = New System.Drawing.Size(1139, 353)
         Me.GridMain.TabIndex = 15
         Me.GridMain.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
         '
@@ -761,7 +761,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1276, 504)
+        Me.ClientSize = New System.Drawing.Size(1276, 503)
         Me.Controls.Add(Me.GridMain)
         Me.Controls.Add(Me.grpSearch)
         Me.Controls.Add(Me.UiGroupBox1)
