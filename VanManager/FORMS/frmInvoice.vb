@@ -276,6 +276,7 @@ Public Class frmInvoice
                             oCmd.Parameters.AddWithValue("@CusId", txtMCusL.Tag.ToString)
                             oCmd.Parameters.AddWithValue("@invID", INVHID)
                             oCmd.Parameters.AddWithValue("@isSyg", 0)
+                            oCmd.Parameters.AddWithValue("@CalledFromCol", 0)
                             oCmd.Parameters.AddWithValue("@CusBalance", cBalance)
                             oCmd.Parameters("@CusBalance").Direction = ParameterDirection.Output
                             oCmd.Parameters.AddWithValue("@PrevBalance", cPrevBalance)
@@ -342,6 +343,7 @@ Public Class frmInvoice
                         oCmd.Parameters.AddWithValue("@CusId", txtMCusL.Tag.ToString)
                         oCmd.Parameters.AddWithValue("@invID", INVHSYGID)
                         oCmd.Parameters.AddWithValue("@isSyg", 1)
+                        oCmd.Parameters.AddWithValue("@CalledFromCol", 0)
                         oCmd.Parameters.AddWithValue("@CusBalance", cBalance)
                         oCmd.Parameters("@CusBalance").Direction = ParameterDirection.Output
                         oCmd.Parameters.AddWithValue("@PrevBalance", cPrevBalance)
@@ -362,20 +364,20 @@ Public Class frmInvoice
                 If SYGINVHID <> "" Then
                     If MessageBox.Show("Να γίνει επανεκτύπωση του τιμολογίου?", "VanManager", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                         ' Ενημέρωση Δεδομένων
-                        sSQL = "UPDATE INVHSYG set " &
-                               "invdate = " & "'" & Format(dtinvdate.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
-                               "description =  " & toSQLValueJ(txtDescr) & "," &
-                               "Tarea =  " & toSQLValueJ(txtTArea) & "," &
-                               "Farea =  " & toSQLValueJ(txtFArea) & "," &
-                               "holloprice =  " & toSQLValueJ(txtHolloPrice) & "," &
-                               "payid = " & boSQLValuej(cboPay) & "," &
-                               "skopos =  " & toSQLValueJ(txtSkopos) & "," &
-                               "docnumber =  " & txtNumber.Value & "," &
-                               "filepath = " & toSQLValueJ(txtdeltPath) &
-                                " where id = '" & SYGINVHID & "'"
-                        Using oCmd As New OleDbCommand(sSQL, cn)
-                            oCmd.ExecuteNonQuery()
-                        End Using
+                        'sSQL = "UPDATE INVHSYG set " &
+                        '       "invdate = " & "'" & Format(dtinvdate.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
+                        '       "description =  " & toSQLValueJ(txtDescr) & "," &
+                        '       "Tarea =  " & toSQLValueJ(txtTArea) & "," &
+                        '       "Farea =  " & toSQLValueJ(txtFArea) & "," &
+                        '       "holloprice =  " & toSQLValueJ(txtHolloPrice) & "," &
+                        '       "payid = " & boSQLValuej(cboPay) & "," &
+                        '       "skopos =  " & toSQLValueJ(txtSkopos) & "," &
+                        '       "docnumber =  " & txtNumber.Value & "," &
+                        '       "filepath = " & toSQLValueJ(txtdeltPath) &
+                        '        " where id = '" & SYGINVHID & "'"
+                        'Using oCmd As New OleDbCommand(sSQL, cn)
+                        '    oCmd.ExecuteNonQuery()
+                        'End Using
                         frmPrintPreview.sTable = "INVHSYG"
                         frmPrintPreview.SYGHID = SYGINVHID
                         frmPrintPreview.IsAkirotiko = IsAk
