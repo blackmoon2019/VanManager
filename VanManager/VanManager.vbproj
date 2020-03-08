@@ -405,9 +405,6 @@
     <EmbeddedResource Include="FORMS\FrmRoute.resx">
       <DependentUpon>FrmRoute.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\FrmSeires.resx">
-      <DependentUpon>FrmSeires.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FORMS\frmSplash.resx">
       <DependentUpon>frmSplash.vb</DependentUpon>
     </EmbeddedResource>
