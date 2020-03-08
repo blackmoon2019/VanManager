@@ -43,75 +43,86 @@ Public Class frmInvoice
                 Else
                     LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
                 End If
-                cmd = New OleDbCommand("SELECT	 R.FAreaName ,R.TAreaName 
-                                        ,R.FCusLastname ,R.FCusName ,R.FAFM ,R.TCusLastname 
-		                                ,R.TCusName ,R.TAFM ,R.MAINCUSLastname ,R.MAINCUSname
-		                                ,R.MAINCusAFM ,DrvLastname ,DrvName ,R.cost ,R.plate,R.fpacost,R.gentot,R.code,R.MAINCusID  
-                                        ,INVH.ID AS INVHID
-                                        FROM vw_ROUTES R
-                                        LEFT JOIN INVH ON INVH.routeID = R.ID
-                                        where R.ID = '" & RID & "'", cn)
+                If INVH_ID = Nothing Then
+                    cmd = New OleDbCommand("SELECT	 R.FAreaName ,R.TAreaName 
+                                            ,R.FCusLastname ,R.FCusName ,R.FAFM ,R.TCusLastname 
+                                      ,R.TCusName ,R.TAFM ,R.MAINCUSLastname ,R.MAINCUSname
+                                      ,R.MAINCusAFM ,DrvLastname ,DrvName ,R.cost ,R.plate,R.fpacost,R.gentot,R.code,R.MAINCusID  
+                                            ,INVH.ID AS INVHID
+                                            FROM vw_ROUTES R
+                                            LEFT JOIN INVH ON INVH.routeID = R.ID
+                                            where R.ID = '" & RID & "'", cn)
+                Else
+                    cmd = New OleDbCommand("Select R.FAreaName ,R.TAreaName ,R.FCusLastname ,R.FCusName ,
+                                        R.FAFM ,R.TCusLastname ,R.TCusName ,R.TAFM ,R.MAINCUSLastname ,R.MAINCUSname,
+                                        R.MAINCusAFM ,DrvLastname ,DrvName ,R.cost ,R.plate,R.fpacost,R.gentot,R.code,
+                                        R.MAINCusID ,INVH.ID AS INVHID
+                                        From vw_ROUTES R
+				                        inner Join INVH on invh.routeID=r.id
+                                        inner join vw_seires vs on vs.sdtid=INVH.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", "") &
+                                        "where INVH.id = ('" & INVH_ID & "') ", cn)
+                End If
                 sdr = cmd.ExecuteReader()
-                If (sdr.Read() = True) Then
-                    If sdr.IsDBNull(sdr.GetOrdinal("FAreaName")) = False Then txtFArea.Text = sdr.GetString(sdr.GetOrdinal("FAreaName"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("TAreaName")) = False Then txtTArea.Text = sdr.GetString(sdr.GetOrdinal("TAreaName"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("FCusLastname")) = False Then txtFCusL.Text = sdr.GetString(sdr.GetOrdinal("FCusLastname"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("FCusName")) = False Then txtFCusN.Text = sdr.GetString(sdr.GetOrdinal("FCusName"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("FAFM")) = False Then txtFCusA.Text = sdr.GetString(sdr.GetOrdinal("FAFM"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("TCusLastname")) = False Then txtTCusL.Text = sdr.GetString(sdr.GetOrdinal("TCusLastname"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("TCusName")) = False Then txtTCusN.Text = sdr.GetString(sdr.GetOrdinal("TCusName"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("TAFM")) = False Then txtTCusA.Text = sdr.GetString(sdr.GetOrdinal("TAFM"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("MAINCUSLastname")) = False Then txtMCusL.Text = sdr.GetString(sdr.GetOrdinal("MAINCUSLastname"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("MAINCUSname")) = False Then txtMCusN.Text = sdr.GetString(sdr.GetOrdinal("MAINCUSname"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("MAINCusAFM")) = False Then txtMCusA.Text = sdr.GetString(sdr.GetOrdinal("MAINCusAFM"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("DrvLastname")) = False Then txtDrvL.Text = sdr.GetString(sdr.GetOrdinal("DrvLastname"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("DrvName")) = False Then txtDrvN.Text = sdr.GetString(sdr.GetOrdinal("DrvName"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("plate")) = False Then txtPlate.Text = sdr.GetString(sdr.GetOrdinal("plate"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("cost")) = False Then txtAxia.Value = sdr.GetDecimal(sdr.GetOrdinal("cost"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("fpacost")) = False Then txtFPA.Value = sdr.GetDecimal(sdr.GetOrdinal("fpacost"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("gentot")) = False Then txtTotal.Value = sdr.GetDecimal(sdr.GetOrdinal("gentot"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("code")) = False Then txtRoute.Value = sdr.GetInt32(sdr.GetOrdinal("code"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("MainCusID")) = False Then txtMCusL.Tag = sdr.GetGuid(sdr.GetOrdinal("MainCusID"))
-                    If sdr.IsDBNull(sdr.GetOrdinal("INVHID")) = False Then INVH_ID = sdr.GetGuid(sdr.GetOrdinal("INVHID")).ToString
-                    'Εαν αφορά ακυρωτικό τιμολόγιο
-                    If IsAk Then
-                        txtAxia.Value = txtAxia.Value * (-1) : txtAxia.ForeColor = Color.Red
-                        txtFPA.Value = txtFPA.Value * (-1) : txtFPA.ForeColor = Color.Red
-                        txtTotal.Value = txtTotal.Value * (-1) : txtTotal.ForeColor = Color.Red
-                    End If
-                    txtHolloPrice.Text = ConvertNumToWords.ConvertNumInGR(txtTotal.Value)
-                    sdr.Close()
-                Else
-                    Sen = 1
-                End If
-                If Mode = FormMode.NewRecord Then
-                    InvHcode = GetNewCode("INVH")
-                    dtinvdate.Value = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
-                    INVHID = System.Guid.NewGuid.ToString()
-                Else
-                    cmd = New OleDbCommand("SELECT *,vs.ishand  from invh 
-                                            inner join vw_seires vs on vs.sdtid=invh.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", "and VS.iscancel=0 ") &
-                                            "where invh.ID = '" & INVH_ID & "'", cn)
-                    sdr = cmd.ExecuteReader()
                     If (sdr.Read() = True) Then
-                        If sdr.IsDBNull(sdr.GetOrdinal("ID")) = False Then INVHID = sdr.GetGuid(sdr.GetOrdinal("ID")).ToString
-                        If sdr.IsDBNull(sdr.GetOrdinal("docnumber")) = False Then txtNumber.Value = sdr.GetInt64(sdr.GetOrdinal("docnumber"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("description")) = False Then txtDescr.Text = sdr.GetString(sdr.GetOrdinal("description"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("holloprice")) = False Then txtHolloPrice.Text = sdr.GetString(sdr.GetOrdinal("holloprice"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("invdate")) = False Then dtinvdate.Value = sdr.GetDateTime(sdr.GetOrdinal("invdate"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("payid")) = False Then cboPay.Value = sdr.GetGuid(sdr.GetOrdinal("payid"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("sdtid")) = False Then sdtID = sdr.GetGuid(sdr.GetOrdinal("sdtid")).ToString
-                        If sdr.IsDBNull(sdr.GetOrdinal("dosname")) = False Then txtCode.Text = sdr.GetString(sdr.GetOrdinal("dosname"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("printed")) = False Then IsPrinted = sdr.GetBoolean(sdr.GetOrdinal("printed"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("FilePath")) = False Then txtdeltPath.Text = sdr.GetString(sdr.GetOrdinal("FilePath"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("ishand")) = False Then IsHandWritting = sdr.GetBoolean(sdr.GetOrdinal("ishand"))
-                        Sen = txtNumber.Value
+                        If sdr.IsDBNull(sdr.GetOrdinal("FAreaName")) = False Then txtFArea.Text = sdr.GetString(sdr.GetOrdinal("FAreaName"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("TAreaName")) = False Then txtTArea.Text = sdr.GetString(sdr.GetOrdinal("TAreaName"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("FCusLastname")) = False Then txtFCusL.Text = sdr.GetString(sdr.GetOrdinal("FCusLastname"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("FCusName")) = False Then txtFCusN.Text = sdr.GetString(sdr.GetOrdinal("FCusName"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("FAFM")) = False Then txtFCusA.Text = sdr.GetString(sdr.GetOrdinal("FAFM"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("TCusLastname")) = False Then txtTCusL.Text = sdr.GetString(sdr.GetOrdinal("TCusLastname"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("TCusName")) = False Then txtTCusN.Text = sdr.GetString(sdr.GetOrdinal("TCusName"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("TAFM")) = False Then txtTCusA.Text = sdr.GetString(sdr.GetOrdinal("TAFM"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("MAINCUSLastname")) = False Then txtMCusL.Text = sdr.GetString(sdr.GetOrdinal("MAINCUSLastname"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("MAINCUSname")) = False Then txtMCusN.Text = sdr.GetString(sdr.GetOrdinal("MAINCUSname"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("MAINCusAFM")) = False Then txtMCusA.Text = sdr.GetString(sdr.GetOrdinal("MAINCusAFM"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("DrvLastname")) = False Then txtDrvL.Text = sdr.GetString(sdr.GetOrdinal("DrvLastname"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("DrvName")) = False Then txtDrvN.Text = sdr.GetString(sdr.GetOrdinal("DrvName"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("plate")) = False Then txtPlate.Text = sdr.GetString(sdr.GetOrdinal("plate"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("cost")) = False Then txtAxia.Value = sdr.GetDecimal(sdr.GetOrdinal("cost"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("fpacost")) = False Then txtFPA.Value = sdr.GetDecimal(sdr.GetOrdinal("fpacost"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("gentot")) = False Then txtTotal.Value = sdr.GetDecimal(sdr.GetOrdinal("gentot"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("code")) = False Then txtRoute.Value = sdr.GetInt32(sdr.GetOrdinal("code"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("MainCusID")) = False Then txtMCusL.Tag = sdr.GetGuid(sdr.GetOrdinal("MainCusID"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("INVHID")) = False Then INVH_ID = sdr.GetGuid(sdr.GetOrdinal("INVHID")).ToString
+                        'Εαν αφορά ακυρωτικό τιμολόγιο
+                        If IsAk Then
+                            txtAxia.Value = txtAxia.Value * (-1) : txtAxia.ForeColor = Color.Red
+                            txtFPA.Value = txtFPA.Value * (-1) : txtFPA.ForeColor = Color.Red
+                            txtTotal.Value = txtTotal.Value * (-1) : txtTotal.ForeColor = Color.Red
+                        End If
+                        txtHolloPrice.Text = ConvertNumToWords.ConvertNumInGR(txtTotal.Value)
+                        sdr.Close()
+                    Else
+                        Sen = 1
                     End If
-                    sdr.Close()
-                    LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
-                End If
-            Else
-                If Mode = FormMode.NewRecord Then
+                    If Mode = FormMode.NewRecord Then
+                        InvHcode = GetNewCode("INVH")
+                        dtinvdate.Value = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                        INVHID = System.Guid.NewGuid.ToString()
+                    Else
+                        cmd = New OleDbCommand("SELECT *,vs.ishand  from invh 
+                                            inner join vw_seires vs on vs.sdtid=invh.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", "and VS.iscancel=0 ") &
+                                                "where invh.ID = '" & INVH_ID & "'", cn)
+                        sdr = cmd.ExecuteReader()
+                        If (sdr.Read() = True) Then
+                            If sdr.IsDBNull(sdr.GetOrdinal("ID")) = False Then INVHID = sdr.GetGuid(sdr.GetOrdinal("ID")).ToString
+                            If sdr.IsDBNull(sdr.GetOrdinal("docnumber")) = False Then txtNumber.Value = sdr.GetInt64(sdr.GetOrdinal("docnumber"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("description")) = False Then txtDescr.Text = sdr.GetString(sdr.GetOrdinal("description"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("holloprice")) = False Then txtHolloPrice.Text = sdr.GetString(sdr.GetOrdinal("holloprice"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("invdate")) = False Then dtinvdate.Value = sdr.GetDateTime(sdr.GetOrdinal("invdate"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("payid")) = False Then cboPay.Value = sdr.GetGuid(sdr.GetOrdinal("payid"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("sdtid")) = False Then sdtID = sdr.GetGuid(sdr.GetOrdinal("sdtid")).ToString
+                            If sdr.IsDBNull(sdr.GetOrdinal("dosname")) = False Then txtCode.Text = sdr.GetString(sdr.GetOrdinal("dosname"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("printed")) = False Then IsPrinted = sdr.GetBoolean(sdr.GetOrdinal("printed"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("FilePath")) = False Then txtdeltPath.Text = sdr.GetString(sdr.GetOrdinal("FilePath"))
+                            If sdr.IsDBNull(sdr.GetOrdinal("ishand")) = False Then IsHandWritting = sdr.GetBoolean(sdr.GetOrdinal("ishand"))
+                            Sen = txtNumber.Value
+                        End If
+                        sdr.Close()
+                        LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
+                    End If
+                Else
+                    If Mode = FormMode.NewRecord Then
                     cmd = New OleDbCommand("Select dosname as name ,sdtid ,dosid ,isnull(number,0) as number
                                             from vw_seires 
                                             where sdtcode = " & IIf(IsHandWritting = True, 5, 3) & "  and userid = '" & UserID & "' " & IIf(IsAk = True, " and vw_seires.iscancel=1 ", "and vw_seires.iscancel=0 "), cn)
@@ -276,6 +287,7 @@ Public Class frmInvoice
                             oCmd.Parameters.AddWithValue("@CusId", txtMCusL.Tag.ToString)
                             oCmd.Parameters.AddWithValue("@invID", INVHID)
                             oCmd.Parameters.AddWithValue("@isSyg", 0)
+                            oCmd.Parameters.AddWithValue("@CalledFromCol", 0)
                             oCmd.Parameters.AddWithValue("@CusBalance", cBalance)
                             oCmd.Parameters("@CusBalance").Direction = ParameterDirection.Output
                             oCmd.Parameters.AddWithValue("@PrevBalance", cPrevBalance)
@@ -342,6 +354,7 @@ Public Class frmInvoice
                         oCmd.Parameters.AddWithValue("@CusId", txtMCusL.Tag.ToString)
                         oCmd.Parameters.AddWithValue("@invID", INVHSYGID)
                         oCmd.Parameters.AddWithValue("@isSyg", 1)
+                        oCmd.Parameters.AddWithValue("@CalledFromCol", 0)
                         oCmd.Parameters.AddWithValue("@CusBalance", cBalance)
                         oCmd.Parameters("@CusBalance").Direction = ParameterDirection.Output
                         oCmd.Parameters.AddWithValue("@PrevBalance", cPrevBalance)
@@ -362,20 +375,20 @@ Public Class frmInvoice
                 If SYGINVHID <> "" Then
                     If MessageBox.Show("Να γίνει επανεκτύπωση του τιμολογίου?", "VanManager", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                         ' Ενημέρωση Δεδομένων
-                        sSQL = "UPDATE INVHSYG set " &
-                               "invdate = " & "'" & Format(dtinvdate.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
-                               "description =  " & toSQLValueJ(txtDescr) & "," &
-                               "Tarea =  " & toSQLValueJ(txtTArea) & "," &
-                               "Farea =  " & toSQLValueJ(txtFArea) & "," &
-                               "holloprice =  " & toSQLValueJ(txtHolloPrice) & "," &
-                               "payid = " & boSQLValuej(cboPay) & "," &
-                               "skopos =  " & toSQLValueJ(txtSkopos) & "," &
-                               "docnumber =  " & txtNumber.Value & "," &
-                               "filepath = " & toSQLValueJ(txtdeltPath) &
-                                " where id = '" & SYGINVHID & "'"
-                        Using oCmd As New OleDbCommand(sSQL, cn)
-                            oCmd.ExecuteNonQuery()
-                        End Using
+                        'sSQL = "UPDATE INVHSYG set " &
+                        '       "invdate = " & "'" & Format(dtinvdate.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
+                        '       "description =  " & toSQLValueJ(txtDescr) & "," &
+                        '       "Tarea =  " & toSQLValueJ(txtTArea) & "," &
+                        '       "Farea =  " & toSQLValueJ(txtFArea) & "," &
+                        '       "holloprice =  " & toSQLValueJ(txtHolloPrice) & "," &
+                        '       "payid = " & boSQLValuej(cboPay) & "," &
+                        '       "skopos =  " & toSQLValueJ(txtSkopos) & "," &
+                        '       "docnumber =  " & txtNumber.Value & "," &
+                        '       "filepath = " & toSQLValueJ(txtdeltPath) &
+                        '        " where id = '" & SYGINVHID & "'"
+                        'Using oCmd As New OleDbCommand(sSQL, cn)
+                        '    oCmd.ExecuteNonQuery()
+                        'End Using
                         frmPrintPreview.sTable = "INVHSYG"
                         frmPrintPreview.SYGHID = SYGINVHID
                         frmPrintPreview.IsAkirotiko = IsAk

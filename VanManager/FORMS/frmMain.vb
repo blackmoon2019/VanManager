@@ -36,6 +36,7 @@ Public Class frmMain
         HAND_INV = 21
         PARD = 22
         PAY = 23
+        SEIRES = 24
     End Enum
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UDLStr = Application.StartupPath & "\UDL\van.udl"
@@ -102,6 +103,7 @@ Public Class frmMain
                                                      inner join sts on sts.sdtid = sdt.id 
                                                      inner join dos on dos.id = sts.dosid 
                                                      inner join users on users.id  = sts.userid  where ishand =1 and sts.userid = '" & UserID & "') order by invdate"
+            Case "SEIRES" : sql = "select * from VW_SEIRES"
         End Select
         adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
         adapter.Fill(table) : TB = table
@@ -169,6 +171,7 @@ Public Class frmMain
             Case FormName.COL : frmCollections.Mode = FormMode.NewRecord : FRMS = frmCollections
             Case FormName.SYG_INV : frmSygInvoices.Mode = FormMode.NewRecord : FRMS = frmSygInvoices
             Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.NewRecord : FRMS = frmCUSTYPE
+            Case FormName.SEIRES : FrmSeires.Mode = FormMode.NewRecord : FRMS = FrmSeires
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -208,6 +211,7 @@ Public Class frmMain
                 If Row1.Cells("idakiromeno").Value.ToString() <> "" Then frmInvoice.IsAkirotiko = True
                 FRMS = frmInvoice
             Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.EditRecord : FRMS = frmCUSTYPE
+            Case FormName.SEIRES : FrmSeires.Mode = FormMode.EditRecord : FRMS = FrmSeires
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -246,6 +250,7 @@ Public Class frmMain
                 If Row1.Cells("idakiromeno").Value.ToString() <> "" Then frmInvoice.IsAkirotiko = True
                 FRMS = frmInvoice
             Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.ViewRecord : FRMS = frmCUSTYPE
+            Case FormName.SEIRES : FrmSeires.Mode = FormMode.ViewRecord : FRMS = FrmSeires
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -437,6 +442,7 @@ Public Class frmMain
             Case FormName.SYG_INV : FillJanusGrid("SYG_INV")
             Case FormName.CUSTYPE : FillJanusGrid("CUSTYPE")
             Case FormName.PARD : FillJanusGrid("PARD")
+            Case FormName.SEIRES : FillJanusGrid("SEIRES")
         End Select
     End Sub
 
@@ -629,6 +635,7 @@ Public Class frmMain
             Case "SYG_INV" : grpSearch.Visible = True : Frm = FormName.SYG_INV : GridMain.Tag = "SYG_INV" : FillJanusGrid("SYG_INV")
             Case "CUSTYPE" : grpSearch.Visible = False : Frm = FormName.CUSTYPE : GridMain.Tag = "CUSTYPE" : FillJanusGrid("CUSTYPE")
             Case "HAND_INV" : grpSearch.Visible = True : Frm = FormName.HAND_INV : GridMain.Tag = "HAND_INV" : FillJanusGrid("INV")
+            Case "SEIRES" : grpSearch.Visible = True : Frm = FormName.SEIRES : GridMain.Tag = "SEIRES" : FillJanusGrid("SEIRES")
         End Select
         Select Case Frm
             Case FormName.HLP_ROUTES, FormName.PARD, FormName.ES
@@ -1007,6 +1014,7 @@ Public Class frmMain
                         FRMS = frmInvoice
                     Case FormName.HLP_ROUTES : FrmRoute.Mode = FormMode.ViewRecord : FRMS = FrmRoute
                     Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.ViewRecord : FRMS = frmCUSTYPE
+                    Case FormName.SEIRES : FrmSeires.Mode = FormMode.ViewRecord : FRMS = FrmSeires
                 End Select
 
         End Select

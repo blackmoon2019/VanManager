@@ -27,9 +27,9 @@ Partial Class FrmSeires
         Me.txtSeira = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.grpSYMV = New Janus.Windows.EditControls.UIGroupBox()
+        Me.chkCollection = New Janus.Windows.EditControls.UICheckBox()
         Me.chkHand = New Janus.Windows.EditControls.UICheckBox()
         Me.chkCancel = New Janus.Windows.EditControls.UICheckBox()
-        Me.chkCollection = New Janus.Windows.EditControls.UICheckBox()
         Me.cmdSave = New Janus.Windows.EditControls.UIButton()
         Me.cmdExit = New Janus.Windows.EditControls.UIButton()
         CType(Me.grpSYMV, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,6 +84,17 @@ Partial Class FrmSeires
         Me.grpSYMV.Text = "Συμπεριφορά"
         Me.grpSYMV.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2010
         '
+        'chkCollection
+        '
+        Me.chkCollection.CheckedValue = False
+        Me.chkCollection.Location = New System.Drawing.Point(6, 106)
+        Me.chkCollection.Name = "chkCollection"
+        Me.chkCollection.Size = New System.Drawing.Size(139, 23)
+        Me.chkCollection.TabIndex = 25
+        Me.chkCollection.Text = "Αφορά Είσπραξη"
+        Me.chkCollection.UncheckedValue = False
+        Me.chkCollection.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
+        '
         'chkHand
         '
         Me.chkHand.CheckedValue = False
@@ -105,17 +116,6 @@ Partial Class FrmSeires
         Me.chkCancel.Text = "Ακυρωτική"
         Me.chkCancel.UncheckedValue = False
         Me.chkCancel.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
-        '
-        'chkCollection
-        '
-        Me.chkCollection.CheckedValue = False
-        Me.chkCollection.Location = New System.Drawing.Point(6, 106)
-        Me.chkCollection.Name = "chkCollection"
-        Me.chkCollection.Size = New System.Drawing.Size(139, 23)
-        Me.chkCollection.TabIndex = 25
-        Me.chkCollection.Text = "Αφορά Είσπραξη"
-        Me.chkCollection.UncheckedValue = False
-        Me.chkCollection.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
         '
         'cmdSave
         '

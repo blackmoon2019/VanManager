@@ -215,17 +215,10 @@ Public Class frmEX
         End Select
     End Sub
 
-    Private Sub txtPrice_Click(sender As Object, e As EventArgs) Handles txtPrice.Click
-
-    End Sub
-
     Private Sub txtPrice_Leave(sender As Object, e As EventArgs) Handles txtPrice.Leave
         Dim sTeliko As Double
         sTeliko = txtPrice.Value / 1.24
         txtFPA.Value = txtPrice.Value - sTeliko
     End Sub
 
-    Private Sub chkBlack_CheckedChanged(sender As Object, e As EventArgs) Handles chkBlack.CheckedChanged
-
-    End Sub
 End Class
