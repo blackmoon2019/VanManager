@@ -40,8 +40,12 @@ Public Class frmPrintPreview
 		                        COALESCE(ypol,ypolsyg) as ypol 
                         FROM(
                         select bankname,vc.holloprice,VC.DESCR AS Aitiologia,
-		                        vc.MAINCUSDoyname,vc.dosname as SEIRA,vc.cashDate,vc.cashPrice,vc.chequeDate,vc.chequeNum,vc.chequePrice ,VC.TOTAL AS TotalEisp,
-		                        vc.depositDate,vc.depositNum,vc.depositPrice,vc.MainCusFullName,
+		                        vc.MAINCUSDoyname,vc.dosname as SEIRA,
+                                convert(varchar(10), vc.cashDate,103) as cashDate,
+                                vc.cashPrice,convert(varchar(10), vc.chequeDate,103) as chequeDate,
+                                vc.chequeNum,vc.chequePrice ,VC.TOTAL AS TotalEisp,
+		                        convert(varchar(10), vc.depositDate,103) as depositDate,
+                                vc.depositNum,vc.depositPrice,vc.MainCusFullName,
 		                        vc.MainCusAddress ,vc.MainCusafm,vc.MainCusPrfName,
 		                        convert(varchar(10), printedDate , 108) as printedTime,
 		                        CONVERT(VARCHAR(10), printedDate, 103) as printedDate,
