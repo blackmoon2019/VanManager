@@ -28,42 +28,79 @@ Public Class frmPrintPreview
                         .ReportPath = Application.StartupPath & "\Reports\COLLECTION.rdl"
                         .DataSources.Clear()
                     End With
-                    sql = "select bankname,vc.holloprice,VC.DESCR AS Aitiologia,
-	                                vc.MAINCUSDoyname,vc.dosname as SEIRA,vc.cashDate,vc.cashPrice,vc.chequeDate,vc.chequeNum,vc.chequePrice ,VC.TOTAL AS TotalEisp,
-	                                vc.depositDate,vc.depositNum,vc.depositPrice,vc.MainCusFullName,
-	                                vc.MainCusAddress ,vc.MainCusafm,vc.MainCusPrfName,
-                                convert(varchar(10), printedDate , 108) as printedTime,
+                    sql = "SELECT 
+                        bankname, holloprice,  Aitiologia,
+		                         MAINCUSDoyname, SEIRA, cashDate, cashPrice, chequeDate, chequeNum, chequePrice , TotalEisp,
+		                         depositDate, depositNum, depositPrice, MainCusFullName,
+		                         MainCusAddress , MainCusafm, MainCusPrfName,printedTime,printedDate,balance,PrevBalance,
+		                        COALESCE(SeiraEXOF,SeiraEXOFSYG) AS SeiraEXOF,
+		                        COALESCE(EXOF,EXOFSYG) AS EXOF,COALESCE(ANEX,ANEXSYG) AS ANEX,
+		                        COALESCE(SeiraANEX,SeiraANEXSYG) AS SeiraANEX,
+		                        COALESCE(posokal,posokalsyg) as posokal,COALESCE(gentot,gentotsyg) as gentot,
+		                        COALESCE(ypol,ypolsyg) as ypol 
+                        FROM(
+                        select bankname,vc.holloprice,VC.DESCR AS Aitiologia,
+		                        vc.MAINCUSDoyname,vc.dosname as SEIRA,vc.cashDate,vc.cashPrice,vc.chequeDate,vc.chequeNum,vc.chequePrice ,VC.TOTAL AS TotalEisp,
+		                        vc.depositDate,vc.depositNum,vc.depositPrice,vc.MainCusFullName,
+		                        vc.MainCusAddress ,vc.MainCusafm,vc.MainCusPrfName,
+		                        convert(varchar(10), printedDate , 108) as printedTime,
 		                        CONVERT(VARCHAR(10), printedDate, 103) as printedDate,
-	                            ISNULL(VC.cusInvbalance  ,0) AS balance,
-	                            ISNULL(VC.cusInvPrevBalance ,0) AS PrevBalance,
-                                (select sum(price) 	FROM vw_INVOICES VWI  
-                                inner join COLD  on COLD.invhid  =VWI.id     
-                                where  COLD.COLID =vc.id        ) as posokal,
-                                (select sum(gentot) 	FROM vw_INVOICES VWI  
-                                inner join COLD  on COLD.invhid  =VWI.id     
-                                where  COLD.COLID =vc.id        ) as gentot,
-                                (select sum(ypol) 	FROM vw_INVOICES VWI  
-                                inner join COLD  on COLD.invhid  =VWI.id     
-                                where  COLD.COLID =vc.id        ) as ypol,
-                                (SELECT STUFF((SELECT ',' + SEIRA     
-                                FROM vw_INVOICES VWI  
-                                inner join COLD  on COLD.invhid  =VWI.id     
-                                where  COLD.COLID =vc.id    and vwi.ypol=0      FOR XML PATH('') ), 1, 1, '')) as SeiraEXOF,
-                                (SELECT 'ΕΞΟΦΛΗΣΗ ΤΙΜΟΛΟΓΙΩΝ:' + STUFF((SELECT ',' + SEIRA     
-                                FROM vw_INVOICES VWI  
-                                inner join COLD  on COLD.invhid  =VWI.id     
-                                where  COLD.COLID =vc.id   and vwi.ypol=0     FOR XML PATH('') ), 1, 1, '')) as EXOF,
-                                (SELECT 'ΕΝΑΝΤΙ ΤΙΜΟΛΟΓΙΩΝ:' + STUFF((SELECT ',' + SEIRA     
-                                FROM vw_INVOICES VWI  
-                                inner join COLD  on COLD.invhid  =VWI.id     
-                                where  COLD.COLID =vc.id   and vwi.ypol<>0     FOR XML PATH('') ), 1, 1, '')) as ANEX,
-                                (SELECT STUFF((SELECT ',' + SEIRA     
-                                FROM vw_INVOICES VWI  
-                                inner join COLD  on COLD.invhid  =VWI.id     
-                                where  COLD.COLID =vc.id    and vwi.ypol<>0      FOR XML PATH('') ), 1, 1, '')) as SeiraANEX
-                                from vw_col VC 
-                                inner join vw_cus C on c.id=vc.MainCusID 
-                                where vc.id = '" & CID & "'"
+		                        ISNULL(VC.cusInvbalance  ,0) AS balance,
+		                        ISNULL(VC.cusInvPrevBalance ,0) AS PrevBalance,
+		                        (select sum(price) 	FROM vw_INVOICES VWI  
+		                        inner join COLD  on COLD.invhid  =VWI.id     
+		                        where  COLD.COLID =vc.id        ) as posokal,
+		                        (select sum(gentot) 	FROM vw_INVOICES VWI  
+		                        inner join COLD  on COLD.invhid  =VWI.id     
+		                        where  COLD.COLID =vc.id        ) as gentot,
+		                        (select sum(ypol) 	FROM vw_INVOICES VWI  
+		                        inner join COLD  on COLD.invhid  =VWI.id     
+		                        where  COLD.COLID =vc.id        ) as ypol,
+		                        (select sum(price) 	FROM vw_INVOICESSYG  VWI  
+		                        inner join COLD  on COLD.invhsygid   =VWI.id     
+		                        where  COLD.COLID =vc.id        ) as posokalsyg,
+		                        (select sum(gentot) 	FROM vw_INVOICESSYG VWI  
+		                        inner join COLD  on COLD.invhsygid  =VWI.id     
+		                        where  COLD.COLID =vc.id        ) as gentotsyg,
+		                        (select sum(ypol) 	FROM vw_INVOICESSYG VWI  
+		                        inner join COLD  on COLD.invhsygid  =VWI.id     
+		                        where  COLD.COLID =vc.id        ) as ypolsyg,
+		                        (SELECT STUFF((SELECT ',' + SEIRA     
+		                        FROM vw_INVOICES VWI  
+		                        inner join COLD  on COLD.invhid  =VWI.id     
+		                        where  COLD.COLID =vc.id    and vwi.ypol=0      FOR XML PATH('') ), 1, 1, '')) as SeiraEXOF,
+		                        (SELECT 'ΕΞΟΦΛΗΣΗ ΤΙΜΟΛΟΓΙΩΝ:' + STUFF((SELECT ',' + SEIRA     
+		                        FROM vw_INVOICES VWI  
+		                        inner join COLD  on COLD.invhid  =VWI.id     
+		                        where  COLD.COLID =vc.id   and vwi.ypol=0     FOR XML PATH('') ), 1, 1, '')) as EXOF,
+		                        (SELECT 'ΕΝΑΝΤΙ ΤΙΜΟΛΟΓΙΩΝ:' + STUFF((SELECT ',' + SEIRA     
+		                        FROM vw_INVOICES VWI  
+		                        inner join COLD  on COLD.invhid  =VWI.id     
+		                        where  COLD.COLID =vc.id   and vwi.ypol<>0     FOR XML PATH('') ), 1, 1, '')) as ANEX,
+		                        (SELECT STUFF((SELECT ',' + SEIRA     
+		                        FROM vw_INVOICES VWI  
+		                        inner join COLD  on COLD.invhid  =VWI.id     
+		                        where  COLD.COLID =vc.id    and vwi.ypol<>0      FOR XML PATH('') ), 1, 1, '')) as SeiraANEX,
+			                        (SELECT STUFF((SELECT ',' + SEIRA     
+                                    FROM vw_INVOICESSYG VWI  
+                                    inner join COLD  on COLD.invhsygid  =VWI.invhsygid 
+                                    where  COLD.COLID =vc.id    and vwi.ypol=0      FOR XML PATH('') ), 1, 1, '')) as SeiraEXOFSYG,
+                                    (SELECT 'ΕΞΟΦΛΗΣΗ ΤΙΜΟΛΟΓΙΩΝ:' + STUFF((SELECT ',' + SEIRA
+                                    FROM vw_INVOICESSYG VWI  
+                                    inner join COLD  on COLD.invhsygid  =VWI.invhsygid 
+                                    where  COLD.COLID =vc.id   and vwi.ypol=0     FOR XML PATH('') ), 1, 1, '')) as EXOFSYG,
+                                    (SELECT 'ΕΝΑΝΤΙ ΤΙΜΟΛΟΓΙΩΝ:' + STUFF((SELECT ',' + SEIRA
+                                    FROM vw_INVOICESSYG VWI  
+                                    inner join COLD  on COLD.invhsygid  =VWI.invhsygid 
+                                    where  COLD.COLID =vc.id   and vwi.ypol<>0     FOR XML PATH('') ), 1, 1, '')) as ANEXSYG,
+                                    (SELECT STUFF((SELECT ',' + SEIRA
+                                    FROM vw_INVOICESSYG VWI  
+                                    inner join COLD  on COLD.invhsygid  =VWI.invhsygid 
+                                    where  COLD.COLID =vc.id    and vwi.ypol<>0      FOR XML PATH('') ), 1, 1, '')) as SeiraANEXSYG
+
+		                        from vw_col VC 
+		                        inner join vw_cus C on c.id=vc.MainCusID 
+		                        where vc.id = '" & CID & "' ) AS COLS"
                     adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
                     adapter.Fill(table)
                     bs1.DataSource = table
