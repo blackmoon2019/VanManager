@@ -138,7 +138,7 @@ Partial Class FrmRoute
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(658, 423)
+        Me.Label18.Location = New System.Drawing.Point(658, 612)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(41, 13)
         Me.Label18.TabIndex = 81
@@ -687,6 +687,8 @@ Partial Class FrmRoute
         '
         'GRPPoints
         '
+        Me.GRPPoints.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GRPPoints.Controls.Add(Me.Label29)
         Me.GRPPoints.Controls.Add(Me.txtDelivPrice)
         Me.GRPPoints.Controls.Add(Me.txtDelivLastname)
@@ -709,7 +711,7 @@ Partial Class FrmRoute
         Me.GRPPoints.Controls.Add(Me.GridPOI)
         Me.GRPPoints.Location = New System.Drawing.Point(5, 188)
         Me.GRPPoints.Name = "GRPPoints"
-        Me.GRPPoints.Size = New System.Drawing.Size(908, 221)
+        Me.GRPPoints.Size = New System.Drawing.Size(908, 348)
         Me.GRPPoints.TabIndex = 15
         Me.GRPPoints.Text = "Σημεία"
         Me.GRPPoints.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2010
@@ -894,10 +896,12 @@ Partial Class FrmRoute
         'GridPOI
         '
         Me.GridPOI.AllowDelete = Janus.Windows.GridEX.InheritableBoolean.[True]
+        Me.GridPOI.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridPOI.Location = New System.Drawing.Point(5, 101)
         Me.GridPOI.Name = "GridPOI"
         Me.GridPOI.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridPOI.Size = New System.Drawing.Size(897, 114)
+        Me.GridPOI.Size = New System.Drawing.Size(897, 241)
         Me.GridPOI.TabIndex = 29
         Me.GridPOI.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
@@ -905,9 +909,9 @@ Partial Class FrmRoute
         '
         Me.UiGroupBox2.Controls.Add(Me.cmdInsertHlp)
         Me.UiGroupBox2.Controls.Add(Me.GridHLP)
-        Me.UiGroupBox2.Location = New System.Drawing.Point(5, 424)
+        Me.UiGroupBox2.Location = New System.Drawing.Point(5, 542)
         Me.UiGroupBox2.Name = "UiGroupBox2"
-        Me.UiGroupBox2.Size = New System.Drawing.Size(647, 157)
+        Me.UiGroupBox2.Size = New System.Drawing.Size(647, 223)
         Me.UiGroupBox2.TabIndex = 3
         Me.UiGroupBox2.Text = "Βοηθοί"
         Me.UiGroupBox2.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2010
@@ -927,7 +931,7 @@ Partial Class FrmRoute
         '
         Me.GridHLP.Location = New System.Drawing.Point(5, 15)
         Me.GridHLP.Name = "GridHLP"
-        Me.GridHLP.Size = New System.Drawing.Size(604, 134)
+        Me.GridHLP.Size = New System.Drawing.Size(604, 202)
         Me.GridHLP.TabIndex = 30
         Me.GridHLP.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
@@ -937,7 +941,7 @@ Partial Class FrmRoute
         '
         'txtComments
         '
-        Me.txtComments.Location = New System.Drawing.Point(661, 439)
+        Me.txtComments.Location = New System.Drawing.Point(661, 628)
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
         Me.txtComments.Size = New System.Drawing.Size(236, 52)
@@ -949,7 +953,7 @@ Partial Class FrmRoute
         Me.txtCost.BackColor = System.Drawing.Color.LightSteelBlue
         Me.txtCost.FormatMask = Janus.Windows.GridEX.NumericEditFormatMask.Currency
         Me.txtCost.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
-        Me.txtCost.Location = New System.Drawing.Point(832, 521)
+        Me.txtCost.Location = New System.Drawing.Point(832, 710)
         Me.txtCost.Name = "txtCost"
         Me.txtCost.Size = New System.Drawing.Size(65, 20)
         Me.txtCost.TabIndex = 33
@@ -961,7 +965,7 @@ Partial Class FrmRoute
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
-        Me.Label12.Location = New System.Drawing.Point(829, 505)
+        Me.Label12.Location = New System.Drawing.Point(829, 694)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(50, 13)
         Me.Label12.TabIndex = 146
@@ -970,7 +974,7 @@ Partial Class FrmRoute
         'cmdExit
         '
         Me.cmdExit.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdExit.Location = New System.Drawing.Point(740, 550)
+        Me.cmdExit.Location = New System.Drawing.Point(740, 739)
         Me.cmdExit.Name = "cmdExit"
         Me.cmdExit.Size = New System.Drawing.Size(75, 23)
         Me.cmdExit.TabIndex = 36
@@ -979,7 +983,7 @@ Partial Class FrmRoute
         '
         'cmdSave
         '
-        Me.cmdSave.Location = New System.Drawing.Point(832, 550)
+        Me.cmdSave.Location = New System.Drawing.Point(832, 739)
         Me.cmdSave.Name = "cmdSave"
         Me.cmdSave.Size = New System.Drawing.Size(75, 23)
         Me.cmdSave.TabIndex = 34
@@ -989,7 +993,7 @@ Partial Class FrmRoute
         'cmdInvoice
         '
         Me.cmdInvoice.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
-        Me.cmdInvoice.Location = New System.Drawing.Point(661, 521)
+        Me.cmdInvoice.Location = New System.Drawing.Point(661, 710)
         Me.cmdInvoice.Name = "cmdInvoice"
         Me.cmdInvoice.Size = New System.Drawing.Size(75, 52)
         Me.cmdInvoice.TabIndex = 35
@@ -999,7 +1003,7 @@ Partial Class FrmRoute
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(740, 505)
+        Me.Label16.Location = New System.Drawing.Point(740, 694)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(53, 13)
         Me.Label16.TabIndex = 147
@@ -1010,7 +1014,7 @@ Partial Class FrmRoute
         Me.txtCollection.BackColor = System.Drawing.Color.LightSteelBlue
         Me.txtCollection.FormatMask = Janus.Windows.GridEX.NumericEditFormatMask.Currency
         Me.txtCollection.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
-        Me.txtCollection.Location = New System.Drawing.Point(742, 521)
+        Me.txtCollection.Location = New System.Drawing.Point(742, 710)
         Me.txtCollection.Name = "txtCollection"
         Me.txtCollection.Size = New System.Drawing.Size(65, 20)
         Me.txtCollection.TabIndex = 32
@@ -1034,7 +1038,7 @@ Partial Class FrmRoute
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.cmdExit
-        Me.ClientSize = New System.Drawing.Size(919, 584)
+        Me.ClientSize = New System.Drawing.Size(919, 774)
         Me.Controls.Add(Me.cmdTransferRight)
         Me.Controls.Add(Me.cmdInvoice)
         Me.Controls.Add(Me.cmdSave)

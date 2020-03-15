@@ -69,7 +69,7 @@ Public Class FrmRoute
         'Εαν το δρομολόγιο έχει κοπεί σε τιμολόγιο δεν μπορεί να επεξεργαστει
         If chkInvoiced.Checked = True Then LockUnlockAllControls(Me, True)
         cmdExit.Enabled = True : cmdInvoice.Enabled = True
-
+        GridPOI.Enabled = True
 
     End Sub
 
@@ -703,6 +703,10 @@ Public Class FrmRoute
 
     Private Sub GridPOI_CellUpdated(sender As Object, e As ColumnActionEventArgs) Handles GridPOI.CellUpdated
         Dim sSQL As String
+        If chkInvoiced.Checked = True Then
+            MessageBox.Show("Σε τιμολογημένο δρομολόγιο δεν επιτρέπεται καμμία αλλαγή", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
         Try
             ' Καταχώρηση Δεδομένων
             sSQL = "UPDATE POI SET " &
@@ -727,4 +731,6 @@ Public Class FrmRoute
 
         End Try
     End Sub
+
+
 End Class
