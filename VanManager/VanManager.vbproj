@@ -317,6 +317,12 @@
     <Compile Include="FORMS\frmVeht.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmUSERS.Designer.vb">
+      <DependentUpon>frmUSERS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUSERS.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MODULES\Main.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -431,6 +437,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\frmVeht.resx">
       <DependentUpon>frmVeht.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUSERS.resx">
+      <DependentUpon>frmUSERS.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">

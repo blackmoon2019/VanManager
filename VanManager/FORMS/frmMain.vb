@@ -38,6 +38,7 @@ Public Class frmMain
         PAY = 23
         DOS = 24
         SDT = 25
+        USERS = 26
     End Enum
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UDLStr = Application.StartupPath & "\UDL\van.udl"
@@ -106,6 +107,7 @@ Public Class frmMain
                                                      inner join users on users.id  = sts.userid  where ishand =1 and sts.userid = '" & UserID & "') order by invdate"
             Case "DOS" : sql = "select * from DOS"
             Case "SDT" : sql = "select * from SDT"
+            Case "USERS" : sql = "select * from USERS"
         End Select
         adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
         adapter.Fill(table) : TB = table
@@ -175,6 +177,7 @@ Public Class frmMain
             Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.NewRecord : FRMS = frmCUSTYPE
             Case FormName.DOS : FrmDOS.Mode = FormMode.NewRecord : FRMS = FrmDOS
             Case FormName.SDT : frmSDT.Mode = FormMode.NewRecord : FRMS = frmSDT
+            Case FormName.USERS : frmUSERS.Mode = FormMode.NewRecord : FRMS = frmUSERS
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -216,6 +219,7 @@ Public Class frmMain
             Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.EditRecord : FRMS = frmCUSTYPE
             Case FormName.DOS : FrmDOS.Mode = FormMode.EditRecord : FRMS = FrmDOS
             Case FormName.SDT : frmSDT.Mode = FormMode.EditRecord : FRMS = frmSDT
+            Case FormName.USERS : frmUSERS.Mode = FormMode.EditRecord : FRMS = frmUSERS
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -256,6 +260,7 @@ Public Class frmMain
             Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.ViewRecord : FRMS = frmCUSTYPE
             Case FormName.DOS : FrmDOS.Mode = FormMode.ViewRecord : FRMS = FrmDOS
             Case FormName.SDT : frmSDT.Mode = FormMode.ViewRecord : FRMS = frmSDT
+            Case FormName.USERS : frmUSERS.Mode = FormMode.ViewRecord : FRMS = frmUSERS
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -417,6 +422,12 @@ Public Class frmMain
                             oCmd.ExecuteNonQuery()
                             FillJanusGrid("SDT")
                         End Using
+                    Case FormName.USERS
+                        sSQL = "Delete from USERS where id = '" & Row1.Cells("ID").Value.ToString() & "'"
+                        Using oCmd As New OleDbCommand(sSQL, cn)
+                            oCmd.ExecuteNonQuery()
+                            FillJanusGrid("USERS")
+                        End Using
 
                 End Select
             End If
@@ -460,7 +471,8 @@ Public Class frmMain
             Case FormName.CUSTYPE : FillJanusGrid("CUSTYPE")
             Case FormName.PARD : FillJanusGrid("PARD")
             Case FormName.DOS : FillJanusGrid("DOS")
-            Case FormName.DOS : FillJanusGrid("SDT")
+            Case FormName.SDT : FillJanusGrid("SDT")
+            Case FormName.USERS : FillJanusGrid("USERS")
         End Select
     End Sub
 
@@ -655,6 +667,7 @@ Public Class frmMain
             Case "HAND_INV" : grpSearch.Visible = True : Frm = FormName.HAND_INV : GridMain.Tag = "HAND_INV" : FillJanusGrid("INV")
             Case "DOS" : grpSearch.Visible = False : Frm = FormName.DOS : GridMain.Tag = "DOS" : FillJanusGrid("DOS")
             Case "SDT" : grpSearch.Visible = False : Frm = FormName.SDT : GridMain.Tag = "SDT" : FillJanusGrid("SDT")
+            Case "USERS" : grpSearch.Visible = False : Frm = FormName.USERS : GridMain.Tag = "USERS" : FillJanusGrid("USERS")
         End Select
         Select Case Frm
             Case FormName.HLP_ROUTES, FormName.PARD, FormName.ES
@@ -872,6 +885,8 @@ Public Class frmMain
                 Case "Byte"
 
                 Case "Char"
+                Case "String"
+                    If column.ColumnName = "pwd" Then GRD.RootTable.Columns(column.ColumnName).PasswordChar = "*"
                 Case "DateTime"
                 Case "Double"
                 Case "Int16"
@@ -1035,6 +1050,7 @@ Public Class frmMain
                     Case FormName.CUSTYPE : frmCUSTYPE.Mode = FormMode.ViewRecord : FRMS = frmCUSTYPE
                     Case FormName.DOS : FrmDOS.Mode = FormMode.ViewRecord : FRMS = FrmDOS
                     Case FormName.SDT : frmSDT.Mode = FormMode.ViewRecord : FRMS = frmSDT
+                    Case FormName.USERS : frmUSERS.Mode = FormMode.ViewRecord : FRMS = frmUSERS
                 End Select
 
         End Select
@@ -1086,6 +1102,7 @@ Public Class frmMain
                     Case FormName.CUSTYPE : sSQL = "DELETE CUSTYPE where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.DOS : sSQL = "DELETE DOS where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.SDT : sSQL = "DELETE SDT where id='" & e.Row.Cells("id").Value.ToString & "'"
+                    Case FormName.USERS : sSQL = "DELETE USERS where id='" & e.Row.Cells("id").Value.ToString & "'"
                 End Select
 
                 Using oCmd As New OleDbCommand(sSQL, cn)

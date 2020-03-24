@@ -40,7 +40,7 @@ Partial Class frmSDT
         Me.txtCode.Name = "txtCode"
         Me.txtCode.ReadOnly = True
         Me.txtCode.Size = New System.Drawing.Size(83, 20)
-        Me.txtCode.TabIndex = 58
+        Me.txtCode.TabIndex = 0
         Me.txtCode.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label3
@@ -57,7 +57,7 @@ Partial Class frmSDT
         Me.cmdSave.Location = New System.Drawing.Point(272, 135)
         Me.cmdSave.Name = "cmdSave"
         Me.cmdSave.Size = New System.Drawing.Size(75, 23)
-        Me.cmdSave.TabIndex = 61
+        Me.cmdSave.TabIndex = 5
         Me.cmdSave.Text = "Αποθήκευση"
         Me.cmdSave.VisualStyle = Janus.Windows.UI.VisualStyle.VS2010
         '
@@ -67,7 +67,7 @@ Partial Class frmSDT
         Me.cmdExit.Location = New System.Drawing.Point(180, 135)
         Me.cmdExit.Name = "cmdExit"
         Me.cmdExit.Size = New System.Drawing.Size(75, 23)
-        Me.cmdExit.TabIndex = 62
+        Me.cmdExit.TabIndex = 4
         Me.cmdExit.Text = "Έξοδος"
         Me.cmdExit.VisualStyle = Janus.Windows.UI.VisualStyle.VS2010
         '
@@ -77,7 +77,7 @@ Partial Class frmSDT
         Me.txtName.Location = New System.Drawing.Point(260, 13)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(85, 20)
-        Me.txtName.TabIndex = 60
+        Me.txtName.TabIndex = 1
         Me.txtName.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label2
@@ -95,7 +95,7 @@ Partial Class frmSDT
         Me.txtDescr.Location = New System.Drawing.Point(87, 51)
         Me.txtDescr.Name = "txtDescr"
         Me.txtDescr.Size = New System.Drawing.Size(260, 20)
-        Me.txtDescr.TabIndex = 64
+        Me.txtDescr.TabIndex = 2
         Me.txtDescr.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label1
@@ -113,7 +113,7 @@ Partial Class frmSDT
         Me.txtDescrAk.Location = New System.Drawing.Point(87, 93)
         Me.txtDescrAk.Name = "txtDescrAk"
         Me.txtDescrAk.Size = New System.Drawing.Size(260, 20)
-        Me.txtDescrAk.TabIndex = 66
+        Me.txtDescrAk.TabIndex = 3
         Me.txtDescrAk.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label4

@@ -42,7 +42,7 @@ Partial Class FrmDOS
         Me.txtCode.Location = New System.Drawing.Point(12, 29)
         Me.txtCode.Name = "txtCode"
         Me.txtCode.Size = New System.Drawing.Size(61, 20)
-        Me.txtCode.TabIndex = 10
+        Me.txtCode.TabIndex = 0
         Me.txtCode.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label1
@@ -60,7 +60,7 @@ Partial Class FrmDOS
         Me.txtName.Location = New System.Drawing.Point(94, 29)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(61, 20)
-        Me.txtName.TabIndex = 12
+        Me.txtName.TabIndex = 1
         Me.txtName.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label2
@@ -90,7 +90,7 @@ Partial Class FrmDOS
         Me.chkCollection.Location = New System.Drawing.Point(6, 106)
         Me.chkCollection.Name = "chkCollection"
         Me.chkCollection.Size = New System.Drawing.Size(139, 23)
-        Me.chkCollection.TabIndex = 25
+        Me.chkCollection.TabIndex = 4
         Me.chkCollection.Text = "Αφορά Είσπραξη"
         Me.chkCollection.UncheckedValue = False
         Me.chkCollection.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
@@ -101,7 +101,7 @@ Partial Class FrmDOS
         Me.chkHand.Location = New System.Drawing.Point(6, 61)
         Me.chkHand.Name = "chkHand"
         Me.chkHand.Size = New System.Drawing.Size(139, 23)
-        Me.chkHand.TabIndex = 24
+        Me.chkHand.TabIndex = 3
         Me.chkHand.Text = "Χειρόγραφη"
         Me.chkHand.UncheckedValue = False
         Me.chkHand.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
@@ -112,7 +112,7 @@ Partial Class FrmDOS
         Me.chkCancel.Location = New System.Drawing.Point(6, 19)
         Me.chkCancel.Name = "chkCancel"
         Me.chkCancel.Size = New System.Drawing.Size(139, 23)
-        Me.chkCancel.TabIndex = 23
+        Me.chkCancel.TabIndex = 2
         Me.chkCancel.Text = "Ακυρωτική"
         Me.chkCancel.UncheckedValue = False
         Me.chkCancel.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
@@ -122,7 +122,7 @@ Partial Class FrmDOS
         Me.cmdSave.Location = New System.Drawing.Point(104, 252)
         Me.cmdSave.Name = "cmdSave"
         Me.cmdSave.Size = New System.Drawing.Size(75, 23)
-        Me.cmdSave.TabIndex = 201
+        Me.cmdSave.TabIndex = 6
         Me.cmdSave.Text = "Αποθήκευση"
         Me.cmdSave.VisualStyle = Janus.Windows.UI.VisualStyle.VS2010
         '
@@ -132,11 +132,11 @@ Partial Class FrmDOS
         Me.cmdExit.Location = New System.Drawing.Point(12, 252)
         Me.cmdExit.Name = "cmdExit"
         Me.cmdExit.Size = New System.Drawing.Size(75, 23)
-        Me.cmdExit.TabIndex = 200
+        Me.cmdExit.TabIndex = 5
         Me.cmdExit.Text = "Έξοδος"
         Me.cmdExit.VisualStyle = Janus.Windows.UI.VisualStyle.VS2010
         '
-        'FrmSeires
+        'FrmDOS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -148,7 +148,7 @@ Partial Class FrmDOS
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtCode)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "FrmSeires"
+        Me.Name = "FrmDOS"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmSeires"
         CType(Me.grpSYMV, System.ComponentModel.ISupportInitialize).EndInit()
