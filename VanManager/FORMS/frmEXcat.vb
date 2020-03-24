@@ -66,7 +66,7 @@ Public Class frmEXcat
                    "name =  " & toSQLValueJ(txtName) & "," &
                    "isfixed = " & cboFixed.SelectedIndex & "," &
                    "dtpayment = " & IIf(cboRepeat.Text.Length > 0, "'" & Format(dtPayment.SelectionStart, "yyyy-MM-dd") & "'", "NULL") & "," &
-                   IIf(cboFixed.SelectedIndex = 0, "NULL", "dtDateContract = " & "'" & Format(dtDateContract.Value, "yyyy/MM/dd HH:mm:ss") & "',") &
+                   "dtDateContract = " & IIf(cboFixed.SelectedIndex = 0, "NULL", "'" & Format(dtDateContract.Value, "yyyy/MM/dd HH:mm:ss") & "'") & "," &
                    "repeat = " & boSQLValuej(cboRepeat, True) & " where id = '" & ID & "'"
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()

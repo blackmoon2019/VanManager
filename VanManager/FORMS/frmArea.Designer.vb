@@ -24,25 +24,16 @@ Partial Class frmArea
     Private Sub InitializeComponent()
         Dim cboCOU_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmArea))
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtCode = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.cboCOU = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.txtName = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.cmdSave = New Janus.Windows.EditControls.UIButton()
         Me.cmdExit = New Janus.Windows.EditControls.UIButton()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtCode = New Janus.Windows.GridEX.EditControls.EditBox()
         CType(Me.cboCOU, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(5, 12)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(47, 13)
-        Me.Label3.TabIndex = 57
-        Me.Label3.Text = "Κωδικός"
         '
         'Label2
         '
@@ -61,15 +52,6 @@ Partial Class frmArea
         Me.Label7.Size = New System.Drawing.Size(38, 13)
         Me.Label7.TabIndex = 60
         Me.Label7.Text = "Νομός"
-        '
-        'txtCode
-        '
-        Me.txtCode.Location = New System.Drawing.Point(85, 11)
-        Me.txtCode.Name = "txtCode"
-        Me.txtCode.ReadOnly = True
-        Me.txtCode.Size = New System.Drawing.Size(83, 20)
-        Me.txtCode.TabIndex = 0
-        Me.txtCode.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'cboCOU
         '
@@ -117,6 +99,24 @@ Partial Class frmArea
         Me.cmdExit.Text = "Έξοδος"
         Me.cmdExit.VisualStyle = Janus.Windows.UI.VisualStyle.VS2010
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(5, 12)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(47, 13)
+        Me.Label3.TabIndex = 57
+        Me.Label3.Text = "Κωδικός"
+        '
+        'txtCode
+        '
+        Me.txtCode.Location = New System.Drawing.Point(85, 11)
+        Me.txtCode.Name = "txtCode"
+        Me.txtCode.ReadOnly = True
+        Me.txtCode.Size = New System.Drawing.Size(83, 20)
+        Me.txtCode.TabIndex = 0
+        Me.txtCode.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
+        '
         'frmArea
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -139,12 +139,12 @@ Partial Class frmArea
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents txtCode As Janus.Windows.GridEX.EditControls.EditBox
     Friend WithEvents cboCOU As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents txtName As Janus.Windows.GridEX.EditControls.EditBox
     Friend WithEvents cmdSave As Janus.Windows.EditControls.UIButton
     Friend WithEvents cmdExit As Janus.Windows.EditControls.UIButton
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txtCode As Janus.Windows.GridEX.EditControls.EditBox
 End Class

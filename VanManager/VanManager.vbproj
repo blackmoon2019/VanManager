@@ -275,10 +275,16 @@
     <Compile Include="FORMS\FrmRoute.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMS\FrmSeires.Designer.vb">
-      <DependentUpon>FrmSeires.vb</DependentUpon>
+    <Compile Include="FORMS\FrmDOS.Designer.vb">
+      <DependentUpon>FrmDOS.vb</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\FrmSeires.vb">
+    <Compile Include="FORMS\FrmDOS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmSDT.Designer.vb">
+      <DependentUpon>frmSDT.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmSDT.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FORMS\frmSplash.Designer.vb">
@@ -405,8 +411,11 @@
     <EmbeddedResource Include="FORMS\FrmRoute.resx">
       <DependentUpon>FrmRoute.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\FrmSeires.resx">
-      <DependentUpon>FrmSeires.vb</DependentUpon>
+    <EmbeddedResource Include="FORMS\FrmDOS.resx">
+      <DependentUpon>FrmDOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmSDT.resx">
+      <DependentUpon>frmSDT.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\frmSplash.resx">
       <DependentUpon>frmSplash.vb</DependentUpon>

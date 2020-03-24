@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmSeires
+Partial Class FrmDOS
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,9 +22,9 @@ Partial Class FrmSeires
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtName = New Janus.Windows.GridEX.EditControls.EditBox()
+        Me.txtCode = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtSeira = New Janus.Windows.GridEX.EditControls.EditBox()
+        Me.txtName = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.grpSYMV = New Janus.Windows.EditControls.UIGroupBox()
         Me.chkCollection = New Janus.Windows.EditControls.UICheckBox()
@@ -36,14 +36,14 @@ Partial Class FrmSeires
         Me.grpSYMV.SuspendLayout()
         Me.SuspendLayout()
         '
-        'txtName
+        'txtCode
         '
-        Me.txtName.BackColor = System.Drawing.SystemColors.Info
-        Me.txtName.Location = New System.Drawing.Point(12, 29)
-        Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(61, 20)
-        Me.txtName.TabIndex = 10
-        Me.txtName.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
+        Me.txtCode.BackColor = System.Drawing.SystemColors.Info
+        Me.txtCode.Location = New System.Drawing.Point(12, 29)
+        Me.txtCode.Name = "txtCode"
+        Me.txtCode.Size = New System.Drawing.Size(61, 20)
+        Me.txtCode.TabIndex = 10
+        Me.txtCode.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label1
         '
@@ -54,14 +54,14 @@ Partial Class FrmSeires
         Me.Label1.TabIndex = 11
         Me.Label1.Text = "Κωδικός"
         '
-        'txtSeira
+        'txtName
         '
-        Me.txtSeira.BackColor = System.Drawing.SystemColors.Info
-        Me.txtSeira.Location = New System.Drawing.Point(94, 29)
-        Me.txtSeira.Name = "txtSeira"
-        Me.txtSeira.Size = New System.Drawing.Size(61, 20)
-        Me.txtSeira.TabIndex = 12
-        Me.txtSeira.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
+        Me.txtName.BackColor = System.Drawing.SystemColors.Info
+        Me.txtName.Location = New System.Drawing.Point(94, 29)
+        Me.txtName.Name = "txtName"
+        Me.txtName.Size = New System.Drawing.Size(61, 20)
+        Me.txtName.TabIndex = 12
+        Me.txtName.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
         'Label2
         '
@@ -140,15 +140,16 @@ Partial Class FrmSeires
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(191, 298)
+        Me.ClientSize = New System.Drawing.Size(191, 292)
         Me.Controls.Add(Me.cmdSave)
         Me.Controls.Add(Me.cmdExit)
         Me.Controls.Add(Me.grpSYMV)
-        Me.Controls.Add(Me.txtSeira)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtName)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.txtCode)
         Me.Controls.Add(Me.Label1)
         Me.Name = "FrmSeires"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmSeires"
         CType(Me.grpSYMV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpSYMV.ResumeLayout(False)
@@ -157,9 +158,9 @@ Partial Class FrmSeires
 
     End Sub
 
-    Friend WithEvents txtName As Janus.Windows.GridEX.EditControls.EditBox
+    Friend WithEvents txtCode As Janus.Windows.GridEX.EditControls.EditBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtSeira As Janus.Windows.GridEX.EditControls.EditBox
+    Friend WithEvents txtName As Janus.Windows.GridEX.EditControls.EditBox
     Friend WithEvents Label2 As Label
     Friend WithEvents grpSYMV As Janus.Windows.EditControls.UIGroupBox
     Friend WithEvents chkCollection As Janus.Windows.EditControls.UICheckBox

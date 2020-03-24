@@ -150,7 +150,11 @@ CheckError:
     'Επιστρέφει νέο κωδικό για οποιονδήποτε πίνακα + 1
     Public Function GetNewCode(ByVal sTable As String) As Integer
         Dim sSQL As String
-        sSQL = "SELECT ISNULL(max(code),0) + 1  as code FROM " & sTable
+        If sTable <> "SDT" Then
+            sSQL = "SELECT ISNULL(max(code),0) + 1  as code FROM " & sTable
+        Else
+            sSQL = "SELECT ISNULL(max(SDTcode),0) + 1  as code FROM " & sTable
+        End If
 
         Dim cmd As OleDbCommand = New OleDbCommand(sSQL, cn)
         Dim sdr As OleDbDataReader = cmd.ExecuteReader()
@@ -159,8 +163,8 @@ CheckError:
                 GetNewCode = sdr.GetInt64(sdr.GetOrdinal("code"))
             Else
                 GetNewCode = sdr.GetInt32(sdr.GetOrdinal("code"))
-            End If
-        Else
+                End If
+            Else
                 GetNewCode = 1
         End If
         sdr.Close()
