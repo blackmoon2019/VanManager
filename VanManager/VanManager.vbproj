@@ -317,10 +317,16 @@
     <Compile Include="FORMS\frmVeht.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmUSERS.Designer.vb">
+    <Compile Include="FORMS\frmSTS.Designer.vb">
+      <DependentUpon>frmSTS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmSTS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\frmUSERS.Designer.vb">
       <DependentUpon>frmUSERS.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmUSERS.vb">
+    <Compile Include="FORMS\frmUSERS.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MODULES\Main.vb" />
@@ -438,7 +444,10 @@
     <EmbeddedResource Include="FORMS\frmVeht.resx">
       <DependentUpon>frmVeht.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmUSERS.resx">
+    <EmbeddedResource Include="FORMS\frmSTS.resx">
+      <DependentUpon>frmSTS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmUSERS.resx">
       <DependentUpon>frmUSERS.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />

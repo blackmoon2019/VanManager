@@ -402,6 +402,55 @@ CheckError:
         cbo.Text = ""
 
     End Sub
+    Public Sub FillJanuscboUSERS(ByRef cbo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim ds As DataSet = New DataSet
+        Dim adapter As New OleDb.OleDbDataAdapter
+        Dim sql As String
+
+        sql = "SELECT id,fullname from vw_USERS order by name"
+
+        adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+        adapter.Fill(ds)
+        cbo.DataSource = ds.Tables(0)
+        cbo.DisplayMember = "fullname"
+        cbo.ValueMember = "id"
+        cbo.SettingsKey = "id"
+        cbo.Text = ""
+
+    End Sub
+    Public Sub FillJanuscboSDT(ByRef cbo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim ds As DataSet = New DataSet
+        Dim adapter As New OleDb.OleDbDataAdapter
+        Dim sql As String
+
+        sql = "SELECT id,name,descr from SDT order by name"
+
+        adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+        adapter.Fill(ds)
+        cbo.DataSource = ds.Tables(0)
+        cbo.DisplayMember = "name"
+        cbo.DisplayMember = "descr"
+        cbo.ValueMember = "id"
+        cbo.SettingsKey = "id"
+        cbo.Text = ""
+
+    End Sub
+    Public Sub FillJanuscboDOS(ByRef cbo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim ds As DataSet = New DataSet
+        Dim adapter As New OleDb.OleDbDataAdapter
+        Dim sql As String
+
+        sql = "SELECT id,name,iscancel,iscollection,ishand from DOS order by name"
+
+        adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+        adapter.Fill(ds)
+        cbo.DataSource = ds.Tables(0)
+        cbo.DisplayMember = "name"
+        cbo.ValueMember = "id"
+        cbo.SettingsKey = "id"
+        cbo.Text = ""
+
+    End Sub
     Public Sub FillJanuscboMonths(ByRef cbo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim ds As DataSet = New DataSet
         Dim adapter As New OleDb.OleDbDataAdapter

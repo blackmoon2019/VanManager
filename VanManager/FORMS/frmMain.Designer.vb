@@ -51,6 +51,7 @@ Partial Class frmMain
         Dim BBMain_Item_2_10 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_2_11 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_2_12 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
+        Dim BBMain_Item_2_13 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim cboYears_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cboMONTHS_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
@@ -459,14 +460,17 @@ Partial Class frmMain
         BBMain_Item_2_9.Text = "Τρόποι Πληρωμής"
         BBMain_Item_2_10.Image = CType(resources.GetObject("BBMain_Item_2_10.Image"), System.Drawing.Image)
         BBMain_Item_2_10.Key = "DOS"
-        BBMain_Item_2_10.Text = "ΣΕΙΡΕΣ"
+        BBMain_Item_2_10.Text = "Σειρές"
         BBMain_Item_2_11.Image = CType(resources.GetObject("BBMain_Item_2_11.Image"), System.Drawing.Image)
         BBMain_Item_2_11.Key = "SDT"
-        BBMain_Item_2_11.Text = "ΤΥΠΟΙ ΠΑΡΑΣΤΑΤΙΚΩΝ"
+        BBMain_Item_2_11.Text = "Τύποι Παραστατικών"
         BBMain_Item_2_12.Image = CType(resources.GetObject("BBMain_Item_2_12.Image"), System.Drawing.Image)
         BBMain_Item_2_12.Key = "USERS"
-        BBMain_Item_2_12.Text = "ΧΡΗΣΤΕΣ"
-        BBMain_Group_2.Items.AddRange(New Janus.Windows.ButtonBar.ButtonBarItem() {BBMain_Item_2_0, BBMain_Item_2_1, BBMain_Item_2_2, BBMain_Item_2_3, BBMain_Item_2_4, BBMain_Item_2_5, BBMain_Item_2_6, BBMain_Item_2_7, BBMain_Item_2_8, BBMain_Item_2_9, BBMain_Item_2_10, BBMain_Item_2_11, BBMain_Item_2_12})
+        BBMain_Item_2_12.Text = "Χρήστες"
+        BBMain_Item_2_13.Image = CType(resources.GetObject("BBMain_Item_2_13.Image"), System.Drawing.Image)
+        BBMain_Item_2_13.Key = "STS"
+        BBMain_Item_2_13.Text = "Δεσίματα"
+        BBMain_Group_2.Items.AddRange(New Janus.Windows.ButtonBar.ButtonBarItem() {BBMain_Item_2_0, BBMain_Item_2_1, BBMain_Item_2_2, BBMain_Item_2_3, BBMain_Item_2_4, BBMain_Item_2_5, BBMain_Item_2_6, BBMain_Item_2_7, BBMain_Item_2_8, BBMain_Item_2_9, BBMain_Item_2_10, BBMain_Item_2_11, BBMain_Item_2_12, BBMain_Item_2_13})
         BBMain_Group_2.Key = "grpHlp"
         BBMain_Group_2.Text = "Βοηθητικοί Πίνακες"
         Me.BBMain.Groups.AddRange(New Janus.Windows.ButtonBar.ButtonBarGroup() {BBMain_Group_0, BBMain_Group_1, BBMain_Group_2})

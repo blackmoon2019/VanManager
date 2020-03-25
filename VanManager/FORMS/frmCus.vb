@@ -51,6 +51,7 @@ Public Class frmCus
                 sdr.Close()
             End If
             Call LockUnlockAllControls(Me, Mode = FormMode.ViewRecord)
+            cmdExit.Enabled = True
         Else
             txtCode.Text = GetNewCode("CUS")
             ID = System.Guid.NewGuid.ToString()
