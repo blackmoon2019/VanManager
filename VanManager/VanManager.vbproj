@@ -202,6 +202,12 @@
     <Compile Include="FORMS\frmFilter.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FORMS\frmFPA.Designer.vb">
+      <DependentUpon>frmFPA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmFPA.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FORMS\frmHelpers.Designer.vb">
       <DependentUpon>frmHelpers.vb</DependentUpon>
     </Compile>
@@ -386,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\frmFilter.resx">
       <DependentUpon>frmFilter.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmFPA.resx">
+      <DependentUpon>frmFPA.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\frmHelpers.resx">
       <DependentUpon>frmHelpers.vb</DependentUpon>

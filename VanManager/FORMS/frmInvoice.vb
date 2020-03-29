@@ -59,7 +59,7 @@ Public Class frmInvoice
                                         R.MAINCusID ,INVH.ID AS INVHID
                                         From vw_ROUTES R
 				                        inner Join INVH on invh.routeID=r.id
-                                        inner join vw_seires vs on vs.sdtid=INVH.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", "") &
+                                        inner join vw_seires vs on vs.sdtid=INVH.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", " and VS.iscancel=0 ") &
                                         "where INVH.id = ('" & INVH_ID & "') ", cn)
                 End If
                 sdr = cmd.ExecuteReader()
@@ -151,8 +151,8 @@ Public Class frmInvoice
                                             From vw_ROUTES R
 				                            inner Join INVH on invh.routeID=r.id
                                             inner Join INVHSYG  on INVHSYG.id=invh.invhsygid 
-                                            inner join vw_seires vs on vs.sdtid=INVHSYG.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", "") &
-                                           "where INVHSYG.id = ('" & SYGINVHID & "') 
+                                            inner join vw_seires vs on vs.sdtid=INVHSYG.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", "and VS.iscancel=0") &
+                                           "where INVHSYG.id = ('" & SYGINVHID & "' ) 
                                             group by R.MainCusID,R.MAINCUSLastname , R.MAINCUSname, R.MAINCusAFM,INVHSYG.Tarea,
                                             INVHSYG.Farea,INVHSYG.dosname,INVHSYG.docnumber,INVHSYG.payID,INVHSYG.description,INVHSYG.printed,
                                             INVHSYG.holloprice,	INVHSYG.invdate,INVHSYG.skopos ,INVHSYG.FilePath,vs.ishand     ", cn)

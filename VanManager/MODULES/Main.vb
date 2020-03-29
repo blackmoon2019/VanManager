@@ -638,5 +638,20 @@ CheckError:
         cbo.Text = ""
 
     End Sub
+    Public Sub FillJanuscboFPA(ByRef cbo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim ds As DataSet = New DataSet
+        Dim adapter As New OleDb.OleDbDataAdapter
+        Dim sql As String
 
+        sql = "SELECT id, name from FPA order by name"
+
+        adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+        adapter.Fill(ds)
+        cbo.DataSource = ds.Tables(0)
+        cbo.DisplayMember = "name"
+        cbo.ValueMember = "id"
+        cbo.SettingsKey = "id"
+        cbo.Text = ""
+
+    End Sub
 End Module

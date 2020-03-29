@@ -9,32 +9,38 @@ Public Class frmCollection
     Private Sub frmCollection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sSQL As String
         Dim cmd As OleDbCommand
+        Dim sdr As OleDbDataReader
         Try
 
-            sSQL = "Select dos.name,sdt.id as sdtid ,DOS.id as dosid , " &
-            IIf(Mode = FormMode.NewRecord, " isnull(sen.number,0) + 1", " isnull(sen.number,1) ") & "  as number
-                    From SDT 
-                        inner join sts on sts.sdtid = sdt.id 
-                        inner join dos on dos.id = sts.dosid 
-                        inner join users on users.id  = sts.userid 
-                        left join sen on sen.dosid=dos.id
-                        where sdtcode = 2 and sts.userid = '" & UserID & "'"
-
-            cmd = New OleDbCommand(sSQL, cn)
-            Dim sdr As OleDbDataReader = cmd.ExecuteReader()
-
+            'sSQL = "Select dos.name,sdt.id as sdtid ,DOS.id as dosid , " &
+            'IIf(Mode = FormMode.NewRecord, " isnull(sen.number,0) + 1", " isnull(sen.number,1) ") & "  as number
+            '        From SDT 
+            '            inner join sts on sts.sdtid = sdt.id 
+            '            inner join dos on dos.id = sts.dosid 
+            '            inner join users on users.id  = sts.userid 
+            '            left join sen on sen.dosid=dos.id
+            '            where sdtcode = 2 and sts.userid = '" & UserID & "'"
+            'If Mode = FormMode.NewRecord Then
+            cmd = New OleDbCommand("Select dosname as name,sdtid ,dosid ,isnull(number,0) + 1 as number
+                                            from vw_seires 
+                                            where sdtcode = 2   and userid = '" & UserID & "'", cn)
+            sdr = cmd.ExecuteReader()
             If (sdr.Read() = True) Then
-                If sdr.IsDBNull(sdr.GetOrdinal("sdtid")) = False Then sdtID = sdr.GetGuid(sdr.GetOrdinal("sdtid")).ToString
-                If sdr.IsDBNull(sdr.GetOrdinal("name")) = False Then txtCode.Text = sdr.GetString(sdr.GetOrdinal("name"))
-                If sdr.IsDBNull(sdr.GetOrdinal("dosid")) = False Then DosID = sdr.GetGuid(sdr.GetOrdinal("dosid")).ToString
-                If sdr.IsDBNull(sdr.GetOrdinal("number")) = False Then txtNumber.Value = sdr.GetInt64(sdr.GetOrdinal("number"))
-                sdr.Close()
-            End If
+                    If sdr.IsDBNull(sdr.GetOrdinal("sdtid")) = False Then sdtID = sdr.GetGuid(sdr.GetOrdinal("sdtid")).ToString
+                    If sdr.IsDBNull(sdr.GetOrdinal("name")) = False Then txtCode.Text = sdr.GetString(sdr.GetOrdinal("name"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("dosid")) = False Then DosID = sdr.GetGuid(sdr.GetOrdinal("dosid")).ToString
+                    If sdr.IsDBNull(sdr.GetOrdinal("number")) = False Then txtNumber.Value = sdr.GetInt64(sdr.GetOrdinal("number"))
+                    sdr.Close()
+                End If
+            'Else
+
+
+            'End If
             'Sen = GetSen(DosID)
 
             cmd = New OleDbCommand("SELECT 	bankname,DOSNAME,cashDate,cashPrice,chequeDate,chequeNum,chequePrice ,
-                                    depositDate,depositNum,depositPrice,MainCusFullName,MainCusAddress ,
-			                        MainCusafm,MainCusPrfName,COALESCE(SeiraEXOF,SeiraEXOFSYG) AS SeiraEXOF,
+                                    depositDate,depositNum,depositPrice,MainCusFullName,MainCusAddress ,docnumber, 
+			                        MainCusafm,MainCusPrfName,printedDate ,COALESCE(SeiraEXOF,SeiraEXOFSYG) AS SeiraEXOF,
 			                        COALESCE(EXOF,EXOFSYG) AS EXOF,COALESCE(ANEX,ANEXSYG) AS ANEX,
 			                        COALESCE(SeiraANEX,SeiraANEXSYG) AS SeiraANEX,
 			                        COALESCE(posokal,posokalsyg) as posokal,COALESCE(gentot,gentotsyg) as gentot,
@@ -42,7 +48,7 @@ Public Class frmCollection
                         FROM (        
                         select		bankname,VC.DOSNAME,vc.cashDate,vc.cashPrice,vc.chequeDate,vc.chequeNum,vc.chequePrice ,
                                     vc.depositDate,vc.depositNum,vc.depositPrice,vc.MainCusFullName,vc.MainCusAddress ,
-			                        vc.MainCusafm,vc.MainCusPrfName,
+			                        vc.MainCusafm,vc.MainCusPrfName,vc.printedDate,VC.docnumber ,
                                     (select sum(price) 	FROM vw_INVOICES VWI  
                                     inner join COLD  on COLD.invhid  =VWI.id     
                                     where  COLD.COLID =vc.id        ) as posokal,
@@ -110,11 +116,20 @@ Public Class frmCollection
                 If sdr.IsDBNull(sdr.GetOrdinal("cashdate")) = False Then dtCashDate.Value = (sdr.GetDateTime(sdr.GetOrdinal("cashdate")))
                 If sdr.IsDBNull(sdr.GetOrdinal("chequedate")) = False Then dtchequeDate.Value = (sdr.GetDateTime(sdr.GetOrdinal("chequedate")))
                 If sdr.IsDBNull(sdr.GetOrdinal("depositdate")) = False Then dtdepositDate.Value = (sdr.GetDateTime(sdr.GetOrdinal("depositdate")))
+                If sdr.IsDBNull(sdr.GetOrdinal("docnumber")) = False Then txtNumber.Value = sdr.GetInt32(sdr.GetOrdinal("docnumber"))
+                If sdr.IsDBNull(sdr.GetOrdinal("dosname")) = False Then txtCode.Text = sdr.GetString(sdr.GetOrdinal("dosname")).Substring(0, 3)
+                If sdr.IsDBNull(sdr.GetOrdinal("printedDate")) = False Then
+                    dtColdate.Value = (sdr.GetDateTime(sdr.GetOrdinal("printedDate")))
+                    dtColdate.ReadOnly = True
+                Else
+                    dtColdate.Value = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    dtColdate.ReadOnly = False
+                End If
                 If sdr.IsDBNull(sdr.GetOrdinal("ypol")) = False Then txtYpol.Value = sdr.GetDecimal(sdr.GetOrdinal("ypol"))
                 If sdr.IsDBNull(sdr.GetOrdinal("gentot")) = False Then txtTotal.Value = sdr.GetDecimal(sdr.GetOrdinal("gentot"))
                 If sdr.IsDBNull(sdr.GetOrdinal("posokal")) = False Then txtPoso.Value = sdr.GetDecimal(sdr.GetOrdinal("posokal"))
-                If sdr.IsDBNull(sdr.GetOrdinal("SeiraEXOF")) = False Then txtInvoicesEX.Text = sdr.GetString(sdr.GetOrdinal("SeiraEXOF"))
                 If sdr.IsDBNull(sdr.GetOrdinal("SeiraANEX")) = False Then txtInvoicesANEX.Text = sdr.GetString(sdr.GetOrdinal("SeiraANEX"))
+                If sdr.IsDBNull(sdr.GetOrdinal("SeiraEXOF")) = False Then txtInvoicesEX.Text = sdr.GetString(sdr.GetOrdinal("SeiraEXOF"))
                 If sdr.IsDBNull(sdr.GetOrdinal("EXOF")) = False Then txtDescr.Text = sdr.GetString(sdr.GetOrdinal("EXOF"))
                 If sdr.IsDBNull(sdr.GetOrdinal("ANEX")) = False Then txtDescr.Text = txtDescr.Text & " / " & sdr.GetString(sdr.GetOrdinal("ANEX"))
                 txtHolloPrice.Text = ConvertNumToWords.ConvertNumInGR(Replace(txtPoso.Text, "€", ""))
@@ -132,33 +147,24 @@ Public Class frmCollection
 
     Private Sub cmdSave_Click(sender As Object, e As EventArgs) Handles cmdSave.Click
         Try
-            'Dim colcmd As OleDbCommand = New OleDbCommand("Select dos.name,DOS.id as dosid
-            '                                                        from SDT 
-            '                                                         inner join sts on sts.sdtid = sdt.id 
-            '                                                         inner join dos on dos.id = sts.dosid 
-            '                                                         inner join users on users.id  = sts.userid 
-            '                                                         where sdtcode = 2 and sts.userid = '" & UserID & "'", cn)
-            'Dim colsdr As OleDbDataReader = colcmd.ExecuteReader()
-            'Dim DosName As String
-            'Dim snum As Long
-            'Dim DosID As String
-            'Dim Sen As Long
-            'If (colsdr.Read() = True) Then
-            '    If colsdr.IsDBNull(colsdr.GetOrdinal("name")) = False Then DosName = colsdr.GetString(colsdr.GetOrdinal("name"))
-            '    If colsdr.IsDBNull(colsdr.GetOrdinal("dosid")) = False Then DosID = colsdr.GetGuid(colsdr.GetOrdinal("dosid")).ToString
             'Ενημέρωση αρίθμησης σειράς
-            If Mode = FormMode.NewRecord Then Sen = GetSen(DosID, True)
-            '    colsdr.Close()
-            'Else
-            '    Sen = 1
-            'End If
+            If Mode = FormMode.NewRecord Then
+                Sen = GetSen(DosID, True)
+                Dim sSQL As String
+                sSQL = "UPDATE COLH SET PRINTED = 1,PRINTEDDATE = '" & Format(dtColdate.Value, "yyyy-MM-dd") & "',DOSNAME='" & txtCode.Text & Sen & "', " &
+                    "holloprice = '" & txtHolloPrice.Text & "',descr = '" & txtDescr.Text & "', docnumber = '" & Sen & "' WHERE ID = '" & CID & "'"
+                Using oCmd As New OleDbCommand(sSQL, cn)
+                    oCmd.ExecuteNonQuery()
+                End Using
+            Else
+                Dim sSQL As String
+                sSQL = "UPDATE COLH SET PRINTED = 1,PRINTEDDATE = '" & Format(dtColdate.Value, "yyyy-MM-dd") & "',DOSNAME='" & txtCode.Text & txtNumber.Value & "', " &
+                    "holloprice = '" & txtHolloPrice.Text & "',descr = '" & txtDescr.Text & "', docnumber = '" & txtNumber.Value & "' WHERE ID = '" & CID & "'"
+                Using oCmd As New OleDbCommand(sSQL, cn)
+                    oCmd.ExecuteNonQuery()
+                End Using
+            End If
 
-            Dim sSQL As String
-            sSQL = "UPDATE COLH SET PRINTED = 1,PRINTEDDATE = '" & Format(Date.Now, "yyyy-MM-dd") & "',DOSNAME='" & txtCode.Text & IIf(Mode = FormMode.NewRecord, Sen, txtNumber.Value) & "', " &
-                    "holloprice = '" & txtHolloPrice.Text & "',descr = '" & txtDescr.Text & "', docnumber = '" & IIf(Mode = FormMode.NewRecord, Sen, txtNumber.Value) & "' WHERE ID = '" & CID & "'"
-            Using oCmd As New OleDbCommand(sSQL, cn)
-                oCmd.ExecuteNonQuery()
-            End Using
             frmPrintPreview.sTable = "COLH"
             frmPrintPreview.COLHID = CID
             frmPrintPreview.Show()

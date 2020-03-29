@@ -23,6 +23,8 @@ Partial Class frmCollection
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.UiGroupBox1 = New Janus.Windows.EditControls.UIGroupBox()
+        Me.txtInvoicesANEX = New Janus.Windows.GridEX.EditControls.EditBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.txtDescr = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.UiGroupBox6 = New Janus.Windows.EditControls.UIGroupBox()
@@ -73,8 +75,6 @@ Partial Class frmCollection
         Me.txtPoso = New Janus.Windows.GridEX.EditControls.NumericEditBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtYpol = New Janus.Windows.GridEX.EditControls.NumericEditBox()
-        Me.txtInvoicesANEX = New Janus.Windows.GridEX.EditControls.EditBox()
-        Me.Label16 = New System.Windows.Forms.Label()
         CType(Me.UiGroupBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.UiGroupBox1.SuspendLayout()
         CType(Me.UiGroupBox6, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -112,6 +112,24 @@ Partial Class frmCollection
         Me.UiGroupBox1.TabIndex = 168
         Me.UiGroupBox1.Text = "Στοιχεία Είσπραξης"
         Me.UiGroupBox1.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2010
+        '
+        'txtInvoicesANEX
+        '
+        Me.txtInvoicesANEX.Location = New System.Drawing.Point(162, 137)
+        Me.txtInvoicesANEX.Name = "txtInvoicesANEX"
+        Me.txtInvoicesANEX.ReadOnly = True
+        Me.txtInvoicesANEX.Size = New System.Drawing.Size(131, 20)
+        Me.txtInvoicesANEX.TabIndex = 202
+        Me.txtInvoicesANEX.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(162, 121)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(95, 13)
+        Me.Label16.TabIndex = 201
+        Me.Label16.Text = "Tιμολόγια Έναντι"
         '
         'Label21
         '
@@ -666,24 +684,6 @@ Partial Class frmCollection
         Me.txtYpol.Text = "0,00 €"
         Me.txtYpol.Value = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtYpol.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
-        '
-        'txtInvoicesANEX
-        '
-        Me.txtInvoicesANEX.Location = New System.Drawing.Point(162, 137)
-        Me.txtInvoicesANEX.Name = "txtInvoicesANEX"
-        Me.txtInvoicesANEX.ReadOnly = True
-        Me.txtInvoicesANEX.Size = New System.Drawing.Size(131, 20)
-        Me.txtInvoicesANEX.TabIndex = 202
-        Me.txtInvoicesANEX.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(162, 121)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(95, 13)
-        Me.Label16.TabIndex = 201
-        Me.Label16.Text = "Tιμολόγια Έναντι"
         '
         'frmCollection
         '
