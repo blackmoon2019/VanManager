@@ -40,6 +40,7 @@ Public Class frmMain
         SDT = 25
         USERS = 26
         STS = 27
+        FPA = 28
     End Enum
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UDLStr = Application.StartupPath & "\UDL\van.udl"
@@ -110,6 +111,7 @@ Public Class frmMain
             Case "SDT" : sql = "select * from SDT"
             Case "USERS" : sql = "select * from USERS"
             Case "STS" : sql = "select * from vw_STS"
+            Case "FPA" : sql = "select * from FPA"
         End Select
         adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
         adapter.Fill(table) : TB = table
@@ -181,6 +183,7 @@ Public Class frmMain
             Case FormName.SDT : frmSDT.Mode = FormMode.NewRecord : FRMS = frmSDT
             Case FormName.USERS : frmUSERS.Mode = FormMode.NewRecord : FRMS = frmUSERS
             Case FormName.STS : frmSTS.Mode = FormMode.NewRecord : FRMS = frmSTS
+            Case FormName.FPA : frmFPA.Mode = FormMode.NewRecord : FRMS = frmFPA
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -224,6 +227,7 @@ Public Class frmMain
             Case FormName.SDT : frmSDT.Mode = FormMode.EditRecord : FRMS = frmSDT
             Case FormName.USERS : frmUSERS.Mode = FormMode.EditRecord : FRMS = frmUSERS
             Case FormName.STS : frmSTS.Mode = FormMode.EditRecord : FRMS = frmSTS
+            Case FormName.FPA : frmFPA.Mode = FormMode.EditRecord : FRMS = frmFPA
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -266,6 +270,7 @@ Public Class frmMain
             Case FormName.SDT : frmSDT.Mode = FormMode.ViewRecord : FRMS = frmSDT
             Case FormName.USERS : frmUSERS.Mode = FormMode.ViewRecord : FRMS = frmUSERS
             Case FormName.STS : frmSTS.Mode = FormMode.ViewRecord : FRMS = frmSTS
+            Case FormName.FPA : frmFPA.Mode = FormMode.ViewRecord : FRMS = frmFPA
         End Select
         FRMS.Owner = Me
         FRMS.Show()
@@ -439,6 +444,12 @@ Public Class frmMain
                             oCmd.ExecuteNonQuery()
                             FillJanusGrid("STS")
                         End Using
+                    Case FormName.FPA
+                        sSQL = "Delete from FPA where id = '" & Row1.Cells("ID").Value.ToString() & "'"
+                        Using oCmd As New OleDbCommand(sSQL, cn)
+                            oCmd.ExecuteNonQuery()
+                            FillJanusGrid("FPA")
+                        End Using
 
                 End Select
             End If
@@ -485,6 +496,7 @@ Public Class frmMain
             Case FormName.SDT : FillJanusGrid("SDT")
             Case FormName.USERS : FillJanusGrid("USERS")
             Case FormName.STS : FillJanusGrid("STS")
+            Case FormName.FPA : FillJanusGrid("FPA")
         End Select
     End Sub
 
@@ -681,6 +693,7 @@ Public Class frmMain
             Case "SDT" : grpSearch.Visible = False : Frm = FormName.SDT : GridMain.Tag = "SDT" : FillJanusGrid("SDT")
             Case "USERS" : grpSearch.Visible = False : Frm = FormName.USERS : GridMain.Tag = "USERS" : FillJanusGrid("USERS")
             Case "STS" : grpSearch.Visible = False : Frm = FormName.STS : GridMain.Tag = "STS" : FillJanusGrid("STS")
+            Case "FPA" : grpSearch.Visible = False : Frm = FormName.FPA : GridMain.Tag = "FPA" : FillJanusGrid("FPA")
         End Select
         Select Case Frm
             Case FormName.HLP_ROUTES, FormName.PARD, FormName.ES
@@ -1065,6 +1078,8 @@ Public Class frmMain
                     Case FormName.SDT : frmSDT.Mode = FormMode.ViewRecord : FRMS = frmSDT
                     Case FormName.USERS : frmUSERS.Mode = FormMode.ViewRecord : FRMS = frmUSERS
                     Case FormName.STS : frmSTS.Mode = FormMode.ViewRecord : FRMS = frmSTS
+                    Case FormName.FPA : frmFPA.Mode = FormMode.ViewRecord : FRMS = frmFPA
+
                 End Select
 
         End Select
@@ -1118,6 +1133,7 @@ Public Class frmMain
                     Case FormName.SDT : sSQL = "DELETE SDT where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.USERS : sSQL = "DELETE USERS where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.STS : sSQL = "DELETE STS where id='" & e.Row.Cells("id").Value.ToString & "'"
+                    Case FormName.FPA : sSQL = "DELETE FPA where id='" & e.Row.Cells("id").Value.ToString & "'"
                 End Select
 
                 Using oCmd As New OleDbCommand(sSQL, cn)

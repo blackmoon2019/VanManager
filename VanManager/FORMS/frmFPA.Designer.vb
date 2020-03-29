@@ -51,6 +51,7 @@ Partial Class frmFPA
         '
         'txtCode
         '
+        Me.txtCode.BackColor = System.Drawing.SystemColors.Info
         Me.txtCode.Location = New System.Drawing.Point(71, 7)
         Me.txtCode.Name = "txtCode"
         Me.txtCode.ReadOnly = True
@@ -99,6 +100,7 @@ Partial Class frmFPA
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Name = "frmFPA"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "frmFPA"
         Me.ResumeLayout(False)
         Me.PerformLayout()
