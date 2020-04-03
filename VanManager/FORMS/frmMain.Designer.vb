@@ -53,10 +53,10 @@ Partial Class frmMain
         Dim BBMain_Item_2_12 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_2_13 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_2_14 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
-        Dim cboYears_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cboMONTHS_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Dim GridMain_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cboYears_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cboMONTHS_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.comManager = New Janus.Windows.UI.CommandBars.UICommandManager(Me.components)
         Me.BottomRebar1 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.cmdFieldChooser = New Janus.Windows.UI.CommandBars.UICommand("cmdFieldChooser")
@@ -91,6 +91,7 @@ Partial Class frmMain
         Me.UiGroupBox1 = New Janus.Windows.EditControls.UIGroupBox()
         Me.txtFilter = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.GridEXExporter1 = New Janus.Windows.GridEX.Export.GridEXExporter(Me.components)
+        Me.GridMain = New Janus.Windows.GridEX.GridEX()
         Me.grpSearch = New Janus.Windows.EditControls.UIGroupBox()
         Me.cboYears = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -113,11 +114,15 @@ Partial Class frmMain
         Me.FChoice1 = New Janus.Windows.UI.CommandBars.UICommand("FChoice")
         Me.FWChoice1 = New Janus.Windows.UI.CommandBars.UICommand("FWChoice")
         Me.FDefault1 = New Janus.Windows.UI.CommandBars.UICommand("FDefault")
+        Me.cmdCellChoices = New Janus.Windows.UI.CommandBars.UIContextMenu()
+        Me.Separator1 = New Janus.Windows.UI.CommandBars.UICommand("Separator")
+        Me.cmdAkirotiko2 = New Janus.Windows.UI.CommandBars.UICommand("cmdAkirotiko")
         Me.UiRebar3 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiRebar4 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiRebar1 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiPanelManager1 = New Janus.Windows.UI.Dock.UIPanelManager(Me.components)
-        Me.GridMain = New Janus.Windows.GridEX.GridEX()
+        Me.cmdRoutes = New Janus.Windows.UI.CommandBars.UICommand("cmdRoutes")
+        Me.cmdRoutes1 = New Janus.Windows.UI.CommandBars.UICommand("cmdRoutes")
         CType(Me.comManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BottomRebar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmHeader, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -128,6 +133,7 @@ Partial Class frmMain
         CType(Me.BBMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UiGroupBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.UiGroupBox1.SuspendLayout()
+        CType(Me.GridMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grpSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpSearch.SuspendLayout()
         CType(Me.cboYears, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -136,11 +142,11 @@ Partial Class frmMain
         CType(Me.UiRebar2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdInv, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdFilters, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdCellChoices, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UiRebar3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UiRebar4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UiRebar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UiPanelManager1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'comManager
@@ -481,7 +487,7 @@ Partial Class frmMain
         Me.BBMain.Location = New System.Drawing.Point(0, 144)
         Me.BBMain.Name = "BBMain"
         Me.BBMain.ShadowOnHover = True
-        Me.BBMain.Size = New System.Drawing.Size(131, 365)
+        Me.BBMain.Size = New System.Drawing.Size(131, 368)
         Me.BBMain.TabIndex = 9
         Me.BBMain.Text = "ButtonBar1"
         Me.BBMain.VisualStyle = Janus.Windows.ButtonBar.VisualStyle.Office2010
@@ -505,6 +511,31 @@ Partial Class frmMain
         Me.txtFilter.Size = New System.Drawing.Size(227, 20)
         Me.txtFilter.TabIndex = 13
         Me.txtFilter.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
+        '
+        'GridEXExporter1
+        '
+        Me.GridEXExporter1.GridEX = Me.GridMain
+        '
+        'GridMain
+        '
+        Me.GridMain.AllowDelete = Janus.Windows.GridEX.InheritableBoolean.[True]
+        Me.GridMain.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
+        Me.GridMain.AlternatingColors = True
+        Me.GridMain.BuiltInTextsData = resources.GetString("GridMain.BuiltInTextsData")
+        GridMain_DesignTimeLayout.LayoutString = "<GridEXLayoutData><RootTable><GroupCondition /></RootTable></GridEXLayoutData>"
+        Me.GridMain.DesignTimeLayout = GridMain_DesignTimeLayout
+        Me.GridMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridMain.DynamicFiltering = True
+        Me.GridMain.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic
+        Me.GridMain.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown
+        Me.GridMain.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges
+        Me.GridMain.Location = New System.Drawing.Point(134, 147)
+        Me.GridMain.Name = "GridMain"
+        Me.GridMain.RecordNavigator = True
+        Me.GridMain.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
+        Me.GridMain.Size = New System.Drawing.Size(1139, 362)
+        Me.GridMain.TabIndex = 15
+        Me.GridMain.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
         '
         'grpSearch
         '
@@ -652,9 +683,9 @@ Partial Class frmMain
         'comManager2
         '
         Me.comManager2.BottomRebar = Me.UiRebar2
-        Me.comManager2.Commands.AddRange(New Janus.Windows.UI.CommandBars.UICommand() {Me.cmdAkirotiko, Me.FChoice, Me.FWChoice, Me.FDefault})
+        Me.comManager2.Commands.AddRange(New Janus.Windows.UI.CommandBars.UICommand() {Me.cmdAkirotiko, Me.FChoice, Me.FWChoice, Me.FDefault, Me.cmdRoutes})
         Me.comManager2.ContainerControl = Me
-        Me.comManager2.ContextMenus.AddRange(New Janus.Windows.UI.CommandBars.UIContextMenu() {Me.cmdInv, Me.cmdFilters})
+        Me.comManager2.ContextMenus.AddRange(New Janus.Windows.UI.CommandBars.UIContextMenu() {Me.cmdInv, Me.cmdFilters, Me.cmdCellChoices})
         '
         '
         '
@@ -728,6 +759,23 @@ Partial Class frmMain
         Me.FDefault1.Key = "FDefault"
         Me.FDefault1.Name = "FDefault1"
         '
+        'cmdCellChoices
+        '
+        Me.cmdCellChoices.CommandManager = Me.comManager2
+        Me.cmdCellChoices.Commands.AddRange(New Janus.Windows.UI.CommandBars.UICommand() {Me.FChoice1, Me.FWChoice1, Me.FDefault1, Me.Separator1, Me.cmdAkirotiko2, Me.cmdRoutes1})
+        Me.cmdCellChoices.Key = "cmdCellChoices"
+        '
+        'Separator1
+        '
+        Me.Separator1.CommandType = Janus.Windows.UI.CommandBars.CommandType.Separator
+        Me.Separator1.Key = "Separator"
+        Me.Separator1.Name = "Separator1"
+        '
+        'cmdAkirotiko2
+        '
+        Me.cmdAkirotiko2.Key = "cmdAkirotiko"
+        Me.cmdAkirotiko2.Name = "cmdAkirotiko2"
+        '
         'UiRebar3
         '
         Me.UiRebar3.CommandManager = Me.comManager2
@@ -748,46 +796,36 @@ Partial Class frmMain
         '
         Me.UiRebar1.CommandManager = Me.comManager2
         Me.UiRebar1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.UiRebar1.Location = New System.Drawing.Point(0, 0)
+        Me.UiRebar1.Location = New System.Drawing.Point(131, 144)
         Me.UiRebar1.Name = "UiRebar1"
-        Me.UiRebar1.Size = New System.Drawing.Size(1276, 0)
+        Me.UiRebar1.Size = New System.Drawing.Size(1145, 0)
         '
         'UiPanelManager1
         '
         Me.UiPanelManager1.ContainerControl = Me
         '
-        'GridMain
+        'cmdRoutes
         '
-        Me.GridMain.AllowDelete = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridMain.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.[False]
-        Me.GridMain.AlternatingColors = True
-        Me.GridMain.BuiltInTextsData = resources.GetString("GridMain.BuiltInTextsData")
-        GridMain_DesignTimeLayout.LayoutString = "<GridEXLayoutData><RootTable><GroupCondition /></RootTable></GridEXLayoutData>"
-        Me.GridMain.DesignTimeLayout = GridMain_DesignTimeLayout
-        Me.GridMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridMain.DynamicFiltering = True
-        Me.GridMain.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic
-        Me.GridMain.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.ConditionOperatorDropDown
-        Me.GridMain.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges
-        Me.GridMain.Location = New System.Drawing.Point(134, 147)
-        Me.GridMain.Name = "GridMain"
-        Me.GridMain.RecordNavigator = True
-        Me.GridMain.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridMain.Size = New System.Drawing.Size(1139, 359)
-        Me.GridMain.TabIndex = 15
-        Me.GridMain.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
+        Me.cmdRoutes.Key = "cmdRoutes"
+        Me.cmdRoutes.Name = "cmdRoutes"
+        Me.cmdRoutes.Text = "Εμφάνιση Δρομολογίων"
+        '
+        'cmdRoutes1
+        '
+        Me.cmdRoutes1.Key = "cmdRoutes"
+        Me.cmdRoutes1.Name = "cmdRoutes1"
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1276, 509)
+        Me.ClientSize = New System.Drawing.Size(1276, 512)
         Me.Controls.Add(Me.GridMain)
         Me.Controls.Add(Me.grpSearch)
         Me.Controls.Add(Me.UiGroupBox1)
+        Me.Controls.Add(Me.UiRebar1)
         Me.Controls.Add(Me.BBMain)
         Me.Controls.Add(Me.RBMain)
-        Me.Controls.Add(Me.UiRebar1)
         Me.Controls.Add(Me.TopRebar1)
         Me.Name = "frmMain"
         Me.Text = "Κεντρικό Μενού"
@@ -803,6 +841,7 @@ Partial Class frmMain
         CType(Me.UiGroupBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.UiGroupBox1.ResumeLayout(False)
         Me.UiGroupBox1.PerformLayout()
+        CType(Me.GridMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grpSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpSearch.ResumeLayout(False)
         Me.grpSearch.PerformLayout()
@@ -812,11 +851,11 @@ Partial Class frmMain
         CType(Me.UiRebar2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdInv, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdFilters, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdCellChoices, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UiRebar3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UiRebar4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UiRebar1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UiPanelManager1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -881,4 +920,9 @@ Partial Class frmMain
     Friend WithEvents Label3 As Label
     Friend WithEvents UiPanelManager1 As Janus.Windows.UI.Dock.UIPanelManager
     Friend WithEvents GridMain As Janus.Windows.GridEX.GridEX
+    Friend WithEvents cmdCellChoices As Janus.Windows.UI.CommandBars.UIContextMenu
+    Friend WithEvents Separator1 As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents cmdAkirotiko2 As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents cmdRoutes As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents cmdRoutes1 As Janus.Windows.UI.CommandBars.UICommand
 End Class

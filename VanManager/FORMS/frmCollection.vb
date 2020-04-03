@@ -5,6 +5,7 @@ Public Class frmCollection
     Private InvHcode As Int64
     Private Sen As Int64
     Private CID As String
+    Private IsPrinted As Boolean
     Private DosID As String
     Private Sub frmCollection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sSQL As String
@@ -149,7 +150,7 @@ Public Class frmCollection
         Try
             'Ενημέρωση αρίθμησης σειράς
             If Mode = FormMode.NewRecord Then
-                Sen = GetSen(DosID, True)
+                If IsPrinted = False Then Sen = GetSen(DosID, True)
                 Dim sSQL As String
                 sSQL = "UPDATE COLH SET PRINTED = 1,PRINTEDDATE = '" & Format(dtColdate.Value, "yyyy-MM-dd") & "',DOSNAME='" & txtCode.Text & Sen & "', " &
                     "holloprice = '" & txtHolloPrice.Text & "',descr = '" & txtDescr.Text & "', docnumber = '" & Sen & "' WHERE ID = '" & CID & "'"
@@ -157,12 +158,16 @@ Public Class frmCollection
                     oCmd.ExecuteNonQuery()
                 End Using
             Else
-                Dim sSQL As String
-                sSQL = "UPDATE COLH SET PRINTED = 1,PRINTEDDATE = '" & Format(dtColdate.Value, "yyyy-MM-dd") & "',DOSNAME='" & txtCode.Text & txtNumber.Value & "', " &
+                If IsPrinted = False Then
+                    Sen = GetSen(DosID, True)
+
+                    Dim sSQL As String
+                    sSQL = "UPDATE COLH SET PRINTED = 1,PRINTEDDATE = '" & Format(dtColdate.Value, "yyyy-MM-dd") & "',DOSNAME='" & txtCode.Text & txtNumber.Value & "', " &
                     "holloprice = '" & txtHolloPrice.Text & "',descr = '" & txtDescr.Text & "', docnumber = '" & txtNumber.Value & "' WHERE ID = '" & CID & "'"
-                Using oCmd As New OleDbCommand(sSQL, cn)
-                    oCmd.ExecuteNonQuery()
-                End Using
+                    Using oCmd As New OleDbCommand(sSQL, cn)
+                        oCmd.ExecuteNonQuery()
+                    End Using
+                End If
             End If
 
             frmPrintPreview.sTable = "COLH"
@@ -180,7 +185,11 @@ Public Class frmCollection
             CID = value
         End Set
     End Property
-
+    Public WriteOnly Property ISALREADYPRINTED As Boolean
+        Set(value As Boolean)
+            IsPrinted = value
+        End Set
+    End Property
     Private Sub cmdExit_Click(sender As Object, e As EventArgs) Handles cmdExit.Click
         Me.Close()
     End Sub

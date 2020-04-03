@@ -4,6 +4,7 @@ Imports Janus.Windows.GridEX
 
 Public Class FrmRoute
     Private ID As String
+    Private RID As String
     Public Mode As Byte
     Private Sub FrmRoute_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call FillJanuscboCUS(cboMainCus)  ' Πελάτες
@@ -20,44 +21,48 @@ Public Class FrmRoute
         If Mode = FormMode.ViewRecord Or Mode = FormMode.EditRecord Then
             Dim Row1 As Janus.Windows.GridEX.GridEXRow
             Row1 = frmMain.GridMain.CurrentRow
-            ID = Row1.Cells("ID").Value.ToString
-            Dim cmd As OleDbCommand = New OleDbCommand("Select * from ROUTES where id ='" + ID + "'", cn)
-            Dim sdr As OleDbDataReader = cmd.ExecuteReader()
-            If (sdr.Read() = True) Then
-                If sdr.IsDBNull(sdr.GetOrdinal("code")) = False Then txtCode.Text = sdr.GetInt32(sdr.GetOrdinal("code"))
-                If sdr.IsDBNull(sdr.GetOrdinal("Descr")) = False Then txtDescr.Text = sdr.GetString(sdr.GetOrdinal("Descr"))
-                If sdr.IsDBNull(sdr.GetOrdinal("comments")) = False Then txtComments.Text = sdr.GetString(sdr.GetOrdinal("comments"))
-                If sdr.IsDBNull(sdr.GetOrdinal("CusID")) = False Then cboMainCus.Value = sdr.GetGuid(sdr.GetOrdinal("CusID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("FromCusID")) = False Then cboFCus.Value = sdr.GetGuid(sdr.GetOrdinal("FromCusID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("FromCouID")) = False Then cboFCou.Value = sdr.GetGuid(sdr.GetOrdinal("FromCouID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("FromAreaID")) = False Then cboFArea.Value = sdr.GetGuid(sdr.GetOrdinal("FromAreaID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("ToCusID")) = False Then cboTCus.Value = sdr.GetGuid(sdr.GetOrdinal("ToCusID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("ToCouID")) = False Then cboTCou.Value = sdr.GetGuid(sdr.GetOrdinal("ToCouID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("ToAreaID")) = False Then cboTArea.Value = sdr.GetGuid(sdr.GetOrdinal("ToAreaID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("DrvID")) = False Then cboJDRV.Value = sdr.GetGuid(sdr.GetOrdinal("DrvID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("VehID")) = False Then cboJVEH.Value = sdr.GetGuid(sdr.GetOrdinal("VehID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("DrvPrice")) = False Then txtdrvPrice.Text = sdr.GetDecimal(sdr.GetOrdinal("DrvPrice"))
-                If sdr.IsDBNull(sdr.GetOrdinal("temp")) = False Then cboTempType.Value = sdr.GetByte(sdr.GetOrdinal("temp"))
-                If sdr.IsDBNull(sdr.GetOrdinal("cost")) = False Then txtCost.Text = sdr.GetDecimal(sdr.GetOrdinal("cost"))
-                If sdr.IsDBNull(sdr.GetOrdinal("collection")) = False Then txtCollection.Text = sdr.GetDecimal(sdr.GetOrdinal("collection"))
-                If sdr.IsDBNull(sdr.GetOrdinal("dtCreated")) = False Then dtDateCreated.Value = (sdr.GetDateTime(sdr.GetOrdinal("dtCreated")))
-                If sdr.IsDBNull(sdr.GetOrdinal("kg")) = False Then txtKG.Text = sdr.GetDouble(sdr.GetOrdinal("kg"))
-                If sdr.IsDBNull(sdr.GetOrdinal("pal")) = False Then txtPal.Text = sdr.GetInt32(sdr.GetOrdinal("pal"))
-                If sdr.IsDBNull(sdr.GetOrdinal("kola")) = False Then txtKola.Text = sdr.GetInt32(sdr.GetOrdinal("kola"))
-                If sdr.IsDBNull(sdr.GetOrdinal("invoiced")) = False Then chkInvoiced.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("invoiced")) = True, 1, 0)
-                If sdr.IsDBNull(sdr.GetOrdinal("stiID")) = False Then cboSti.Value = sdr.GetGuid(sdr.GetOrdinal("stiID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("paid")) = False Then chkPaid.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("paid")) = True, 1, 0)
-                If sdr.IsDBNull(sdr.GetOrdinal("ispartofsyg")) = False Then
-                    If sdr.GetBoolean(sdr.GetOrdinal("ispartofsyg")) = True And Mode <> FormMode.ViewRecord Then
-                        MessageBox.Show("Δεν μπορείτε να αλλάξετε δρομολόγιο που συμμετέχει σε συγκεντρωτικό τιμολόγιο.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Mode = FormMode.ViewRecord
-                    End If
-
-                End If
-                sdr.Close()
+            If RID <> Nothing Then
+                ID = RID
+            Else
+                ID = Row1.Cells("ID").Value.ToString
             End If
-        Else
-            txtCode.Text = GetNewCode("ROUTES")
+            Dim cmd As OleDbCommand = New OleDbCommand("Select * from ROUTES where id ='" + ID + "'", cn)
+                Dim sdr As OleDbDataReader = cmd.ExecuteReader()
+                If (sdr.Read() = True) Then
+                    If sdr.IsDBNull(sdr.GetOrdinal("code")) = False Then txtCode.Text = sdr.GetInt32(sdr.GetOrdinal("code"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("Descr")) = False Then txtDescr.Text = sdr.GetString(sdr.GetOrdinal("Descr"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("comments")) = False Then txtComments.Text = sdr.GetString(sdr.GetOrdinal("comments"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("CusID")) = False Then cboMainCus.Value = sdr.GetGuid(sdr.GetOrdinal("CusID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("FromCusID")) = False Then cboFCus.Value = sdr.GetGuid(sdr.GetOrdinal("FromCusID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("FromCouID")) = False Then cboFCou.Value = sdr.GetGuid(sdr.GetOrdinal("FromCouID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("FromAreaID")) = False Then cboFArea.Value = sdr.GetGuid(sdr.GetOrdinal("FromAreaID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("ToCusID")) = False Then cboTCus.Value = sdr.GetGuid(sdr.GetOrdinal("ToCusID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("ToCouID")) = False Then cboTCou.Value = sdr.GetGuid(sdr.GetOrdinal("ToCouID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("ToAreaID")) = False Then cboTArea.Value = sdr.GetGuid(sdr.GetOrdinal("ToAreaID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("DrvID")) = False Then cboJDRV.Value = sdr.GetGuid(sdr.GetOrdinal("DrvID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("VehID")) = False Then cboJVEH.Value = sdr.GetGuid(sdr.GetOrdinal("VehID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("DrvPrice")) = False Then txtdrvPrice.Text = sdr.GetDecimal(sdr.GetOrdinal("DrvPrice"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("temp")) = False Then cboTempType.Value = sdr.GetByte(sdr.GetOrdinal("temp"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("cost")) = False Then txtCost.Text = sdr.GetDecimal(sdr.GetOrdinal("cost"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("collection")) = False Then txtCollection.Text = sdr.GetDecimal(sdr.GetOrdinal("collection"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("dtCreated")) = False Then dtDateCreated.Value = (sdr.GetDateTime(sdr.GetOrdinal("dtCreated")))
+                    If sdr.IsDBNull(sdr.GetOrdinal("kg")) = False Then txtKG.Text = sdr.GetDouble(sdr.GetOrdinal("kg"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("pal")) = False Then txtPal.Text = sdr.GetInt32(sdr.GetOrdinal("pal"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("kola")) = False Then txtKola.Text = sdr.GetInt32(sdr.GetOrdinal("kola"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("invoiced")) = False Then chkInvoiced.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("invoiced")) = True, 1, 0)
+                    If sdr.IsDBNull(sdr.GetOrdinal("stiID")) = False Then cboSti.Value = sdr.GetGuid(sdr.GetOrdinal("stiID"))
+                    If sdr.IsDBNull(sdr.GetOrdinal("paid")) = False Then chkPaid.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("paid")) = True, 1, 0)
+                    If sdr.IsDBNull(sdr.GetOrdinal("ispartofsyg")) = False Then
+                        If sdr.GetBoolean(sdr.GetOrdinal("ispartofsyg")) = True And Mode <> FormMode.ViewRecord Then
+                            MessageBox.Show("Δεν μπορείτε να αλλάξετε δρομολόγιο που συμμετέχει σε συγκεντρωτικό τιμολόγιο.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            Mode = FormMode.ViewRecord
+                        End If
+
+                    End If
+                    sdr.Close()
+                End If
+            Else
+                txtCode.Text = GetNewCode("ROUTES")
             ID = System.Guid.NewGuid.ToString()
             dtDateCreated.Value = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
             cmdInvoice.Enabled = False
@@ -731,6 +736,11 @@ Public Class FrmRoute
 
         End Try
     End Sub
+    Public WriteOnly Property RouteID As String
+        Set(value As String)
+            RID = value
+        End Set
+    End Property
 
 
 End Class

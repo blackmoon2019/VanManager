@@ -85,7 +85,7 @@ Partial Class frmCollections
         Me.grpCollections.Controls.Add(Me.grpCheque)
         Me.grpCollections.Location = New System.Drawing.Point(3, 27)
         Me.grpCollections.Name = "grpCollections"
-        Me.grpCollections.Size = New System.Drawing.Size(933, 152)
+        Me.grpCollections.Size = New System.Drawing.Size(1302, 152)
         Me.grpCollections.TabIndex = 168
         Me.grpCollections.Text = "Στοιχεία Είσπραξης"
         Me.grpCollections.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2010
@@ -100,7 +100,7 @@ Partial Class frmCollections
         Me.grpCash.Controls.Add(Me.dtCashDate)
         Me.grpCash.DisabledFormatStyle.BackColor = System.Drawing.Color.Gainsboro
         Me.grpCash.Enabled = False
-        Me.grpCash.Location = New System.Drawing.Point(130, 0)
+        Me.grpCash.Location = New System.Drawing.Point(318, 0)
         Me.grpCash.Name = "grpCash"
         Me.grpCash.Size = New System.Drawing.Size(101, 151)
         Me.grpCash.TabIndex = 185
@@ -158,7 +158,7 @@ Partial Class frmCollections
         '
         Me.chkCheque.BackColor = System.Drawing.Color.Transparent
         Me.chkCheque.CheckedValue = True
-        Me.chkCheque.Location = New System.Drawing.Point(9, 61)
+        Me.chkCheque.Location = New System.Drawing.Point(38, 61)
         Me.chkCheque.Name = "chkCheque"
         Me.chkCheque.Size = New System.Drawing.Size(104, 23)
         Me.chkCheque.TabIndex = 2
@@ -171,7 +171,7 @@ Partial Class frmCollections
         '
         Me.chkDeposit.BackColor = System.Drawing.Color.Transparent
         Me.chkDeposit.CheckedValue = True
-        Me.chkDeposit.Location = New System.Drawing.Point(9, 106)
+        Me.chkDeposit.Location = New System.Drawing.Point(38, 106)
         Me.chkDeposit.Name = "chkDeposit"
         Me.chkDeposit.Size = New System.Drawing.Size(104, 23)
         Me.chkDeposit.TabIndex = 3
@@ -184,7 +184,7 @@ Partial Class frmCollections
         '
         Me.chkcash.BackColor = System.Drawing.Color.Transparent
         Me.chkcash.CheckedValue = True
-        Me.chkcash.Location = New System.Drawing.Point(9, 16)
+        Me.chkcash.Location = New System.Drawing.Point(38, 16)
         Me.chkcash.Name = "chkcash"
         Me.chkcash.Size = New System.Drawing.Size(104, 23)
         Me.chkcash.TabIndex = 1
@@ -205,7 +205,7 @@ Partial Class frmCollections
         Me.grpDeposit.Controls.Add(Me.Label13)
         Me.grpDeposit.DisabledFormatStyle.BackColor = System.Drawing.Color.Gainsboro
         Me.grpDeposit.Enabled = False
-        Me.grpDeposit.Location = New System.Drawing.Point(580, 0)
+        Me.grpDeposit.Location = New System.Drawing.Point(768, 0)
         Me.grpDeposit.Name = "grpDeposit"
         Me.grpDeposit.Size = New System.Drawing.Size(103, 151)
         Me.grpDeposit.TabIndex = 178
@@ -289,7 +289,7 @@ Partial Class frmCollections
         Me.grpCheque.Controls.Add(Me.Label8)
         Me.grpCheque.DisabledFormatStyle.BackColor = System.Drawing.Color.Gainsboro
         Me.grpCheque.Enabled = False
-        Me.grpCheque.Location = New System.Drawing.Point(350, 0)
+        Me.grpCheque.Location = New System.Drawing.Point(538, 0)
         Me.grpCheque.Name = "grpCheque"
         Me.grpCheque.Size = New System.Drawing.Size(105, 151)
         Me.grpCheque.TabIndex = 172
@@ -375,7 +375,7 @@ Partial Class frmCollections
         Me.cboBank.SelectedIndex = -1
         Me.cboBank.SelectedItem = Nothing
         Me.cboBank.SettingsKey = "cboMainCus"
-        Me.cboBank.Size = New System.Drawing.Size(305, 20)
+        Me.cboBank.Size = New System.Drawing.Size(561, 20)
         Me.cboBank.TabIndex = 0
         Me.cboBank.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.cboBank.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
@@ -400,9 +400,9 @@ Partial Class frmCollections
         Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.Control
-        Me.Label1.Location = New System.Drawing.Point(3, 440)
+        Me.Label1.Location = New System.Drawing.Point(3, 547)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(933, 19)
+        Me.Label1.Size = New System.Drawing.Size(1302, 19)
         Me.Label1.TabIndex = 177
         Me.Label1.Text = "Εισπράξεις"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -417,7 +417,7 @@ Partial Class frmCollections
         Me.Label2.ForeColor = System.Drawing.SystemColors.Control
         Me.Label2.Location = New System.Drawing.Point(1, -2)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(937, 26)
+        Me.Label2.Size = New System.Drawing.Size(1306, 26)
         Me.Label2.TabIndex = 188
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -437,7 +437,7 @@ Partial Class frmCollections
         Me.GridINV.Name = "GridINV"
         Me.GridINV.RecordNavigator = True
         Me.GridINV.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridINV.Size = New System.Drawing.Size(933, 260)
+        Me.GridINV.Size = New System.Drawing.Size(1302, 367)
         Me.GridINV.TabIndex = 189
         Me.GridINV.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
         '
@@ -453,11 +453,11 @@ Partial Class frmCollections
         Me.colGRID.FilterRowButtonStyle = Janus.Windows.GridEX.FilterRowButtonStyle.None
         Me.colGRID.FilterRowUpdateMode = Janus.Windows.GridEX.FilterRowUpdateMode.WhenValueChanges
         Me.colGRID.GroupByBoxVisible = False
-        Me.colGRID.Location = New System.Drawing.Point(3, 459)
+        Me.colGRID.Location = New System.Drawing.Point(3, 566)
         Me.colGRID.Name = "colGRID"
         Me.colGRID.RecordNavigator = True
         Me.colGRID.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.colGRID.Size = New System.Drawing.Size(933, 139)
+        Me.colGRID.Size = New System.Drawing.Size(1302, 139)
         Me.colGRID.TabIndex = 187
         Me.colGRID.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
         '
@@ -465,7 +465,7 @@ Partial Class frmCollections
         '
         Me.cmdExit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdExit.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdExit.Location = New System.Drawing.Point(780, 604)
+        Me.cmdExit.Location = New System.Drawing.Point(1149, 711)
         Me.cmdExit.Name = "cmdExit"
         Me.cmdExit.Size = New System.Drawing.Size(75, 23)
         Me.cmdExit.TabIndex = 13
@@ -475,7 +475,7 @@ Partial Class frmCollections
         'cmdSave
         '
         Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSave.Location = New System.Drawing.Point(861, 604)
+        Me.cmdSave.Location = New System.Drawing.Point(1230, 711)
         Me.cmdSave.Name = "cmdSave"
         Me.cmdSave.Size = New System.Drawing.Size(75, 23)
         Me.cmdSave.TabIndex = 12
@@ -485,7 +485,7 @@ Partial Class frmCollections
         'cmdPrint
         '
         Me.cmdPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdPrint.Location = New System.Drawing.Point(699, 604)
+        Me.cmdPrint.Location = New System.Drawing.Point(1068, 711)
         Me.cmdPrint.Name = "cmdPrint"
         Me.cmdPrint.Size = New System.Drawing.Size(75, 23)
         Me.cmdPrint.TabIndex = 190
@@ -497,7 +497,7 @@ Partial Class frmCollections
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.cmdExit
-        Me.ClientSize = New System.Drawing.Size(940, 634)
+        Me.ClientSize = New System.Drawing.Size(1309, 741)
         Me.Controls.Add(Me.cmdPrint)
         Me.Controls.Add(Me.GridINV)
         Me.Controls.Add(Me.colGRID)

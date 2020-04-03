@@ -243,7 +243,7 @@ Public Class frmCollections
                 If row.Cells("checked").Value = True Then TotalInv = TotalInv + row.Cells("gentot").Value
             End If
         Next
-        If TotalCol > TotalInv Then Return True Else Return False
+        If TotalCol > Math.Round(TotalInv, 2) Then Return True Else Return False
     End Function
 
     Private Sub chkcash_CheckedChanged(sender As Object, e As EventArgs) Handles chkcash.CheckedChanged
@@ -381,6 +381,8 @@ Public Class frmCollections
             .Columns("gentot").TextAlignment = TextAlignment.Far
             .Columns("ypol").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("ypol").TotalFormatString = "c" 'Currency
             .Columns("ypol").TextAlignment = TextAlignment.Far
+            .Columns("COLS").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("COLS").TotalFormatString = "c" 'Currency
+            .Columns("COLS").TextAlignment = TextAlignment.Far
         End With
         GridINV.TotalRowFormatStyle.BackColor = System.Drawing.Color.LightSteelBlue
         GridINV.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
@@ -498,6 +500,11 @@ Public Class frmCollections
             .Columns("holloprice").Visible = False
             .Columns("descr").Visible = False
             .Columns("docnumber").Visible = False
+            .Columns("MainCusID").Visible = False
+            .Columns("cusInvPrevBalance").Visible = False
+            .Columns("cusInvbalance").Visible = False
+            .Columns("invhsygid").Visible = False
+
             'Χρώματα
             Dim style1 = New Janus.Windows.GridEX.GridEXFormatStyle()
             Dim style2 = New Janus.Windows.GridEX.GridEXFormatStyle()
@@ -686,12 +693,14 @@ Public Class frmCollections
         If AlreadyPrinted Then
             If MessageBox.Show("Να γίνει επανεκτύπωση της είσπραξης?", "VanManager", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                 frmCollection.Mode = Mode
+                frmCollection.ISALREADYPRINTED = True
                 frmCollection.COLID = Colid
                 frmCollection.Show()
             End If
         Else
             If MessageBox.Show("Να γίνει εκτύπωση της είσπραξης?", "VanManager", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                 frmCollection.Mode = Mode
+                frmCollection.ISALREADYPRINTED = False
                 frmCollection.COLID = Colid
                 frmCollection.Show()
             End If

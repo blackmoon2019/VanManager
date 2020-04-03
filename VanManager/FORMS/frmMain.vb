@@ -564,15 +564,18 @@ Public Class frmMain
             Dim sFileName As String
             sFileName = saveDialog.FileName
             GridEXExporter1.ExportMode = Janus.Windows.GridEX.ExportMode.AllRows
+
             GridEXExporter1.IncludeChildTables = False
             GridEXExporter1.IncludeCollapsedRows = True
             GridEXExporter1.IncludeFormatStyle = True
             GridEXExporter1.IncludeHeaders = True
             GridEXExporter1.IncludeExcelProcessingInstruction = True
             GridEXExporter1.SheetName = "Project DashBoard"
-            Dim fs As New System.IO.FileStream(sFileName, System.IO.FileMode.Create)
-            GridEXExporter1.Export(fs)
-            fs.Close()
+            Using st As New IO.FileStream(sFileName, IO.FileMode.Create, IO.FileAccess.Write, IO.FileShare.None)
+                'Dim fs As New System.IO.FileStream(sFileName, System.IO.FileMode.Create)
+                GridEXExporter1.Export(st)
+                st.Close()
+            End Using
             Process.Start(sFileName)
 
             filep = saveDialog.FileName
@@ -606,6 +609,7 @@ Public Class frmMain
         Select Case sMenu
             Case 0 : Me.cmdInv.Show(GridMain)
             Case 1 : Me.cmdFilters.Show(GridMain)
+            Case 2 : Me.cmdCellChoices.Show(GridMain)
         End Select
 
         mContextMenuColumn = Nothing
@@ -820,6 +824,21 @@ Public Class frmMain
             Case "FChoice" : OnFilterWithSelection()
             Case "FWChoice" : OnFilterWithoutSelection()
             Case "FDefault" : ColWithoutSelection = "" : ColWithSelection = "" : RefreshRecords()
+            Case "cmdRoutes"
+                Dim FRMS As New Form
+                Dim Row1 As Janus.Windows.GridEX.GridEXRow
+                Row1 = GridMain.CurrentRow
+                FRMS = frmGrid
+                If GridMain.Tag = "SYG_INV" Then
+                    frmGrid.SYGHID = Row1.Cells("ID").Value.ToString()
+                Else
+                    frmGrid.INVHID = Row1.Cells("ID").Value.ToString()
+                End If
+
+
+                FRMS.Owner = Me
+                FRMS.Show()
+
         End Select
     End Sub
     Private Sub OnFilterWithSelection()
@@ -1014,9 +1033,7 @@ Public Class frmMain
                 End If
             ElseIf GridMain.HitTest(e.X, e.Y) = GridArea.Cell And (GridMain.Tag = "INV" Or GridMain.Tag = "SYG_INV") Then
                 Dim colClicked As GridEXColumn = GridMain.ColumnFromPoint(e.X, e.Y)
-                If Not colClicked Is Nothing Then
-                    Me.ShowCellMenu(colClicked, 0)
-                End If
+                If Not colClicked Is Nothing Then Me.ShowCellMenu(colClicked, 2)
             Else
                 Dim colClicked As GridEXColumn = GridMain.ColumnFromPoint(e.X, e.Y)
                 If Not colClicked Is Nothing Then Me.ShowCellMenu(colClicked, 1)
