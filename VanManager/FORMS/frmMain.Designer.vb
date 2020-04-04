@@ -37,6 +37,7 @@ Partial Class frmMain
         Dim BBMain_Item_1_0 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_1_1 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_1_2 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
+        Dim BBMain_Item_1_3 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Group_2 As Janus.Windows.ButtonBar.ButtonBarGroup = New Janus.Windows.ButtonBar.ButtonBarGroup()
         Dim BBMain_Item_2_0 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_2_1 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
@@ -108,6 +109,7 @@ Partial Class frmMain
         Me.FChoice = New Janus.Windows.UI.CommandBars.UICommand("FChoice")
         Me.FWChoice = New Janus.Windows.UI.CommandBars.UICommand("FWChoice")
         Me.FDefault = New Janus.Windows.UI.CommandBars.UICommand("FDefault")
+        Me.cmdRoutes = New Janus.Windows.UI.CommandBars.UICommand("cmdRoutes")
         Me.cmdInv = New Janus.Windows.UI.CommandBars.UIContextMenu()
         Me.cmdAkirotiko1 = New Janus.Windows.UI.CommandBars.UICommand("cmdAkirotiko")
         Me.cmdFilters = New Janus.Windows.UI.CommandBars.UIContextMenu()
@@ -117,12 +119,11 @@ Partial Class frmMain
         Me.cmdCellChoices = New Janus.Windows.UI.CommandBars.UIContextMenu()
         Me.Separator1 = New Janus.Windows.UI.CommandBars.UICommand("Separator")
         Me.cmdAkirotiko2 = New Janus.Windows.UI.CommandBars.UICommand("cmdAkirotiko")
+        Me.cmdRoutes1 = New Janus.Windows.UI.CommandBars.UICommand("cmdRoutes")
         Me.UiRebar3 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiRebar4 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiRebar1 = New Janus.Windows.UI.CommandBars.UIRebar()
         Me.UiPanelManager1 = New Janus.Windows.UI.Dock.UIPanelManager(Me.components)
-        Me.cmdRoutes = New Janus.Windows.UI.CommandBars.UICommand("cmdRoutes")
-        Me.cmdRoutes1 = New Janus.Windows.UI.CommandBars.UICommand("cmdRoutes")
         CType(Me.comManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BottomRebar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmHeader, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -432,7 +433,10 @@ Partial Class frmMain
         BBMain_Item_1_2.Image = CType(resources.GetObject("BBMain_Item_1_2.Image"), System.Drawing.Image)
         BBMain_Item_1_2.Key = "COL"
         BBMain_Item_1_2.Text = "Εισπράξεις"
-        BBMain_Group_1.Items.AddRange(New Janus.Windows.ButtonBar.ButtonBarItem() {BBMain_Item_1_0, BBMain_Item_1_1, BBMain_Item_1_2})
+        BBMain_Item_1_3.Image = CType(resources.GetObject("BBMain_Item_1_3.Image"), System.Drawing.Image)
+        BBMain_Item_1_3.Key = "TRANS"
+        BBMain_Item_1_3.Text = "Καρτέλλα"
+        BBMain_Group_1.Items.AddRange(New Janus.Windows.ButtonBar.ButtonBarItem() {BBMain_Item_1_0, BBMain_Item_1_1, BBMain_Item_1_2, BBMain_Item_1_3})
         BBMain_Group_1.Key = "grdInvoices"
         BBMain_Group_1.Text = "Τιμολόγηση"
         BBMain_Item_2_0.Image = CType(resources.GetObject("BBMain_Item_2_0.Image"), System.Drawing.Image)
@@ -487,7 +491,7 @@ Partial Class frmMain
         Me.BBMain.Location = New System.Drawing.Point(0, 144)
         Me.BBMain.Name = "BBMain"
         Me.BBMain.ShadowOnHover = True
-        Me.BBMain.Size = New System.Drawing.Size(131, 368)
+        Me.BBMain.Size = New System.Drawing.Size(131, 370)
         Me.BBMain.TabIndex = 9
         Me.BBMain.Text = "ButtonBar1"
         Me.BBMain.VisualStyle = Janus.Windows.ButtonBar.VisualStyle.Office2010
@@ -533,7 +537,7 @@ Partial Class frmMain
         Me.GridMain.Name = "GridMain"
         Me.GridMain.RecordNavigator = True
         Me.GridMain.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridMain.Size = New System.Drawing.Size(1139, 362)
+        Me.GridMain.Size = New System.Drawing.Size(1139, 364)
         Me.GridMain.TabIndex = 15
         Me.GridMain.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
         '
@@ -727,6 +731,12 @@ Partial Class frmMain
         Me.FDefault.Name = "FDefault"
         Me.FDefault.Text = "Αφαίρεση φίλτρων"
         '
+        'cmdRoutes
+        '
+        Me.cmdRoutes.Key = "cmdRoutes"
+        Me.cmdRoutes.Name = "cmdRoutes"
+        Me.cmdRoutes.Text = "Εμφάνιση Δρομολογίων"
+        '
         'cmdInv
         '
         Me.cmdInv.CommandManager = Me.comManager2
@@ -776,6 +786,11 @@ Partial Class frmMain
         Me.cmdAkirotiko2.Key = "cmdAkirotiko"
         Me.cmdAkirotiko2.Name = "cmdAkirotiko2"
         '
+        'cmdRoutes1
+        '
+        Me.cmdRoutes1.Key = "cmdRoutes"
+        Me.cmdRoutes1.Name = "cmdRoutes1"
+        '
         'UiRebar3
         '
         Me.UiRebar3.CommandManager = Me.comManager2
@@ -804,22 +819,11 @@ Partial Class frmMain
         '
         Me.UiPanelManager1.ContainerControl = Me
         '
-        'cmdRoutes
-        '
-        Me.cmdRoutes.Key = "cmdRoutes"
-        Me.cmdRoutes.Name = "cmdRoutes"
-        Me.cmdRoutes.Text = "Εμφάνιση Δρομολογίων"
-        '
-        'cmdRoutes1
-        '
-        Me.cmdRoutes1.Key = "cmdRoutes"
-        Me.cmdRoutes1.Name = "cmdRoutes1"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1276, 512)
+        Me.ClientSize = New System.Drawing.Size(1276, 514)
         Me.Controls.Add(Me.GridMain)
         Me.Controls.Add(Me.grpSearch)
         Me.Controls.Add(Me.UiGroupBox1)

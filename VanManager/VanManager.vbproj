@@ -311,6 +311,12 @@
     <Compile Include="FORMS\frmSygInvoices.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FORMS\frmTransactions.Designer.vb">
+      <DependentUpon>frmTransactions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\frmTransactions.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FORMS\frmVeh.Designer.vb">
       <DependentUpon>frmVeh.vb</DependentUpon>
     </Compile>
@@ -335,10 +341,10 @@
     <Compile Include="FORMS\frmUSERS.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGrid.Designer.vb">
+    <Compile Include="FORMS\frmGrid.Designer.vb">
       <DependentUpon>frmGrid.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmGrid.vb">
+    <Compile Include="FORMS\frmGrid.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MODULES\Main.vb" />
@@ -453,6 +459,9 @@
     <EmbeddedResource Include="FORMS\frmSygInvoices.resx">
       <DependentUpon>frmSygInvoices.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\frmTransactions.resx">
+      <DependentUpon>frmTransactions.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMS\frmVeh.resx">
       <DependentUpon>frmVeh.vb</DependentUpon>
     </EmbeddedResource>
@@ -465,7 +474,7 @@
     <EmbeddedResource Include="FORMS\frmUSERS.resx">
       <DependentUpon>frmUSERS.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGrid.resx">
+    <EmbeddedResource Include="FORMS\frmGrid.resx">
       <DependentUpon>frmGrid.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
@@ -489,7 +498,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\icons8-microsoft-excel-2019-40.png" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

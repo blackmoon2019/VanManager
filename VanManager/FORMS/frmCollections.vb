@@ -11,6 +11,7 @@ Public Class frmCollections
     Private GROUPFIELD As String
     Private GROUPVALUE As String
     Private AlreadyPrinted As Boolean = False
+    Private CID As String
 
     Private Sub frmCollections_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim Ssql As String
@@ -37,8 +38,14 @@ Public Class frmCollections
             '    sSQL = "Select * from [vw_COL]  inner join vw_INVOICES VI on vi.id = vw_COL.invhid " &
             '            "where " & GROUPFIELD & " = '" + GROUPVALUE + "'"
             'Else
-            If GROUPFIELD = "" Then Colid = Row1.Cells("ID").Value.ToString
-            sSQL = "Select * from [COLH]   where id ='" + Colid + "'"
+            If GROUPFIELD = "" Then
+                If CID <> Nothing Then
+                    Colid = CID
+                Else
+                    Colid = Row1.Cells("ID").Value.ToString
+                End If
+            End If
+            Ssql = "Select * from [COLH]   where id ='" + Colid + "'"
             'End If
 
             Dim cmd As OleDbCommand = New OleDbCommand(sSQL, cn)
@@ -754,4 +761,10 @@ Public Class frmCollections
     Private Sub colGRID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles colGRID.KeyPress
         If e.KeyChar = "." Then e.Handled = True
     End Sub
+    Public WriteOnly Property COLHID As String
+        Set(value As String)
+            CID = value
+        End Set
+    End Property
+
 End Class

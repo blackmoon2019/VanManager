@@ -41,6 +41,7 @@ Public Class frmMain
         USERS = 26
         STS = 27
         FPA = 28
+        TRANS = 29
     End Enum
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UDLStr = Application.StartupPath & "\UDL\van.udl"
@@ -698,6 +699,12 @@ Public Class frmMain
             Case "USERS" : grpSearch.Visible = False : Frm = FormName.USERS : GridMain.Tag = "USERS" : FillJanusGrid("USERS")
             Case "STS" : grpSearch.Visible = False : Frm = FormName.STS : GridMain.Tag = "STS" : FillJanusGrid("STS")
             Case "FPA" : grpSearch.Visible = False : Frm = FormName.FPA : GridMain.Tag = "FPA" : FillJanusGrid("FPA")
+            Case "TRANS" : grpSearch.Visible = False : Frm = FormName.TRANS : GridMain.Tag = "TRANS"
+                Dim FRMS As New Form
+                FRMS = frmTransactions
+                FRMS.Owner = Me
+                FRMS.Show()
+
         End Select
         Select Case Frm
             Case FormName.HLP_ROUTES, FormName.PARD, FormName.ES
