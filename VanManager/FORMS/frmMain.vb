@@ -704,7 +704,7 @@ Public Class frmMain
                 FRMS = frmTransactions
                 FRMS.Owner = Me
                 FRMS.Show()
-
+                Exit Sub
         End Select
         Select Case Frm
             Case FormName.HLP_ROUTES, FormName.PARD, FormName.ES
@@ -830,7 +830,20 @@ Public Class frmMain
             Case "cmdAkirotiko" : OnEkdosiAkirotikou()
             Case "FChoice" : OnFilterWithSelection()
             Case "FWChoice" : OnFilterWithoutSelection()
-            Case "FDefault" : ColWithoutSelection = "" : ColWithSelection = "" : RefreshRecords()
+            Case "FDefault" : ColWithoutSelection = "" : ColWithSelection = ""  'RefreshRecords()
+                Select Case GridMain.Tag
+                    Case "ES", "ROUTES", "HLP_ROUTES", "EX"
+                        ColWithSelection = "dtcreated >= #" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "# and dtcreated <= #" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "#  "
+                    Case "INV", "SYG_INV"
+                        ColWithSelection = "invdate >= #" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "# and invdate <= #" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "#  "
+                End Select
+
+                Dim FilteredRows As DataRow() = TB.Select(ColWithSelection)
+                If (FilteredRows.Any()) Then
+                    GridMain.DataSource = FilteredRows.CopyToDataTable()
+                Else
+                    GridMain.DataSource = Nothing
+                End If
             Case "cmdRoutes"
                 Dim FRMS As New Form
                 Dim Row1 As Janus.Windows.GridEX.GridEXRow

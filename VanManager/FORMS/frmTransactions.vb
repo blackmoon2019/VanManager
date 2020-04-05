@@ -1,14 +1,18 @@
 ﻿Imports System.Data.OleDb
 Imports Janus.Windows.GridEX
+Imports Janus.Windows.UI.CommandBars
 
 Public Class frmTransactions
     Private dtd As DataTable
     Private ID As String
     Public Mode As Byte
+    Private TB As DataTable
     Private bs1 As New BindingSource
     Private adapter As New OleDb.OleDbDataAdapter
     Private mContextMenuColumn As GridEXColumn
     Private fieldChoser As frmFieldChooser
+    Private ColWithoutSelection As String
+    Private ColWithSelection As String
     Private Sub frmSygInvoices_Load(sender As Object, e As EventArgs) Handles Me.Load
         Call FillJanuscboCUS(cboMainCus, "SYG = 1")  ' Πελάτες
         Call LoadLayout()
@@ -54,7 +58,7 @@ Public Class frmTransactions
         End If
     End Sub
     Private Sub cboMainCus_ValueChanged(sender As Object, e As EventArgs) Handles cboMainCus.ValueChanged
-        grpSearch.Enabled = True
+        'grpSearch.Enabled = True
         Call FillJanusGridWithRecords()
     End Sub
     Private Sub FillJanusGridWithRecords()
@@ -63,50 +67,50 @@ Public Class frmTransactions
         table.Columns.Clear()
         GridMain.DataSource = Nothing
         table.Clear()
-        If Not cboMainCus.SelectedItem Is Nothing Then
-            adapter.SelectCommand = New OleDb.OleDbCommand("SELECT  '1' as sKey, id ,'AΠΛΟ' as InvType,Seira,  invdate,  MainCusFullname,  kAxia,  fpacost,  gentot,  COLS,  paid, 
+        adapter.SelectCommand = New OleDb.OleDbCommand("SELECT  '1' as sKey, id ,(SELECT NAME FROM SDT_TYPES WHERE CODE = 1) AS InvType ,Seira,  invdate,  MainCusFullname,  kAxia,  fpacost,  gentot,  COLS,  paid, 
                                                                     ypol,  MAINCUSPrfName,  MAINCusAFM,  MAINCUSAddress,  MAINCUSDoyname,idakiromeno,RouteID
-                                                            FROM  dbo.vw_INVOICES where MainCusID = " & boSQLValuej(cboMainCus) &
-                                                            "AND invhsygid IS NULL and invdate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and invdate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'" &
-                                                            "union " &
-                                                            "Select '2' as sKey, id , 'ΣΥΓΚΕΝΤΡΩΤΙΚΟ' as InvType,Seira,  invdate,  MainCusFullname,  kAxia,  fpacost,  gentot,  COLS,  paid, 
+                                                            FROM  dbo.vw_INVOICES where " & IIf(Not cboMainCus.SelectedItem Is Nothing, "  MainCusID = " & boSQLValuej(cboMainCus) & "AND ", "") &
+                                                        "invhsygid IS NULL and invdate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and invdate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'" &
+                                                        "union " &
+                                                        "Select '2' as sKey, id , (SELECT NAME FROM SDT_TYPES WHERE CODE = 2) AS InvType,Seira,  invdate,  MainCusFullname,  kAxia,  fpacost,  gentot,  COLS,  paid, 
                                                                    ypol,  MAINCUSPrfName,  MAINCusAFM,  MAINCUSAddress,  MAINCUSDoyname,idakiromeno,RouteID
-                                                            from   dbo.vw_INVOICESSYG where MainCusID  = " & boSQLValuej(cboMainCus) &
-                                                            "and invdate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and invdate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'" &
-                                                            "union " &
-                                                            "select '3' as sKey, id ,'ΕΙΣΠΡΑΞΗ' as InvType,dosname as Seira,  paydate as invdate,  MainCusFullname,  0 as kAxia,  0 as fpacost,  
+                                                            from   dbo.vw_INVOICESSYG where " & IIf(Not cboMainCus.SelectedItem Is Nothing, "  MainCusID = " & boSQLValuej(cboMainCus) & "AND ", "") &
+                                                        " invdate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and invdate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'" &
+                                                        "union " &
+                                                        "select '3' as sKey, id ,(SELECT NAME FROM SDT_TYPES WHERE CODE = 3) AS InvType ,dosname as Seira,  paydate as invdate,  MainCusFullname,  0 as kAxia,  0 as fpacost,  
 	                                                               total * (-1) as gentot,  0 as COLS,  0 as paid, 0 as ypol,  MAINCUSPrfName,  MAINCusAFM,  
 	                                                               MAINCUSAddress,  MAINCUSDoyname , NULL AS idakiromeno,null as RouteID
-                                                            From vw_col Where MainCusID = " & boSQLValuej(cboMainCus) &
-                                                            "and paydate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and paydate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'", cn)
+                                                            From vw_col Where " & IIf(Not cboMainCus.SelectedItem Is Nothing, "  MainCusID = " & boSQLValuej(cboMainCus) & "AND ", "") &
+                                                        " paydate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and paydate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'", cn)
 
-            adapter.Fill(table)
-            bs1.DataSource = table
-            GridMain.SetDataBinding(table, "")
-            GridMain.RetrieveStructure()
-            GridMain.FilterMode = FilterMode.Automatic
-            GridMain.FilterRowButtonStyle = FilterRowButtonStyle.ConditionOperatorDropDown
-            With GridMain.RootTable
-                .Columns("id").Visible = False
-                .Columns("sKey").Visible = False
-            End With
-            Call LoadLayout()
-            Call AddConditionalFormatting()
 
-            For Each column As DataColumn In table.Columns
-                Select Case column.DataType.Name.ToString()
-                    Case "Decimal"
-                        'Γραμμή Συνόλων
-                        GridMain.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True
-                        GridMain.RootTable.Columns(column.ColumnName).AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum
-                        GridMain.RootTable.Columns(column.ColumnName).TotalFormatString = "c" 'Currency
-                        GridMain.RootTable.Columns(column.ColumnName).TextAlignment = TextAlignment.Far
-                        GridMain.TotalRowFormatStyle.BackColor = System.Drawing.Color.LightSteelBlue
-                        GridMain.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
-                        GridMain.TotalRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-                End Select
-            Next
-        End If
+        adapter.Fill(table) : TB = table
+        bs1.DataSource = table
+        GridMain.SetDataBinding(table, "")
+        GridMain.RetrieveStructure()
+        GridMain.FilterMode = FilterMode.Automatic
+        GridMain.FilterRowButtonStyle = FilterRowButtonStyle.ConditionOperatorDropDown
+        With GridMain.RootTable
+            .Columns("id").Visible = False
+            .Columns("sKey").Visible = False
+        End With
+        Call LoadLayout()
+        Call AddConditionalFormatting()
+
+        For Each column As DataColumn In table.Columns
+            Select Case column.DataType.Name.ToString()
+                Case "Decimal"
+                    'Γραμμή Συνόλων
+                    GridMain.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True
+                    GridMain.RootTable.Columns(column.ColumnName).AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum
+                    GridMain.RootTable.Columns(column.ColumnName).TotalFormatString = "c" 'Currency
+                    GridMain.RootTable.Columns(column.ColumnName).TextAlignment = TextAlignment.Far
+                    GridMain.TotalRowFormatStyle.BackColor = System.Drawing.Color.LightSteelBlue
+                    GridMain.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
+                    GridMain.TotalRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            End Select
+        Next
+
     End Sub
     Private Sub AddConditionalFormatting()
         'Imports Janus.Windows.GridEX is used in this module
@@ -135,13 +139,23 @@ Public Class frmTransactions
     End Sub
     Private Sub GridMain_MouseUp(sender As Object, e As MouseEventArgs) Handles GridMain.MouseUp
         If e.Button = System.Windows.Forms.MouseButtons.Right Then
+            Dim colClicked As GridEXColumn = GridMain.ColumnFromPoint(e.X, e.Y)
             If GridMain.HitTest(e.X, e.Y) = GridArea.ColumnHeader Then
-                Dim colClicked As GridEXColumn = GridMain.ColumnFromPoint(e.X, e.Y)
                 If Not colClicked Is Nothing Then
                     Me.ShowHeaderMenu(colClicked)
                 End If
+            Else
+                If Not colClicked Is Nothing Then Me.ShowCellMenu(colClicked, 1)
             End If
         End If
+
+    End Sub
+    Private Sub ShowCellMenu(ByVal column As GridEXColumn, ByVal sMenu As Byte)
+        Select Case sMenu
+            Case 1 : Me.cmdFilters.Show(GridMain)
+        End Select
+
+        mContextMenuColumn = Nothing
     End Sub
     Private Sub ShowHeaderMenu(ByVal column As GridEXColumn)
 
@@ -184,14 +198,6 @@ Public Class frmTransactions
         End If
     End Sub
 
-    Private Sub comManager_CommandClick(sender As Object, e As Janus.Windows.UI.CommandBars.CommandEventArgs) Handles comManager.CommandClick
-        Select Case e.Command.Key
-            Case "cmdRemoveThisColumn" : OnRemoveThisColumnCommand()
-            Case "cmdFieldChooser" : OnFieldChooserCommand()
-            Case "cmdSaveLayout" : SaveGrid()
-            Case Else
-        End Select
-    End Sub
     Private Sub SaveGrid()
         Dim strLayoutPath As String
         strLayoutPath = Application.StartupPath & "\LayOuts\GridMainTRANS.gxl"
@@ -254,5 +260,65 @@ Public Class frmTransactions
             Case "3" : frmCollection.COLID = Row1.Cells("id").Value.ToString() : FRMS = frmCollection : FRMS.Owner = Me : FRMS.Show()
         End Select
 
+    End Sub
+    Private Sub OnFilterWithSelection()
+        Dim Row1 As Janus.Windows.GridEX.GridEXRow
+        Dim Col As GridEXColumn
+        Try
+            Row1 = GridMain.CurrentRow
+            Col = GridMain.CurrentColumn
+            If ColWithSelection = "" Then
+                ColWithSelection = "invdate >= #" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "# and invdate <= #" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "#  "
+            End If
+            ColWithSelection = ColWithSelection & IIf(ColWithSelection <> Nothing, " and ", "") & Col.DataMember & " = '" & Row1.Cells(Col.DataMember).Value.ToString() & "'"
+
+            Dim FilteredRows As DataRow() = TB.Select(ColWithSelection)
+            If (FilteredRows.Any()) Then
+                GridMain.DataSource = FilteredRows.CopyToDataTable()
+            Else
+                GridMain.DataSource = Nothing
+            End If
+        Catch exc As Exception
+            MessageBox.Show(exc.Message)
+        End Try
+
+    End Sub
+    Private Sub OnFilterWithoutSelection()
+        Dim Row1 As Janus.Windows.GridEX.GridEXRow
+        Dim Col As GridEXColumn
+        Try
+            Row1 = GridMain.CurrentRow
+            Col = GridMain.CurrentColumn
+            If ColWithoutSelection = "" Then
+                ColWithoutSelection = "invdate >= #" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "# and invdate <= #" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "#  "
+            End If
+            ColWithoutSelection = ColWithoutSelection & IIf(ColWithoutSelection <> Nothing, " and ", "") & Col.DataMember & " <> '" & Row1.Cells(Col.DataMember).Value.ToString() & "'"
+
+            Dim FilteredRows As DataRow() = TB.Select(ColWithoutSelection)
+            If (FilteredRows.Any()) Then
+                GridMain.DataSource = FilteredRows.CopyToDataTable()
+            Else
+                GridMain.DataSource = Nothing
+            End If
+        Catch exc As Exception
+            MessageBox.Show(exc.Message)
+        End Try
+
+    End Sub
+
+    Private Sub comManager2_CommandClick(sender As Object, e As CommandEventArgs) Handles comManager2.CommandClick
+        Select Case e.Command.Key
+            Case "FChoice" : OnFilterWithSelection()
+            Case "FWChoice" : OnFilterWithoutSelection()
+            Case "FDefault" : ColWithoutSelection = "" : ColWithSelection = "invdate >= #" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "# and invdate <= #" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "#  "
+                Dim FilteredRows As DataRow() = TB.Select(ColWithSelection)
+                If (FilteredRows.Any()) Then
+                    GridMain.DataSource = FilteredRows.CopyToDataTable()
+                Else
+                    GridMain.DataSource = Nothing
+                End If
+
+            Case Else
+        End Select
     End Sub
 End Class

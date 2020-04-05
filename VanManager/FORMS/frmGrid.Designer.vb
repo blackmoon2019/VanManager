@@ -201,7 +201,7 @@ Partial Class frmGrid
         Me.Controls.Add(Me.TopRebar1)
         Me.Name = "frmGrid"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "frmGrid"
+        Me.Text = "Δρομολόγια"
         CType(Me.GridMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.comManager, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BottomRebar1, System.ComponentModel.ISupportInitialize).EndInit()

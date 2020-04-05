@@ -53,6 +53,20 @@ Partial Class frmTransactions
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmdExcel = New Janus.Windows.EditControls.UIButton()
         Me.GridEXExporter1 = New Janus.Windows.GridEX.Export.GridEXExporter(Me.components)
+        Me.comManager2 = New Janus.Windows.UI.CommandBars.UICommandManager(Me.components)
+        Me.BottomRebar2 = New Janus.Windows.UI.CommandBars.UIRebar()
+        Me.cmdAkirotiko = New Janus.Windows.UI.CommandBars.UICommand("cmdAkirotiko")
+        Me.FChoice = New Janus.Windows.UI.CommandBars.UICommand("FChoice")
+        Me.FWChoice = New Janus.Windows.UI.CommandBars.UICommand("FWChoice")
+        Me.FDefault = New Janus.Windows.UI.CommandBars.UICommand("FDefault")
+        Me.cmdRoutes = New Janus.Windows.UI.CommandBars.UICommand("cmdRoutes")
+        Me.cmdFilters = New Janus.Windows.UI.CommandBars.UIContextMenu()
+        Me.FChoice1 = New Janus.Windows.UI.CommandBars.UICommand("FChoice")
+        Me.FWChoice1 = New Janus.Windows.UI.CommandBars.UICommand("FWChoice")
+        Me.FDefault1 = New Janus.Windows.UI.CommandBars.UICommand("FDefault")
+        Me.LeftRebar2 = New Janus.Windows.UI.CommandBars.UIRebar()
+        Me.RightRebar2 = New Janus.Windows.UI.CommandBars.UIRebar()
+        Me.TopRebar2 = New Janus.Windows.UI.CommandBars.UIRebar()
         CType(Me.grpSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpSearch.SuspendLayout()
         CType(Me.comManager, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,6 +77,12 @@ Partial Class frmTransactions
         CType(Me.TopRebar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridMain, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboMainCus, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.comManager2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BottomRebar2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdFilters, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LeftRebar2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RightRebar2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TopRebar2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cmdSearch
@@ -120,7 +140,6 @@ Partial Class frmTransactions
         Me.grpSearch.Controls.Add(Me.Label4)
         Me.grpSearch.Controls.Add(Me.dtToDate)
         Me.grpSearch.Controls.Add(Me.dtFromDate)
-        Me.grpSearch.Enabled = False
         Me.grpSearch.Image = CType(resources.GetObject("grpSearch.Image"), System.Drawing.Image)
         Me.grpSearch.Location = New System.Drawing.Point(560, 4)
         Me.grpSearch.Name = "grpSearch"
@@ -342,6 +361,104 @@ Partial Class frmTransactions
         '
         Me.GridEXExporter1.GridEX = Me.GridMain
         '
+        'comManager2
+        '
+        Me.comManager2.BottomRebar = Me.BottomRebar2
+        Me.comManager2.Commands.AddRange(New Janus.Windows.UI.CommandBars.UICommand() {Me.cmdAkirotiko, Me.FChoice, Me.FWChoice, Me.FDefault, Me.cmdRoutes})
+        Me.comManager2.ContainerControl = Me
+        Me.comManager2.ContextMenus.AddRange(New Janus.Windows.UI.CommandBars.UIContextMenu() {Me.cmdFilters})
+        '
+        '
+        '
+        Me.comManager2.EditContextMenu.Key = ""
+        Me.comManager2.Id = New System.Guid("c9d49d23-0add-4b8f-a155-4df3ea54ff10")
+        Me.comManager2.LeftRebar = Me.LeftRebar2
+        Me.comManager2.RightRebar = Me.RightRebar2
+        Me.comManager2.TopRebar = Me.TopRebar2
+        '
+        'BottomRebar2
+        '
+        Me.BottomRebar2.CommandManager = Me.comManager2
+        Me.BottomRebar2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.BottomRebar2.Location = New System.Drawing.Point(0, 0)
+        Me.BottomRebar2.Name = "BottomRebar2"
+        Me.BottomRebar2.Size = New System.Drawing.Size(0, 0)
+        '
+        'cmdAkirotiko
+        '
+        Me.cmdAkirotiko.Key = "cmdAkirotiko"
+        Me.cmdAkirotiko.Name = "cmdAkirotiko"
+        Me.cmdAkirotiko.Text = "Έκδοση Ακυρωτικού"
+        '
+        'FChoice
+        '
+        Me.FChoice.Key = "FChoice"
+        Me.FChoice.Name = "FChoice"
+        Me.FChoice.Text = "Φίλτρο με επιλογή"
+        '
+        'FWChoice
+        '
+        Me.FWChoice.Key = "FWChoice"
+        Me.FWChoice.Name = "FWChoice"
+        Me.FWChoice.Text = "Φίλτρο με εξαίρεση"
+        '
+        'FDefault
+        '
+        Me.FDefault.Key = "FDefault"
+        Me.FDefault.Name = "FDefault"
+        Me.FDefault.Text = "Αφαίρεση φίλτρων"
+        '
+        'cmdRoutes
+        '
+        Me.cmdRoutes.Key = "cmdRoutes"
+        Me.cmdRoutes.Name = "cmdRoutes"
+        Me.cmdRoutes.Text = "Εμφάνιση Δρομολογίων"
+        '
+        'cmdFilters
+        '
+        Me.cmdFilters.CommandManager = Me.comManager2
+        Me.cmdFilters.Commands.AddRange(New Janus.Windows.UI.CommandBars.UICommand() {Me.FChoice1, Me.FWChoice1, Me.FDefault1})
+        Me.cmdFilters.Key = "cmdFilters"
+        '
+        'FChoice1
+        '
+        Me.FChoice1.Key = "FChoice"
+        Me.FChoice1.Name = "FChoice1"
+        '
+        'FWChoice1
+        '
+        Me.FWChoice1.Key = "FWChoice"
+        Me.FWChoice1.Name = "FWChoice1"
+        '
+        'FDefault1
+        '
+        Me.FDefault1.Key = "FDefault"
+        Me.FDefault1.Name = "FDefault1"
+        '
+        'LeftRebar2
+        '
+        Me.LeftRebar2.CommandManager = Me.comManager2
+        Me.LeftRebar2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.LeftRebar2.Location = New System.Drawing.Point(0, 0)
+        Me.LeftRebar2.Name = "LeftRebar2"
+        Me.LeftRebar2.Size = New System.Drawing.Size(0, 0)
+        '
+        'RightRebar2
+        '
+        Me.RightRebar2.CommandManager = Me.comManager2
+        Me.RightRebar2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.RightRebar2.Location = New System.Drawing.Point(0, 0)
+        Me.RightRebar2.Name = "RightRebar2"
+        Me.RightRebar2.Size = New System.Drawing.Size(0, 0)
+        '
+        'TopRebar2
+        '
+        Me.TopRebar2.CommandManager = Me.comManager2
+        Me.TopRebar2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TopRebar2.Location = New System.Drawing.Point(0, 0)
+        Me.TopRebar2.Name = "TopRebar2"
+        Me.TopRebar2.Size = New System.Drawing.Size(1281, 0)
+        '
         'frmTransactions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -356,7 +473,8 @@ Partial Class frmTransactions
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TopRebar1)
         Me.Name = "frmTransactions"
-        Me.Text = "frmTransactions"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Καρτέλλα"
         CType(Me.grpSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpSearch.ResumeLayout(False)
         Me.grpSearch.PerformLayout()
@@ -368,6 +486,12 @@ Partial Class frmTransactions
         CType(Me.TopRebar1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridMain, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboMainCus, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.comManager2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BottomRebar2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdFilters, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LeftRebar2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RightRebar2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TopRebar2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -400,4 +524,18 @@ Partial Class frmTransactions
     Friend WithEvents RightRebar1 As Janus.Windows.UI.CommandBars.UIRebar
     Friend WithEvents TopRebar1 As Janus.Windows.UI.CommandBars.UIRebar
     Friend WithEvents GridEXExporter1 As Janus.Windows.GridEX.Export.GridEXExporter
+    Friend WithEvents comManager2 As Janus.Windows.UI.CommandBars.UICommandManager
+    Friend WithEvents BottomRebar2 As Janus.Windows.UI.CommandBars.UIRebar
+    Friend WithEvents LeftRebar2 As Janus.Windows.UI.CommandBars.UIRebar
+    Friend WithEvents RightRebar2 As Janus.Windows.UI.CommandBars.UIRebar
+    Friend WithEvents TopRebar2 As Janus.Windows.UI.CommandBars.UIRebar
+    Friend WithEvents cmdAkirotiko As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents FChoice As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents FWChoice As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents FDefault As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents cmdRoutes As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents cmdFilters As Janus.Windows.UI.CommandBars.UIContextMenu
+    Friend WithEvents FChoice1 As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents FWChoice1 As Janus.Windows.UI.CommandBars.UICommand
+    Friend WithEvents FDefault1 As Janus.Windows.UI.CommandBars.UICommand
 End Class
