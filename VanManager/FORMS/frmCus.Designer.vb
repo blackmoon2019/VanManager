@@ -29,6 +29,7 @@ Partial Class frmCus
         Dim cboPRF_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cboSyg_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cboCUSTYPE_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cboFPA_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -83,6 +84,8 @@ Partial Class frmCus
         Me.txtSymvash = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.txtcusBalance = New Janus.Windows.GridEX.EditControls.NumericEditBox()
+        Me.cboFPA = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.Label24 = New System.Windows.Forms.Label()
         CType(Me.cboArea, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboCOU, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboDOY, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -92,6 +95,7 @@ Partial Class frmCus
         CType(Me.grpSYMV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpSYMV.SuspendLayout()
         CType(Me.GridSYMV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboFPA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label3
@@ -516,7 +520,7 @@ Partial Class frmCus
         'chkRentParking
         '
         Me.chkRentParking.CheckedValue = False
-        Me.chkRentParking.Location = New System.Drawing.Point(202, 226)
+        Me.chkRentParking.Location = New System.Drawing.Point(256, 226)
         Me.chkRentParking.Name = "chkRentParking"
         Me.chkRentParking.Size = New System.Drawing.Size(139, 23)
         Me.chkRentParking.TabIndex = 20
@@ -538,7 +542,7 @@ Partial Class frmCus
         Me.cboCUSTYPE.SelectedIndex = -1
         Me.cboCUSTYPE.SelectedItem = Nothing
         Me.cboCUSTYPE.SettingsKey = "cboTempType"
-        Me.cboCUSTYPE.Size = New System.Drawing.Size(144, 20)
+        Me.cboCUSTYPE.Size = New System.Drawing.Size(127, 20)
         Me.cboCUSTYPE.TabIndex = 19
         Me.cboCUSTYPE.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
         Me.cboCUSTYPE.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
@@ -630,7 +634,7 @@ Partial Class frmCus
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(364, 213)
+        Me.Label27.Location = New System.Drawing.Point(401, 213)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(53, 13)
         Me.Label27.TabIndex = 200
@@ -642,7 +646,7 @@ Partial Class frmCus
         Me.txtcusBalance.ForeColor = System.Drawing.Color.MediumSeaGreen
         Me.txtcusBalance.FormatMask = Janus.Windows.GridEX.NumericEditFormatMask.Currency
         Me.txtcusBalance.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
-        Me.txtcusBalance.Location = New System.Drawing.Point(367, 229)
+        Me.txtcusBalance.Location = New System.Drawing.Point(404, 229)
         Me.txtcusBalance.Name = "txtcusBalance"
         Me.txtcusBalance.Size = New System.Drawing.Size(81, 20)
         Me.txtcusBalance.TabIndex = 199
@@ -650,12 +654,43 @@ Partial Class frmCus
         Me.txtcusBalance.Value = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtcusBalance.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
+        'cboFPA
+        '
+        Me.cboFPA.BackColor = System.Drawing.SystemColors.Info
+        Me.cboFPA.BorderStyle = Janus.Windows.GridEX.BorderStyle.Flat
+        Me.cboFPA.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        cboFPA_DesignTimeLayout.LayoutString = resources.GetString("cboFPA_DesignTimeLayout.LayoutString")
+        Me.cboFPA.DesignTimeLayout = cboFPA_DesignTimeLayout
+        Me.cboFPA.DisplayMember = "Name"
+        Me.cboFPA.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
+        Me.cboFPA.Location = New System.Drawing.Point(173, 229)
+        Me.cboFPA.Name = "cboFPA"
+        Me.cboFPA.OfficeColorScheme = Janus.Windows.GridEX.OfficeColorScheme.Black
+        Me.cboFPA.SelectedIndex = -1
+        Me.cboFPA.SelectedItem = Nothing
+        Me.cboFPA.SettingsKey = "cboTempType"
+        Me.cboFPA.Size = New System.Drawing.Size(59, 20)
+        Me.cboFPA.TabIndex = 201
+        Me.cboFPA.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.cboFPA.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(170, 211)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(31, 13)
+        Me.Label24.TabIndex = 202
+        Me.Label24.Text = "ΦΠΑ"
+        '
         'frmCus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.cmdExit
         Me.ClientSize = New System.Drawing.Size(790, 469)
+        Me.Controls.Add(Me.cboFPA)
+        Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.Label27)
         Me.Controls.Add(Me.txtcusBalance)
         Me.Controls.Add(Me.grpSYMV)
@@ -717,6 +752,7 @@ Partial Class frmCus
         Me.grpSYMV.ResumeLayout(False)
         Me.grpSYMV.PerformLayout()
         CType(Me.GridSYMV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboFPA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -776,4 +812,6 @@ Partial Class frmCus
     Friend WithEvents GridSYMV As Janus.Windows.GridEX.GridEX
     Friend WithEvents Label27 As Label
     Friend WithEvents txtcusBalance As Janus.Windows.GridEX.EditControls.NumericEditBox
+    Friend WithEvents cboFPA As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents Label24 As Label
 End Class

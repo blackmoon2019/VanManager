@@ -12,6 +12,7 @@ Public Class frmCus
         Call FillJanuscboDOY(cboDOY)
         Call FillJanuscboPRF(cboPRF)
         Call FillYesNoCombo(cboSyg)
+        Call FillJanuscboFPA(cboFPA)
         Call FillJanuscboCUSTYPE(cboCUSTYPE)
         If Mode = FormMode.ViewRecord Then cmdSave.Enabled = False : grpSYMV.Enabled = False
         If Mode = FormMode.ViewRecord Or Mode = FormMode.EditRecord Then
@@ -44,6 +45,7 @@ Public Class frmCus
                 If sdr.IsDBNull(sdr.GetOrdinal("afm")) = False Then txtAFM.Text = sdr.GetString(sdr.GetOrdinal("afm"))
                 If sdr.IsDBNull(sdr.GetOrdinal("prfid")) = False Then cboPRF.Value = sdr.GetGuid(sdr.GetOrdinal("prfid"))
                 If sdr.IsDBNull(sdr.GetOrdinal("doyid")) = False Then cboDOY.Value = sdr.GetGuid(sdr.GetOrdinal("doyid"))
+                If sdr.IsDBNull(sdr.GetOrdinal("fpaid")) = False Then cboFPA.Value = sdr.GetGuid(sdr.GetOrdinal("fpaid"))
                 If sdr.IsDBNull(sdr.GetOrdinal("syg")) = False Then cboSyg.SelectedIndex = IIf(sdr.GetBoolean(sdr.GetOrdinal("syg")) = True, 1, 0)
                 If sdr.IsDBNull(sdr.GetOrdinal("Parking")) = False Then chkRentParking.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("Parking")) = True, 1, 0)
                 If sdr.IsDBNull(sdr.GetOrdinal("cusTypeID")) = False Then cboCUSTYPE.Value = sdr.GetGuid(sdr.GetOrdinal("cusTypeID"))
@@ -147,7 +149,7 @@ Public Class frmCus
     Private Sub cmdSave_Click(sender As Object, e As EventArgs) Handles cmdSave.Click
         Dim sSQL As String
         Try
-            If txtName.TextLength = 0 Or txtLastname.TextLength = 0 Then
+            If txtName.TextLength = 0 Or txtLastname.TextLength = 0 Or cboFPA.Text.Length = 0 Then
                 MessageBox.Show("Υπάρχουν υποχρεωτικά πεδία που δεν έχετε συμπληρώσει.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -182,6 +184,7 @@ Public Class frmCus
                        "syg = " & cboSyg.SelectedIndex & "," &
                        "parking = " & IIf(chkRentParking.Checked = True, 1, 0) & "," &
                        "doyid = " & boSQLValuej(cboDOY) & "," &
+                       "fpaid = " & boSQLValuej(cboFPA) & "," &
                        "custypeid = " & boSQLValuej(cboCUSTYPE) &
                        " where id = '" & ID & "'"
                 Using oCmd As New OleDbCommand(sSQL, cn)
@@ -198,7 +201,7 @@ Public Class frmCus
             ElseIf Mode = FormMode.NewRecord Then
                 ' Καταχώρηση Δεδομένων
                 sSQL = "INSERT INTO cus ([id],[code],[name],[lastname],[AreaID],[CouID],[Ar],[Address],[TK],[Phone1] " &
-                   ",[Phone2],[Mobile1],[Mobile2],[Fax],[Email],[site],[comments],[afm],[doyid],[prfid],[syg],[parking],[custypeid]) " &
+                   ",[Phone2],[Mobile1],[Mobile2],[Fax],[Email],[site],[comments],[afm],[doyid],[prfid],[syg],[parking],[custypeid],[fpaid]) " &
                     "values (" & "'" & ID & "'," &
                                 toSQLValueJ(txtCode, True) & ", " &
                                 toSQLValueJ(txtName) & ", " &
@@ -221,7 +224,8 @@ Public Class frmCus
                                 boSQLValuej(cboPRF) & ", " &
                                 cboSyg.SelectedIndex & "," &
                                  IIf(chkRentParking.Checked = True, 1, 0) & "," &
-                                 boSQLValuej(cboCUSTYPE) & ")"
+                                 boSQLValuej(cboCUSTYPE) & "," &
+                                 boSQLValuej(cboFPA) & ")"
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()
                     If CBJanus Is Nothing Then frmMain.FillJanusGrid("CUS")
@@ -395,11 +399,27 @@ Public Class frmCus
 
     End Sub
 
-    Private Sub txtAFM_TextChanged(sender As Object, e As EventArgs) Handles txtAFM.TextChanged
 
-    End Sub
 
     Private Sub txtAFM_LostFocus(sender As Object, e As EventArgs) Handles txtAFM.LostFocus
         If Not CheckAFM(txtAFM.Text) Then MessageBox.Show("Το ΑΦΜ δεν είναι σωστό.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    End Sub
+
+    Private Sub cboFPA_KeyDown(sender As Object, e As KeyEventArgs) Handles cboFPA.KeyDown
+        If e.KeyCode = Keys.Insert Then
+            frmFPA.Owner = Me
+            frmFPA.CTRLJannus = cboFPA
+            Me.Enabled = False
+            frmFPA.Mode = FormMode.NewRecord
+            frmFPA.Show()
+        ElseIf e.KeyCode = Keys.F2 Then
+            If Not cboFPA.SelectedItem Is Nothing Then
+                frmFPA.Owner = Me
+                frmFPA.CTRLJannus = cboFPA
+                Me.Enabled = False
+                frmFPA.Mode = FormMode.EditRecord
+                frmFPA.Show()
+            End If
+        End If
     End Sub
 End Class
