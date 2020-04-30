@@ -26,6 +26,7 @@ Partial Class frmEX
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEX))
         Dim cboVEH_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cboJDRV_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cboSUP_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.cboEXCat = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtPrice = New Janus.Windows.GridEX.EditControls.NumericEditBox()
@@ -57,9 +58,13 @@ Partial Class frmEX
         Me.txtFPA = New Janus.Windows.GridEX.EditControls.NumericEditBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.chkMonkey = New Janus.Windows.EditControls.UICheckBox()
+        Me.cboSUP = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.chkReceipt = New Janus.Windows.EditControls.UICheckBox()
         CType(Me.cboEXCat, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboVEH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboJDRV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboSUP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cboEXCat
@@ -94,7 +99,7 @@ Partial Class frmEX
         '
         Me.txtPrice.FormatMask = Janus.Windows.GridEX.NumericEditFormatMask.Currency
         Me.txtPrice.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
-        Me.txtPrice.Location = New System.Drawing.Point(15, 162)
+        Me.txtPrice.Location = New System.Drawing.Point(15, 209)
         Me.txtPrice.Name = "txtPrice"
         Me.txtPrice.Size = New System.Drawing.Size(74, 20)
         Me.txtPrice.TabIndex = 7
@@ -105,7 +110,7 @@ Partial Class frmEX
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(12, 146)
+        Me.Label19.Location = New System.Drawing.Point(12, 192)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(33, 13)
         Me.Label19.TabIndex = 194
@@ -157,7 +162,7 @@ Partial Class frmEX
         Me.chkPaid.BackColor = System.Drawing.Color.Transparent
         Me.chkPaid.CheckedValue = True
         Me.chkPaid.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
-        Me.chkPaid.Location = New System.Drawing.Point(268, 160)
+        Me.chkPaid.Location = New System.Drawing.Point(268, 207)
         Me.chkPaid.Name = "chkPaid"
         Me.chkPaid.Size = New System.Drawing.Size(94, 23)
         Me.chkPaid.TabIndex = 10
@@ -167,7 +172,7 @@ Partial Class frmEX
         '
         'cmdSave
         '
-        Me.cmdSave.Location = New System.Drawing.Point(468, 253)
+        Me.cmdSave.Location = New System.Drawing.Point(468, 300)
         Me.cmdSave.Name = "cmdSave"
         Me.cmdSave.Size = New System.Drawing.Size(75, 23)
         Me.cmdSave.TabIndex = 16
@@ -177,7 +182,7 @@ Partial Class frmEX
         'cmdExit
         '
         Me.cmdExit.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdExit.Location = New System.Drawing.Point(376, 253)
+        Me.cmdExit.Location = New System.Drawing.Point(376, 300)
         Me.cmdExit.Name = "cmdExit"
         Me.cmdExit.Size = New System.Drawing.Size(75, 23)
         Me.cmdExit.TabIndex = 15
@@ -187,7 +192,7 @@ Partial Class frmEX
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(11, 192)
+        Me.Label8.Location = New System.Drawing.Point(11, 239)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(41, 13)
         Me.Label8.TabIndex = 202
@@ -198,7 +203,7 @@ Partial Class frmEX
         Me.cmdAttach.Appearance = Janus.Windows.UI.Appearance.Normal
         Me.cmdAttach.ButtonStyle = Janus.Windows.EditControls.ButtonStyle.Button
         Me.cmdAttach.Image = CType(resources.GetObject("cmdAttach.Image"), System.Drawing.Image)
-        Me.cmdAttach.Location = New System.Drawing.Point(452, 210)
+        Me.cmdAttach.Location = New System.Drawing.Point(452, 257)
         Me.cmdAttach.Name = "cmdAttach"
         Me.cmdAttach.Size = New System.Drawing.Size(27, 23)
         Me.cmdAttach.TabIndex = 13
@@ -206,7 +211,7 @@ Partial Class frmEX
         '
         'txtdeltPath
         '
-        Me.txtdeltPath.Location = New System.Drawing.Point(14, 211)
+        Me.txtdeltPath.Location = New System.Drawing.Point(14, 258)
         Me.txtdeltPath.Name = "txtdeltPath"
         Me.txtdeltPath.ReadOnly = True
         Me.txtdeltPath.Size = New System.Drawing.Size(427, 20)
@@ -223,7 +228,7 @@ Partial Class frmEX
         Me.cmdDet.Appearance = Janus.Windows.UI.Appearance.Normal
         Me.cmdDet.ButtonStyle = Janus.Windows.EditControls.ButtonStyle.Button
         Me.cmdDet.Image = CType(resources.GetObject("cmdDet.Image"), System.Drawing.Image)
-        Me.cmdDet.Location = New System.Drawing.Point(513, 210)
+        Me.cmdDet.Location = New System.Drawing.Point(513, 257)
         Me.cmdDet.Name = "cmdDet"
         Me.cmdDet.Size = New System.Drawing.Size(27, 23)
         Me.cmdDet.TabIndex = 15
@@ -290,7 +295,7 @@ Partial Class frmEX
         Me.cmdView.Appearance = Janus.Windows.UI.Appearance.Normal
         Me.cmdView.ButtonStyle = Janus.Windows.EditControls.ButtonStyle.Button
         Me.cmdView.Image = CType(resources.GetObject("cmdView.Image"), System.Drawing.Image)
-        Me.cmdView.Location = New System.Drawing.Point(482, 210)
+        Me.cmdView.Location = New System.Drawing.Point(482, 257)
         Me.cmdView.Name = "cmdView"
         Me.cmdView.Size = New System.Drawing.Size(27, 23)
         Me.cmdView.TabIndex = 14
@@ -302,7 +307,7 @@ Partial Class frmEX
         Me.chkBlack.CheckedValue = True
         Me.chkBlack.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
         Me.chkBlack.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkBlack.Location = New System.Drawing.Point(368, 159)
+        Me.chkBlack.Location = New System.Drawing.Point(368, 206)
         Me.chkBlack.Name = "chkBlack"
         Me.chkBlack.Size = New System.Drawing.Size(66, 23)
         Me.chkBlack.TabIndex = 11
@@ -314,7 +319,7 @@ Partial Class frmEX
         '
         Me.txtPrice2.FormatMask = Janus.Windows.GridEX.NumericEditFormatMask.Currency
         Me.txtPrice2.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
-        Me.txtPrice2.Location = New System.Drawing.Point(182, 162)
+        Me.txtPrice2.Location = New System.Drawing.Point(182, 209)
         Me.txtPrice2.Name = "txtPrice2"
         Me.txtPrice2.Size = New System.Drawing.Size(74, 20)
         Me.txtPrice2.TabIndex = 8
@@ -325,7 +330,7 @@ Partial Class frmEX
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(179, 146)
+        Me.Label5.Location = New System.Drawing.Point(179, 192)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(39, 13)
         Me.Label5.TabIndex = 211
@@ -369,7 +374,7 @@ Partial Class frmEX
         '
         Me.txtFPA.FormatMask = Janus.Windows.GridEX.NumericEditFormatMask.Currency
         Me.txtFPA.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
-        Me.txtFPA.Location = New System.Drawing.Point(97, 162)
+        Me.txtFPA.Location = New System.Drawing.Point(97, 209)
         Me.txtFPA.Name = "txtFPA"
         Me.txtFPA.Size = New System.Drawing.Size(74, 20)
         Me.txtFPA.TabIndex = 9
@@ -380,7 +385,7 @@ Partial Class frmEX
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(94, 146)
+        Me.Label9.Location = New System.Drawing.Point(94, 192)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(34, 13)
         Me.Label9.TabIndex = 217
@@ -392,7 +397,7 @@ Partial Class frmEX
         Me.chkMonkey.CheckedValue = True
         Me.chkMonkey.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
         Me.chkMonkey.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkMonkey.Location = New System.Drawing.Point(442, 160)
+        Me.chkMonkey.Location = New System.Drawing.Point(442, 207)
         Me.chkMonkey.Name = "chkMonkey"
         Me.chkMonkey.Size = New System.Drawing.Size(98, 23)
         Me.chkMonkey.TabIndex = 218
@@ -400,12 +405,56 @@ Partial Class frmEX
         Me.chkMonkey.UncheckedValue = False
         Me.chkMonkey.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
         '
+        'cboSUP
+        '
+        Me.cboSUP.BackColor = System.Drawing.SystemColors.Info
+        Me.cboSUP.BorderStyle = Janus.Windows.GridEX.BorderStyle.Flat
+        cboSUP_DesignTimeLayout.LayoutString = resources.GetString("cboSUP_DesignTimeLayout.LayoutString")
+        Me.cboSUP.DesignTimeLayout = cboSUP_DesignTimeLayout
+        Me.cboSUP.DisplayMember = "Name"
+        Me.cboSUP.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
+        Me.cboSUP.Location = New System.Drawing.Point(14, 159)
+        Me.cboSUP.Name = "cboSUP"
+        Me.cboSUP.OfficeColorScheme = Janus.Windows.GridEX.OfficeColorScheme.Black
+        Me.cboSUP.SelectedIndex = -1
+        Me.cboSUP.SelectedItem = Nothing
+        Me.cboSUP.SettingsKey = "cboMainCus"
+        Me.cboSUP.Size = New System.Drawing.Size(242, 20)
+        Me.cboSUP.TabIndex = 219
+        Me.cboSUP.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+        Me.cboSUP.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(11, 143)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(74, 13)
+        Me.Label10.TabIndex = 220
+        Me.Label10.Text = "Προμηθευτής"
+        '
+        'chkReceipt
+        '
+        Me.chkReceipt.BackColor = System.Drawing.Color.Transparent
+        Me.chkReceipt.CheckedValue = True
+        Me.chkReceipt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
+        Me.chkReceipt.Location = New System.Drawing.Point(268, 157)
+        Me.chkReceipt.Name = "chkReceipt"
+        Me.chkReceipt.Size = New System.Drawing.Size(94, 23)
+        Me.chkReceipt.TabIndex = 221
+        Me.chkReceipt.Text = "Απόδειξη"
+        Me.chkReceipt.UncheckedValue = False
+        Me.chkReceipt.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010
+        '
         'frmEX
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.cmdExit
-        Me.ClientSize = New System.Drawing.Size(552, 286)
+        Me.ClientSize = New System.Drawing.Size(552, 340)
+        Me.Controls.Add(Me.chkReceipt)
+        Me.Controls.Add(Me.cboSUP)
+        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.chkMonkey)
         Me.Controls.Add(Me.txtFPA)
         Me.Controls.Add(Me.Label9)
@@ -444,6 +493,7 @@ Partial Class frmEX
         CType(Me.cboEXCat, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboVEH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboJDRV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboSUP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -480,4 +530,7 @@ Partial Class frmEX
     Friend WithEvents txtFPA As Janus.Windows.GridEX.EditControls.NumericEditBox
     Friend WithEvents Label9 As Label
     Friend WithEvents chkMonkey As Janus.Windows.EditControls.UICheckBox
+    Friend WithEvents cboSUP As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents Label10 As Label
+    Friend WithEvents chkReceipt As Janus.Windows.EditControls.UICheckBox
 End Class

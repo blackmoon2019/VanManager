@@ -33,6 +33,7 @@ Partial Class frmMain
         Dim BBMain_Item_0_6 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_0_7 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_0_8 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
+        Dim BBMain_Item_0_9 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Group_1 As Janus.Windows.ButtonBar.ButtonBarGroup = New Janus.Windows.ButtonBar.ButtonBarGroup()
         Dim BBMain_Item_1_0 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
         Dim BBMain_Item_1_1 As Janus.Windows.ButtonBar.ButtonBarItem = New Janus.Windows.ButtonBar.ButtonBarItem()
@@ -421,7 +422,10 @@ Partial Class frmMain
         BBMain_Item_0_8.Image = CType(resources.GetObject("BBMain_Item_0_8.Image"), System.Drawing.Image)
         BBMain_Item_0_8.Key = "HLP_ROUTES"
         BBMain_Item_0_8.Text = "Κινήσεις Βοηθών"
-        BBMain_Group_0.Items.AddRange(New Janus.Windows.ButtonBar.ButtonBarItem() {BBMain_Item_0_0, BBMain_Item_0_1, BBMain_Item_0_2, BBMain_Item_0_3, BBMain_Item_0_4, BBMain_Item_0_5, BBMain_Item_0_6, BBMain_Item_0_7, BBMain_Item_0_8})
+        BBMain_Item_0_9.Image = CType(resources.GetObject("BBMain_Item_0_9.Image"), System.Drawing.Image)
+        BBMain_Item_0_9.Key = "SUP"
+        BBMain_Item_0_9.Text = "Προμηθευτές"
+        BBMain_Group_0.Items.AddRange(New Janus.Windows.ButtonBar.ButtonBarItem() {BBMain_Item_0_0, BBMain_Item_0_1, BBMain_Item_0_2, BBMain_Item_0_3, BBMain_Item_0_4, BBMain_Item_0_5, BBMain_Item_0_6, BBMain_Item_0_7, BBMain_Item_0_8, BBMain_Item_0_9})
         BBMain_Group_0.Key = "grpMan"
         BBMain_Group_0.Text = "Διαχείριση"
         BBMain_Item_1_0.Image = CType(resources.GetObject("BBMain_Item_1_0.Image"), System.Drawing.Image)
@@ -491,7 +495,7 @@ Partial Class frmMain
         Me.BBMain.Location = New System.Drawing.Point(0, 144)
         Me.BBMain.Name = "BBMain"
         Me.BBMain.ShadowOnHover = True
-        Me.BBMain.Size = New System.Drawing.Size(131, 371)
+        Me.BBMain.Size = New System.Drawing.Size(131, 373)
         Me.BBMain.TabIndex = 9
         Me.BBMain.Text = "ButtonBar1"
         Me.BBMain.VisualStyle = Janus.Windows.ButtonBar.VisualStyle.Office2010
@@ -537,7 +541,7 @@ Partial Class frmMain
         Me.GridMain.Name = "GridMain"
         Me.GridMain.RecordNavigator = True
         Me.GridMain.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.[True]
-        Me.GridMain.Size = New System.Drawing.Size(1139, 365)
+        Me.GridMain.Size = New System.Drawing.Size(1139, 367)
         Me.GridMain.TabIndex = 15
         Me.GridMain.VisualStyle = Janus.Windows.GridEX.VisualStyle.VS2010
         '
@@ -823,7 +827,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1276, 515)
+        Me.ClientSize = New System.Drawing.Size(1276, 517)
         Me.Controls.Add(Me.GridMain)
         Me.Controls.Add(Me.grpSearch)
         Me.Controls.Add(Me.UiGroupBox1)

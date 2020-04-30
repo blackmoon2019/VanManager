@@ -545,6 +545,25 @@ CheckError:
         cbo.Text = ""
 
     End Sub
+    Public Sub FillJanuscboSUP(ByRef cbo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, Optional Filter As String = "0")
+        Dim ds As DataSet = New DataSet
+        Dim adapter As New OleDb.OleDbDataAdapter
+        Dim sql As String
+
+        If Filter = "0" Then
+            sql = "SELECT id,(lastname + ' ' + name) as name,afm,(address + ' ' + ar) as ADR from SUP order by lastname"
+        Else
+            sql = "SELECT id,(lastname + ' ' + name) as name,afm,(address + ' ' + ar) as ADR from SUP where " & Filter & " order by lastname"
+        End If
+        adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+        adapter.Fill(ds)
+        cbo.DataSource = ds.Tables(0)
+        cbo.DisplayMember = "name"
+        cbo.ValueMember = "id"
+        cbo.SettingsKey = "id"
+        cbo.Text = ""
+
+    End Sub
     Public Sub FillJanuscboVEHT(ByRef cbo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim ds As DataSet = New DataSet
         Dim adapter As New OleDb.OleDbDataAdapter

@@ -9,6 +9,7 @@ Public Class frmEX
         Call FillJanuscboEXCAT(cboEXCat)  ' Τύποι εξόδων
         Call FillJanuscboVEH(cboVEH)      ' Οχήματα
         Call FillJanuscboDRV(cboJDRV)     ' Οδηγοί
+        Call FillJanuscboSUP(cboSUP)      ' Προμηθευτές
         If Mode = FormMode.ViewRecord Then cmdSave.Enabled = False
         If Mode = FormMode.ViewRecord Or Mode = FormMode.EditRecord Then
             Dim Row1 As Janus.Windows.GridEX.GridEXRow
@@ -35,6 +36,8 @@ Public Class frmEX
                 If sdr.IsDBNull(sdr.GetOrdinal("VehID")) = False Then cboVEH.Value = sdr.GetGuid(sdr.GetOrdinal("VehID"))
                 If sdr.IsDBNull(sdr.GetOrdinal("DrvID")) = False Then cboJDRV.Value = sdr.GetGuid(sdr.GetOrdinal("DrvID"))
                 If sdr.IsDBNull(sdr.GetOrdinal("exType")) = False Then chkBlack.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("exType")) = True, 1, 0)
+                If sdr.IsDBNull(sdr.GetOrdinal("SupID")) = False Then cboSUP.Value = sdr.GetGuid(sdr.GetOrdinal("SupID"))
+                If sdr.IsDBNull(sdr.GetOrdinal("receipt")) = False Then chkReceipt.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("receipt")) = True, 1, 0)
 
                 Select Case chkBlack.CheckState
                     Case CheckState.Checked : chkBlack.BackColor = Color.Black : chkBlack.ForeColor = Color.White
@@ -83,7 +86,9 @@ Public Class frmEX
                    "monkey = " & IIf(chkMonkey.Checked = True, 1, 0) & "," &
                    "DrvID = " & boSQLValuej(cboJDRV) & ", " &
                    "VehID = " & boSQLValuej(cboVEH) & "," &
-                   "exType = " & IIf(chkBlack.CheckState = CheckState.Indeterminate, "NULL", IIf(chkBlack.Checked = True, 1, 0)) &
+                   "exType = " & IIf(chkBlack.CheckState = CheckState.Indeterminate, "NULL", IIf(chkBlack.Checked = True, 1, 0)) & "," &
+                   "receipt = " & IIf(chkReceipt.Checked = True, 1, 0) & "," &
+                   "SupID = " & boSQLValuej(cboSUP) &
                     " where id = '" & ID & "'"
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()
@@ -93,7 +98,7 @@ Public Class frmEX
                 MessageBox.Show("Το έξοδο αποθηκεύθηκε με επιτυχία", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf Mode = FormMode.NewRecord Then
                 'Καταχώρηση Δεδομένων
-                sSQL = "INSERT INTO EX ([code],[dtCreated],[ExCatID],[price],[paid],[monkey],[FilePath],[vehID],[DrvID],[exType],[descr],[price2],[fpa],[InvoiceNum]) " &
+                sSQL = "INSERT INTO EX ([code],[dtCreated],[ExCatID],[price],[paid],[monkey],[FilePath],[vehID],[DrvID],[exType],[descr],[price2],[fpa],[InvoiceNum],[SupID],[Receipt]) " &
                "values (" & toSQLValueJ(txtCode, True) & ", " &
                       "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
                             boSQLValuej(cboEXCat) & ", " &
@@ -107,8 +112,9 @@ Public Class frmEX
                             toSQLValueJ(txtDescr) & ", " &
                             Replace(txtPrice2.Value, ",", ".") & ", " &
                             Replace(txtFPA.Value, ",", ".") & ", " &
-                            toSQLValueJ(txtInvoiceNum) &
-                            ")"
+                            toSQLValueJ(txtInvoiceNum) & ", " &
+                            boSQLValuej(cboSUP) & ", " &
+                            IIf(chkReceipt.Checked = True, 1, 0) & ")"
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()
                     'frmMain.FillJanusGrid("EX")
@@ -188,8 +194,6 @@ Public Class frmEX
 
     End Sub
 
-
-
     Private Sub cboJDRV_KeyDown(sender As Object, e As KeyEventArgs) Handles cboJDRV.KeyDown
         If e.KeyCode = Keys.Insert Then
             frmDRV.Owner = Me
@@ -221,4 +225,22 @@ Public Class frmEX
         txtFPA.Value = txtPrice.Value - sTeliko
     End Sub
 
+
+    Private Sub cboSUP_KeyDown(sender As Object, e As KeyEventArgs) Handles cboSUP.KeyDown
+        If e.KeyCode = Keys.Insert Then
+            frmSUP.Owner = Me
+            frmSUP.CTRLJannus = cboSUP
+            Me.Enabled = False
+            frmSUP.Mode = FormMode.NewRecord
+            frmSUP.Show()
+        ElseIf e.KeyCode = Keys.F2 Then
+            If Not cboSUP.SelectedItem Is Nothing Then
+                frmSUP.Owner = Me
+                frmSUP.CTRLJannus = cboSUP
+                Me.Enabled = False
+                frmSUP.Mode = FormMode.EditRecord
+                frmSUP.Show()
+            End If
+        End If
+    End Sub
 End Class

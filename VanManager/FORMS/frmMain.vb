@@ -42,6 +42,7 @@ Public Class frmMain
         STS = 27
         FPA = 28
         TRANS = 29
+        SUP = 30
     End Enum
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UDLStr = Application.StartupPath & "\UDL\van.udl"
@@ -84,6 +85,7 @@ Public Class frmMain
         Select Case TableName
             Case "DOY" : sql = "select * from vw_DOY"
             Case "CUS" : sql = "select * from vw_CUS"
+            Case "SUP" : sql = "select * from vw_SUP"
             Case "DRV" : sql = "select * from vw_DRV"
             Case "COU" : sql = "select * from vw_COU"
             Case "AREAS" : sql = "select * from vw_AREAS"
@@ -164,6 +166,7 @@ Public Class frmMain
             Case FormName.DOY : frmDoy.Mode = FormMode.NewRecord : FRMS = frmDoy
             Case FormName.PAY : frmPAY.Mode = FormMode.NewRecord : FRMS = frmPAY
             Case FormName.CUS : frmCus.Mode = FormMode.NewRecord : FRMS = frmCus
+            Case FormName.SUP : frmSUP.Mode = FormMode.NewRecord : FRMS = frmSUP
             Case FormName.DRV : frmDRV.Mode = FormMode.NewRecord : FRMS = frmDRV
             Case FormName.COU : frmCou.Mode = FormMode.NewRecord : FRMS = frmCou
             Case FormName.AREAS : frmArea.Mode = FormMode.NewRecord : FRMS = frmArea
@@ -199,6 +202,7 @@ Public Class frmMain
             Case FormName.DOY : frmDoy.Mode = FormMode.EditRecord : FRMS = frmDoy
             Case FormName.PAY : frmPAY.Mode = FormMode.EditRecord : FRMS = frmPAY
             Case FormName.CUS : frmCus.Mode = FormMode.EditRecord : FRMS = frmCus
+            Case FormName.SUP : frmSUP.Mode = FormMode.EditRecord : FRMS = frmSUP
             Case FormName.DRV : frmDRV.Mode = FormMode.EditRecord : FRMS = frmDRV
             Case FormName.COU : frmCou.Mode = FormMode.EditRecord : FRMS = frmCou
             Case FormName.AREAS : frmArea.Mode = FormMode.EditRecord : FRMS = frmArea
@@ -242,6 +246,7 @@ Public Class frmMain
             Case FormName.DOY : frmDoy.Mode = FormMode.ViewRecord : FRMS = frmDoy
             Case FormName.PAY : frmPAY.Mode = FormMode.ViewRecord : FRMS = frmPAY
             Case FormName.CUS : frmCus.Mode = FormMode.ViewRecord : FRMS = frmCus
+            Case FormName.SUP : frmSUP.Mode = FormMode.ViewRecord : FRMS = frmSUP
             Case FormName.DRV : frmDRV.Mode = FormMode.ViewRecord : FRMS = frmDRV
             Case FormName.COU : frmCou.Mode = FormMode.ViewRecord : FRMS = frmCou
             Case FormName.AREAS : frmArea.Mode = FormMode.ViewRecord : FRMS = frmArea
@@ -311,6 +316,13 @@ Public Class frmMain
                             oCmd.ExecuteNonQuery()
                             FillJanusGrid("CUS")
                         End Using
+                    Case FormName.SUP
+                        sSQL = "Delete from SUP where id = '" & Row1.Cells("ID").Value.ToString() & "'"
+                        Using oCmd As New OleDbCommand(sSQL, cn)
+                            oCmd.ExecuteNonQuery()
+                            FillJanusGrid("SUP")
+                        End Using
+
                     Case FormName.DRV
                         sSQL = "Delete from DRV where id = '" & Row1.Cells("ID").Value.ToString() & "'"
                         Using oCmd As New OleDbCommand(sSQL, cn)
@@ -474,6 +486,7 @@ Public Class frmMain
             Case FormName.DOY : FillJanusGrid("DOY")
             Case FormName.PAY : FillJanusGrid("PAY")
             Case FormName.CUS : FillJanusGrid("CUS")
+            Case FormName.SUP : FillJanusGrid("SUP")
             Case FormName.COU : FillJanusGrid("COU")
             Case FormName.AREAS : FillJanusGrid("AREAS")
             Case FormName.DRV : FillJanusGrid("DRV")
@@ -672,6 +685,7 @@ Public Class frmMain
 
         Select Case e.Item.Key
             Case "CUS" : grpSearch.Visible = False : Frm = FormName.CUS : GridMain.Tag = "CUS" : FillJanusGrid("CUS")
+            Case "SUP" : grpSearch.Visible = False : Frm = FormName.SUP : GridMain.Tag = "SUP" : FillJanusGrid("SUP")
             Case "DRV" : grpSearch.Visible = False : Frm = FormName.DRV : GridMain.Tag = "DRV" : FillJanusGrid("DRV")
             Case "HLP" : grpSearch.Visible = False : Frm = FormName.HLP : GridMain.Tag = "HLP" : FillJanusGrid("HLP")
             Case "VEH" : grpSearch.Visible = False : Frm = FormName.VEH : GridMain.Tag = "VEH" : FillJanusGrid("VEH")
@@ -1085,6 +1099,7 @@ Public Class frmMain
                     Case FormName.DOY : frmDoy.Mode = FormMode.ViewRecord : FRMS = frmDoy
                     Case FormName.PAY : frmPAY.Mode = FormMode.ViewRecord : FRMS = frmPAY
                     Case FormName.CUS : frmCus.Mode = FormMode.ViewRecord : FRMS = frmCus
+                    Case FormName.SUP : frmSUP.Mode = FormMode.ViewRecord : FRMS = frmSUP
                     Case FormName.DRV : frmDRV.Mode = FormMode.ViewRecord : FRMS = frmDRV
                     Case FormName.COU : frmCou.Mode = FormMode.ViewRecord : FRMS = frmCou
                     Case FormName.AREAS : frmArea.Mode = FormMode.ViewRecord : FRMS = frmArea
@@ -1151,6 +1166,7 @@ Public Class frmMain
                     Case FormName.DOY : sSQL = "DELETE DOY where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.PAY : sSQL = "DELETE PAY where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.CUS : sSQL = "DELETE CUS where id='" & e.Row.Cells("id").Value.ToString & "'"
+                    Case FormName.SUP : sSQL = "DELETE SUP where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.DRV : sSQL = "DELETE DRV where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.COU : sSQL = "DELETE COU where id='" & e.Row.Cells("id").Value.ToString & "'"
                     Case FormName.AREAS : sSQL = "DELETE AREAS where id='" & e.Row.Cells("id").Value.ToString & "'"

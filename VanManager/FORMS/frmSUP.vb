@@ -2,19 +2,16 @@
 Imports System.Data.OleDb
 Imports Janus.Windows.GridEX
 
-Public Class frmCus
+Public Class frmSUP
     Private ID As String
     Public Mode As Byte
     Private CBJanus As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 
-    Private Sub frmCus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmSUP_Load(sender As Object, e As EventArgs) Handles Me.Load
         Call FillJanuscboCOU(cboCOU)
         Call FillJanuscboDOY(cboDOY)
         Call FillJanuscboPRF(cboPRF)
-        Call FillYesNoCombo(cboSyg)
-        Call FillJanuscboFPA(cboFPA)
-        Call FillJanuscboCUSTYPE(cboCUSTYPE)
-        If Mode = FormMode.ViewRecord Then cmdSave.Enabled = False : grpSYMV.Enabled = False
+        If Mode = FormMode.ViewRecord Then cmdSave.Enabled = False
         If Mode = FormMode.ViewRecord Or Mode = FormMode.EditRecord Then
             Dim Row1 As Janus.Windows.GridEX.GridEXRow
             Row1 = frmMain.GridMain.CurrentRow
@@ -23,7 +20,7 @@ Public Class frmCus
             Else
                 ID = Row1.Cells("ID").Value.ToString
             End If
-            Dim cmd As OleDbCommand = New OleDbCommand("Select * from cus where id ='" + ID + "'", cn)
+            Dim cmd As OleDbCommand = New OleDbCommand("Select * from sup where id ='" + ID + "'", cn)
             Dim sdr As OleDbDataReader = cmd.ExecuteReader()
             If (sdr.Read() = True) Then
                 If sdr.IsDBNull(sdr.GetOrdinal("code")) = False Then txtCode.Text = sdr.GetInt32(sdr.GetOrdinal("code"))
@@ -45,53 +42,19 @@ Public Class frmCus
                 If sdr.IsDBNull(sdr.GetOrdinal("afm")) = False Then txtAFM.Text = sdr.GetString(sdr.GetOrdinal("afm"))
                 If sdr.IsDBNull(sdr.GetOrdinal("prfid")) = False Then cboPRF.Value = sdr.GetGuid(sdr.GetOrdinal("prfid"))
                 If sdr.IsDBNull(sdr.GetOrdinal("doyid")) = False Then cboDOY.Value = sdr.GetGuid(sdr.GetOrdinal("doyid"))
-                If sdr.IsDBNull(sdr.GetOrdinal("fpaid")) = False Then cboFPA.Value = sdr.GetGuid(sdr.GetOrdinal("fpaid"))
-                If sdr.IsDBNull(sdr.GetOrdinal("syg")) = False Then cboSyg.SelectedIndex = IIf(sdr.GetBoolean(sdr.GetOrdinal("syg")) = True, 1, 0)
-                If sdr.IsDBNull(sdr.GetOrdinal("Parking")) = False Then chkRentParking.Checked = IIf(sdr.GetBoolean(sdr.GetOrdinal("Parking")) = True, 1, 0)
-                If sdr.IsDBNull(sdr.GetOrdinal("cusTypeID")) = False Then cboCUSTYPE.Value = sdr.GetGuid(sdr.GetOrdinal("cusTypeID"))
-                If sdr.IsDBNull(sdr.GetOrdinal("balance")) = False Then txtcusBalance.Text = sdr.GetDecimal(sdr.GetOrdinal("balance"))
                 sdr.Close()
             End If
             Call LockUnlockAllControls(Me, Mode = FormMode.ViewRecord)
             cmdExit.Enabled = True
         Else
-            txtCode.Text = GetNewCode("CUS")
+            txtCode.Text = GetNewCode("SUP")
             ID = System.Guid.NewGuid.ToString()
-            grpSYMV.Enabled = False
-            txtcusBalance.ReadOnly = True
         End If
-        dtDateCreated.Value = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
         txtCode.ReadOnly = True
-        Call FillSYMVGrid()      ' Συμβάσεις
-    End Sub
-    ' Συμβάσεις
-    Public Sub FillSYMVGrid()
-        Dim sql As String
-        Dim table As New DataTable
-        Dim bs1 As New BindingSource
-        Dim adapter As New OleDb.OleDbDataAdapter
-        table.Columns.Clear()
-        GridSYMV.DataSource = Nothing
-        GridSYMV.VisualStyle = VisualStyle.Office2010
-        table.Clear()
-        sql = "select id,cusid,symbash,dtcreated from symv where cusid = '" & ID & "' order by dtcreated"
-
-        adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
-        adapter.Fill(table)
-        bs1.DataSource = table
-        GridSYMV.SetDataBinding(table, "")
-        GridSYMV.RetrieveStructure()
-        GridSYMV.GroupByBoxVisible = False
-        With GridSYMV.RootTable
-            .Columns("id").Visible = False
-            .Columns("cusid").Visible = False
-            .Columns("symbash").Caption = "Σύμβαση" : .Columns("symbash").Width = 200
-            .Columns("dtcreated").Caption = "Ημερομηνία" : .Columns("dtcreated").Width = 100
-        End With
 
     End Sub
 
-    Private Sub txtMail_TextChanged(sender As Object, e As EventArgs)
+    Private Sub txtMail_TextChanged(sender As Object, e As EventArgs) Handles txtMail.TextChanged
         txtMail.BackColor = Color.White
         Dim temp As String
         temp = txtMail.Text
@@ -104,6 +67,7 @@ Public Class frmCus
             'TextBox1.Text = ""
             txtMail.BackColor = Color.LightSkyBlue
         End If
+
     End Sub
     Private Function emailaddresscheck(ByVal emailaddress As String) As Boolean
         Dim pattern As String = "^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"
@@ -114,7 +78,8 @@ Public Class frmCus
             emailaddresscheck = False
         End If
     End Function
-    Private Sub txtWeb_TextChanged(sender As Object, e As EventArgs)
+
+    Private Sub txtWeb_TextChanged(sender As Object, e As EventArgs) Handles txtWeb.TextChanged
         If websiteAddresscheck(txtWeb.Text) = True Then
             txtWeb.BackColor = Color.LightGreen
         Else
@@ -131,9 +96,7 @@ Public Class frmCus
         End If
     End Function
 
-
-
-    Private Sub frmCus_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+    Private Sub frmSUP_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         Me.Owner.Enabled = True
     End Sub
 
@@ -149,20 +112,13 @@ Public Class frmCus
     Private Sub cmdSave_Click(sender As Object, e As EventArgs) Handles cmdSave.Click
         Dim sSQL As String
         Try
-            If txtName.TextLength = 0 Or txtLastname.TextLength = 0 Or cboFPA.Text.Length = 0 Then
+            If txtName.TextLength = 0 Or txtLastname.TextLength = 0 Then
                 MessageBox.Show("Υπάρχουν υποχρεωτικά πεδία που δεν έχετε συμπληρώσει.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-            Select Case Me.Owner.Name
-                Case "frmParking"
-                    If chkRentParking.Checked = False Then
-                        MessageBox.Show("Δεν μπορείτε να καταχωρήσετε τον πελάτη. Πρέπει πρώτα να κάνετε κλικ στην επιλογή 'Νοικιάζει θέση Πάρκινγκ'", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Exit Sub
-                    End If
-            End Select
             If Mode = FormMode.EditRecord Then
                 ' Ενημέρωση Δεδομένων
-                sSQL = "UPDATE CUS set " &
+                sSQL = "UPDATE SUP set " &
                        "code = " & toSQLValueJ(txtCode, True) & "," &
                        "name =  " & toSQLValueJ(txtName) & "," &
                        "lastname = " & toSQLValueJ(txtLastname) & "," &
@@ -181,18 +137,14 @@ Public Class frmCus
                        "Comments = " & toSQLValueJ(txtComments) & "," &
                        "AFM = " & toSQLValueJ(txtAFM) & "," &
                        "PRFid = " & boSQLValuej(cboPRF) & "," &
-                       "syg = " & cboSyg.SelectedIndex & "," &
-                       "parking = " & IIf(chkRentParking.Checked = True, 1, 0) & "," &
-                       "doyid = " & boSQLValuej(cboDOY) & "," &
-                       "fpaid = " & boSQLValuej(cboFPA) & "," &
-                       "custypeid = " & boSQLValuej(cboCUSTYPE) &
+                       "doyid = " & boSQLValuej(cboDOY) &
                        " where id = '" & ID & "'"
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()
                 End Using
-                If CBJanus Is Nothing Then frmMain.FillJanusGrid("CUS")
+                If CBJanus Is Nothing Then frmMain.FillJanusGrid("SUP")
                 If Not CBJanus Is Nothing Then
-                    FillJanuscboCUS(CBJanus)
+                    FillJanuscboSUP(CBJanus)
                     CBJanus.Value = ID
                     CBJanus.Text = txtLastname.Text + " " + txtName.Text
                     CBJanus.SelectedItem = CBJanus.Value
@@ -200,8 +152,8 @@ Public Class frmCus
 
             ElseIf Mode = FormMode.NewRecord Then
                 ' Καταχώρηση Δεδομένων
-                sSQL = "INSERT INTO cus ([id],[code],[name],[lastname],[AreaID],[CouID],[Ar],[Address],[TK],[Phone1] " &
-                   ",[Phone2],[Mobile1],[Mobile2],[Fax],[Email],[site],[comments],[afm],[doyid],[prfid],[syg],[parking],[custypeid],[fpaid]) " &
+                sSQL = "INSERT INTO SUP ([id],[code],[name],[lastname],[AreaID],[CouID],[Ar],[Address],[TK],[Phone1] " &
+                   ",[Phone2],[Mobile1],[Mobile2],[Fax],[Email],[site],[comments],[afm],[doyid],[prfid]) " &
                     "values (" & "'" & ID & "'," &
                                 toSQLValueJ(txtCode, True) & ", " &
                                 toSQLValueJ(txtName) & ", " &
@@ -221,17 +173,13 @@ Public Class frmCus
                                 toSQLValueJ(txtComments) & ", " &
                                 toSQLValueJ(txtAFM) & ", " &
                                 boSQLValuej(cboDOY) & ", " &
-                                boSQLValuej(cboPRF) & ", " &
-                                cboSyg.SelectedIndex & "," &
-                                 IIf(chkRentParking.Checked = True, 1, 0) & "," &
-                                 boSQLValuej(cboCUSTYPE) & "," &
-                                 boSQLValuej(cboFPA) & ")"
+                                boSQLValuej(cboPRF) & ")"
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()
-                    If CBJanus Is Nothing Then frmMain.FillJanusGrid("CUS")
+                    If CBJanus Is Nothing Then frmMain.FillJanusGrid("SUP")
                     If Not CBJanus Is Nothing Then
-                        FillJanuscboCUS(CBJanus)
-                        CBJanus.Value = GetLastSavedGuid("CUS", txtCode.Text).ToString
+                        FillJanuscboSUP(CBJanus)
+                        CBJanus.Value = GetLastSavedGuid("SUP", txtCode.Text).ToString
                         CBJanus.Text = txtLastname.Text + " " + txtName.Text
                         CBJanus.SelectedItem = CBJanus.Value
                         Me.Close()
@@ -240,10 +188,9 @@ Public Class frmCus
                         txtCode.Text = GetNewCode("CUS")
                         txtName.Select()
                     End If
-                    grpSYMV.Enabled = True
                 End Using
             End If
-            MessageBox.Show("Ο Πελάτης αποθηκεύθηκε με επιτυχία", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Ο Προμηθευτής αποθηκεύθηκε με επιτυχία", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
             MessageBox.Show(ex.Message, "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
@@ -254,7 +201,6 @@ Public Class frmCus
     Private Sub cmdExit_Click(sender As Object, e As EventArgs) Handles cmdExit.Click
         Me.Close()
     End Sub
-
 
     Private Sub cboDOY_KeyDown(sender As Object, e As KeyEventArgs) Handles cboDOY.KeyDown
         If e.KeyCode = Keys.Insert Then
@@ -329,86 +275,7 @@ Public Class frmCus
         End If
     End Sub
 
-    Private Sub cboCUSTYPE_KeyDown(sender As Object, e As KeyEventArgs) Handles cboCUSTYPE.KeyDown
-        If e.KeyCode = Keys.Insert Then
-            frmCUSTYPE.Owner = Me
-            frmCUSTYPE.CTRLJannus = cboCUSTYPE
-            Me.Enabled = False
-            frmCUSTYPE.Mode = FormMode.NewRecord
-            frmCUSTYPE.Show()
-        ElseIf e.KeyCode = Keys.F2 Then
-            If Not cboCUSTYPE.SelectedItem Is Nothing Then
-                frmCUSTYPE.Owner = Me
-                frmCUSTYPE.CTRLJannus = cboCUSTYPE
-                Me.Enabled = False
-                frmCUSTYPE.Mode = FormMode.EditRecord
-                frmCUSTYPE.Show()
-            End If
-        End If
-    End Sub
-
-    Private Sub cmdSaveSymv_Click(sender As Object, e As EventArgs) Handles cmdSaveSymv.Click
-        'Αποθήκευση συμβάσεων αν υπάρχουν
-        Dim sSQL As String
-        If txtSymvash.Text.Length = 0 Then
-            MessageBox.Show("Υπάρχουν υποχρεωτικά πεδία που δεν έχετε συμπληρώσει.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End If
-        sSQL = "INSERT INTO SYMV ([cusid],[dtcreated],[symbash]) " &
-           "values (" & "'" & ID.ToString & "'," & "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," & toSQLValueJ(txtSymvash) & ")"
-        Using oCmd As New OleDbCommand(sSQL, cn)
-            oCmd.ExecuteNonQuery()
-        End Using
-        txtSymvash.Text = "" : dtDateCreated.Value = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
-        FillSYMVGrid()
-    End Sub
-
-    Private Sub GridSYMV_DeletingRecord(sender As Object, e As RowActionCancelEventArgs) Handles GridSYMV.DeletingRecord
-        If MessageBox.Show("Να διαγραφεί η επιλεγμένη εγγραφή?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = vbYes Then
-            Dim sSQL As String = "DELETE SYMV where id='" & e.Row.Cells("id").Value.ToString & "'"
-            Using oCmd As New OleDbCommand(sSQL, cn)
-                oCmd.ExecuteNonQuery()
-            End Using
-
-        End If
-    End Sub
-    Private Sub GridSYMV_CellUpdated(sender As Object, e As ColumnActionEventArgs) Handles GridSYMV.CellUpdated
-        Dim sSQL As String
-        Try
-            ' Καταχώρηση Δεδομένων
-            sSQL = "UPDATE SYMV SET " &
-                "[symbash] = '" & e.Column.GridEX.CurrentRow.Cells("symbash").Value & "'," &
-                "[dtcreated] = '" & Format(e.Column.GridEX.CurrentRow.Cells("dtcreated").Value, "yyyy/MM/dd HH:mm:ss") & "'" &
-                "where id='" & e.Column.GridEX.CurrentRow.Cells("id").Value.ToString & "'"
-            Using oCmd As New OleDbCommand(sSQL, cn)
-                oCmd.ExecuteNonQuery()
-            End Using
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub txtAFM_LostFocus(sender As Object, e As EventArgs) Handles txtAFM.LostFocus
         If Not CheckAFM(txtAFM.Text) Then MessageBox.Show("Το ΑΦΜ δεν είναι σωστό.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    End Sub
-
-    Private Sub cboFPA_KeyDown(sender As Object, e As KeyEventArgs) Handles cboFPA.KeyDown
-        If e.KeyCode = Keys.Insert Then
-            frmFPA.Owner = Me
-            frmFPA.CTRLJannus = cboFPA
-            Me.Enabled = False
-            frmFPA.Mode = FormMode.NewRecord
-            frmFPA.Show()
-        ElseIf e.KeyCode = Keys.F2 Then
-            If Not cboFPA.SelectedItem Is Nothing Then
-                frmFPA.Owner = Me
-                frmFPA.CTRLJannus = cboFPA
-                Me.Enabled = False
-                frmFPA.Mode = FormMode.EditRecord
-                frmFPA.Show()
-            End If
-        End If
     End Sub
 End Class
