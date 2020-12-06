@@ -22,7 +22,8 @@ Public Class frmCollection
             '            left join sen on sen.dosid=dos.id
             '            where sdtcode = 2 and sts.userid = '" & UserID & "'"
             'If Mode = FormMode.NewRecord Then
-            cmd = New OleDbCommand("Select dosname as name,sdtid ,dosid ,isnull(number,0) + 1 as number
+
+            cmd = New OleDbCommand("Select dosname as name,sdtid ,dosid , isnull(number,0) + " & IIf(IsPrinted = False, "1", "0") & " as number
                                             from vw_seires 
                                             where sdtcode = 2   and userid = '" & UserID & "'", cn)
             sdr = cmd.ExecuteReader()
@@ -157,6 +158,8 @@ Public Class frmCollection
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()
                 End Using
+                frmCollections.AlreadyPrinted = True
+                IsPrinted = True
             Else
                 If IsPrinted = False Then
                     Sen = GetSen(DosID, True)

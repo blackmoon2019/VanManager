@@ -1065,7 +1065,7 @@ Public Class frmMain
                 If Not colClicked Is Nothing Then
                     Me.ShowHeaderMenu(colClicked)
                 End If
-            ElseIf GridMain.HitTest(e.X, e.Y) = GridArea.Cell And (GridMain.Tag = "INV" Or GridMain.Tag = "SYG_INV") Then
+            ElseIf GridMain.HitTest(e.X, e.Y) = GridArea.Cell And (GridMain.Tag = "INV" Or GridMain.Tag = "SYG_INV" Or GridMain.Tag = "COL") Then
                 Dim colClicked As GridEXColumn = GridMain.ColumnFromPoint(e.X, e.Y)
                 If Not colClicked Is Nothing Then Me.ShowCellMenu(colClicked, 2)
             Else

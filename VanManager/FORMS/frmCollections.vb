@@ -10,7 +10,8 @@ Public Class frmCollections
     Private Colid As String
     Private GROUPFIELD As String
     Private GROUPVALUE As String
-    Private AlreadyPrinted As Boolean = False
+    Private APrinted As Boolean = False
+    '    Private AlreadyPrinted As Boolean = False
     Private CID As String
 
     Private Sub frmCollections_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -159,6 +160,7 @@ Public Class frmCollections
                                     toSQLValueJ(txtdepositNum) & "," &
                                 IIf(chkDeposit.Checked = True, "'" & Format(dtdepositDate.Value, "yyyy-MM-dd") & "'", "NULL") & "," &
                                     Replace(txtDepositPrice.Value, ",", ".") & ")"
+            Mode = FormMode.EditRecord
         Else
             sSQL = "DELETE COLD where COLid='" & Colid & "'"
 
@@ -274,9 +276,10 @@ Public Class frmCollections
         Dim adapter As New OleDb.OleDbDataAdapter
         Dim group As GridEXGroup
         Dim column As New GridEXColumn
+        Try
 
-        If Colid <> "" Then
-            sql = "SELECT  I.id,rowcolor,InvhCode,c.MainCusFullname,c.MainCusPrfname,c.MainCusAddress,c.MainCusAFM,I.MainCusID,C.MAINCUSDOYNAME,
+            If Colid <> "" Then
+                sql = "SELECT  I.id,rowcolor,InvhCode,c.MainCusFullname,c.MainCusPrfname,c.MainCusAddress,c.MainCusAFM,I.MainCusID,C.MAINCUSDOYNAME,
                     kaxia,fpacost,gentot,seira,invdate,name,COLS,ypol,ROUTEid,C.id as ColID,I.PAID,i.invhsygid,i.sdtid,i.idakiromeno,i.idakirotiko 
                     FROM [vw_INVOICES]  I
                     LEFT join COLD on COLD.invhid = I.id
@@ -289,10 +292,10 @@ Public Class frmCollections
                     LEFT join COLD on COLD.invhsygid = I.id
                     inner join vw_col C on C.id = COLD.colid 
                     where C.id =  '" & Colid & "' and idakiromeno is null and idakirotiko is null"
-        ElseIf groupf = True Then
-            sql = "SELECT  * FROM [vw_INVOICES] where " & GROUPFIELD & " = '" & GROUPVALUE & "' and idakiromeno is null and idakirotiko is null"
-        Else
-            sql = "SELECT  id, Seira, invdate, MainCusFullname, name, kAxia, fpacost, gentot, RouteID, COLS, paid, 
+            ElseIf groupf = True Then
+                sql = "SELECT  * FROM [vw_INVOICES] where " & GROUPFIELD & " = '" & GROUPVALUE & "' and idakiromeno is null and idakirotiko is null"
+            Else
+                sql = "SELECT  id, Seira, invdate, MainCusFullname, name, kAxia, fpacost, gentot, RouteID, COLS, paid, 
 			        CASE WHEN COLS = GENTOT THEN 'GREEN' 
 			        WHEN COLS > GENTOT THEN 'RED' 
 			        WHEN COLS < GENTOT AND COLS <> 0 THEN 'ORANGE' ELSE 'WHITE' END AS ROWCOLOR, 
@@ -301,108 +304,112 @@ Public Class frmCollections
                     where invhsygid is null and idakiromeno is null and idakirotiko is null and paid=0
                   union 
                  SELECT id, Seira, invdate, MainCusFullname, name, kAxia, fpacost, gentot, RouteID, COLS, paid, 
-			 CASE WHEN COLS = GENTOT THEN 'GREEN' 
-			 WHEN COLS > GENTOT THEN 'RED' 
-			 WHEN COLS < GENTOT AND COLS <> 0 THEN 'ORANGE' ELSE 'WHITE' END AS ROWCOLOR, 
-			 gentot - COLS AS ypol, InvhCode, MAINCUSPrfName, MAINCusAFM, MAINCUSAddress, 
-			 MAINCUSDoyname, MainCusID, invhsygid, sdtid,idakiromeno,idakirotiko  
-            FROM [vw_INVOICESSYG]  where idakiromeno is null and idakirotiko is null  and paid=0 order by invdate"
-        End If
-        adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
-        adapter.Fill(table)
-        Dim newColumn As New Data.DataColumn("Checked", GetType(Boolean))
-        newColumn.DefaultValue = IIf(Colid <> "", True, False)
-        table.Columns.Add(newColumn)
-        bs1.DataSource = table
-        GridINV.SetDataBinding(table, "")
-        GridINV.RetrieveStructure()
-        GridINV.VisualStyle = VisualStyle.Office2010
-        'GROUP BY Ημερομηνία
-        GridINV.RootTable.Groups.Clear()
-        'Πελάτης
-        column = GridINV.RootTable.Columns("MainCusFullname")
-        group = New GridEXGroup(column, SortOrder.Ascending)
-        group.HeaderCaption = "Πελάτης"
-        group.GroupPrefix = ""
-        group.GroupFormatString = ""
-        GridINV.RootTable.Groups.Add(group)
-        If Colid <> "" Then
-            column = GridINV.RootTable.Columns("ColID")
+			     CASE WHEN COLS = GENTOT THEN 'GREEN' 
+			     WHEN COLS > GENTOT THEN 'RED' 
+			     WHEN COLS < GENTOT AND COLS <> 0 THEN 'ORANGE' ELSE 'WHITE' END AS ROWCOLOR, 
+			     gentot - COLS AS ypol, InvhCode, MAINCUSPrfName, MAINCusAFM, MAINCUSAddress, 
+			     MAINCUSDoyname, MainCusID, invhsygid, sdtid,idakiromeno,idakirotiko  
+                FROM [vw_INVOICESSYG]  where idakiromeno is null and idakirotiko is null  and paid=0 order by invdate"
+            End If
+            adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+            adapter.Fill(table)
+            Dim newColumn As New Data.DataColumn("Checked", GetType(Boolean))
+            newColumn.DefaultValue = IIf(Colid <> "", True, False)
+            table.Columns.Add(newColumn)
+            bs1.DataSource = table
+            GridINV.SetDataBinding(table, "")
+            GridINV.RetrieveStructure()
+            GridINV.VisualStyle = VisualStyle.Office2010
+            'GROUP BY Ημερομηνία
+            GridINV.RootTable.Groups.Clear()
+            'Πελάτης
+            column = GridINV.RootTable.Columns("MainCusFullname")
             group = New GridEXGroup(column, SortOrder.Ascending)
-            group.HeaderCaption = "Είσπραξη"
+            group.HeaderCaption = "Πελάτης"
             group.GroupPrefix = ""
             group.GroupFormatString = ""
             GridINV.RootTable.Groups.Add(group)
-        End If
-        'Γραμμή Συνόλων
-        GridINV.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True
+            If Colid <> "" Then
+                column = GridINV.RootTable.Columns("ColID")
+                group = New GridEXGroup(column, SortOrder.Ascending)
+                group.HeaderCaption = "Είσπραξη"
+                group.GroupPrefix = ""
+                group.GroupFormatString = ""
+                GridINV.RootTable.Groups.Add(group)
+            End If
+            'Γραμμή Συνόλων
+            GridINV.TotalRow = Janus.Windows.GridEX.InheritableBoolean.True
 
-        With GridINV.RootTable
-            'Απόκρυψη στηλών 
-            .Columns("rowcolor").Visible = False
-            .Columns("InvhCode").Visible = False
-            .Columns("MainCusFullname").Visible = True
-            .Columns("MainCusPrfname").Visible = False
-            .Columns("MainCusDOYname").Visible = False
-            .Columns("MainCusAddress").Visible = False
-            .Columns("MainCusAFM").Visible = False
-            .Columns("MainCusID").Visible = False
-            .Columns("invhsygid").Visible = False
-            .Columns("sdtid").Visible = False
-            .Columns("idakiromeno").Visible = False
-            .Columns("idakirotiko").Visible = False
-            .Columns("id").Visible = False
-            .Columns("PAID").Visible = False
-            If Colid <> "" Then .Columns("colid").Visible = False
-            .Columns("ROUTEid").Visible = False
-            'Ονόματα Στηλών
-            .Columns("checked").Caption = ""
-            .Columns("seira").Caption = "Αριθμός"
-            .Columns("invdate").Caption = "Ημερ/νία"
-            .Columns("name").Caption = "Τρ. Πληρωμής"
-            .Columns("MainCusFullname").Caption = "Πελάτης"
-            .Columns("kaxia").Caption = "Καθ. Αξία"
-            .Columns("fpacost").Caption = "ΦΠΑ"
-            .Columns("gentot").Caption = "Τελ. Αξία"
-            .Columns("COLS").Caption = "Συν. Εισπράξεων"
-            .Columns("ypol").Caption = "Υπόλοιπο"
-            'Θέσεις στηλών
-            .Columns("checked").Position = 1
-            'Πλάτος Στηλών
-            .Columns("checked").Width = 30
-            .Columns("seira").Width = 60
-            .Columns("invdate").Width = 70
-            .Columns("MainCusFullname").Width = 250
-            .Columns("name").Width = 100
-            .Columns("kaxia").Width = 70
-            .Columns("fpacost").Width = 70
-            .Columns("gentot").Width = 70
-            .Columns("COLS").Width = 120
-            .Columns("ypol").Width = 70
-            'Σύνολα
-            .Columns("kaxia").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("kaxia").TotalFormatString = "c" 'Currency
-            .Columns("kaxia").TextAlignment = TextAlignment.Far
-            .Columns("fpacost").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("fpacost").TotalFormatString = "c" 'Currency
-            .Columns("fpacost").TextAlignment = TextAlignment.Far
-            .Columns("gentot").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("gentot").TotalFormatString = "c" 'Currency
-            .Columns("gentot").TextAlignment = TextAlignment.Far
-            .Columns("ypol").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("ypol").TotalFormatString = "c" 'Currency
-            .Columns("ypol").TextAlignment = TextAlignment.Far
-            .Columns("COLS").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("COLS").TotalFormatString = "c" 'Currency
-            .Columns("COLS").TextAlignment = TextAlignment.Far
-        End With
-        GridINV.TotalRowFormatStyle.BackColor = System.Drawing.Color.LightSteelBlue
-        GridINV.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
-        GridINV.TotalRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-        Dim col As Janus.Windows.GridEX.GridEXColumn
-        Dim ColType As String
-        For Each col In GridINV.RootTable.Columns
-            ColType = col.EditType
-            col.EditType = EditType.NoEdit
-            col.FilterEditType = ColType
-        Next
-        GridINV.RootTable.Columns("checked").EditType = EditType.CheckBox
-        FillColsGRID(GridINV.CurrentRow.Cells("id").Value.ToString, Colid)
+            With GridINV.RootTable
+                'Απόκρυψη στηλών 
+                .Columns("rowcolor").Visible = False
+                .Columns("InvhCode").Visible = False
+                .Columns("MainCusFullname").Visible = True
+                .Columns("MainCusPrfname").Visible = False
+                .Columns("MainCusDOYname").Visible = False
+                .Columns("MainCusAddress").Visible = False
+                .Columns("MainCusAFM").Visible = False
+                .Columns("MainCusID").Visible = False
+                .Columns("invhsygid").Visible = False
+                .Columns("sdtid").Visible = False
+                .Columns("idakiromeno").Visible = False
+                .Columns("idakirotiko").Visible = False
+                .Columns("id").Visible = False
+                .Columns("PAID").Visible = False
+                If Colid <> "" Then .Columns("colid").Visible = False
+                .Columns("ROUTEid").Visible = False
+                'Ονόματα Στηλών
+                .Columns("checked").Caption = ""
+                .Columns("seira").Caption = "Αριθμός"
+                .Columns("invdate").Caption = "Ημερ/νία"
+                .Columns("name").Caption = "Τρ. Πληρωμής"
+                .Columns("MainCusFullname").Caption = "Πελάτης"
+                .Columns("kaxia").Caption = "Καθ. Αξία"
+                .Columns("fpacost").Caption = "ΦΠΑ"
+                .Columns("gentot").Caption = "Τελ. Αξία"
+                .Columns("COLS").Caption = "Συν. Εισπράξεων"
+                .Columns("ypol").Caption = "Υπόλοιπο"
+                'Θέσεις στηλών
+                .Columns("checked").Position = 1
+                'Πλάτος Στηλών
+                .Columns("checked").Width = 30
+                .Columns("seira").Width = 60
+                .Columns("invdate").Width = 70
+                .Columns("MainCusFullname").Width = 250
+                .Columns("name").Width = 100
+                .Columns("kaxia").Width = 70
+                .Columns("fpacost").Width = 70
+                .Columns("gentot").Width = 70
+                .Columns("COLS").Width = 120
+                .Columns("ypol").Width = 70
+                'Σύνολα
+                .Columns("kaxia").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("kaxia").TotalFormatString = "c" 'Currency
+                .Columns("kaxia").TextAlignment = TextAlignment.Far
+                .Columns("fpacost").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("fpacost").TotalFormatString = "c" 'Currency
+                .Columns("fpacost").TextAlignment = TextAlignment.Far
+                .Columns("gentot").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("gentot").TotalFormatString = "c" 'Currency
+                .Columns("gentot").TextAlignment = TextAlignment.Far
+                .Columns("ypol").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("ypol").TotalFormatString = "c" 'Currency
+                .Columns("ypol").TextAlignment = TextAlignment.Far
+                .Columns("COLS").AggregateFunction = Janus.Windows.GridEX.AggregateFunction.Sum : .Columns("COLS").TotalFormatString = "c" 'Currency
+                .Columns("COLS").TextAlignment = TextAlignment.Far
+            End With
+            GridINV.TotalRowFormatStyle.BackColor = System.Drawing.Color.LightSteelBlue
+            GridINV.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
+            GridINV.TotalRowFormatStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            Dim col As Janus.Windows.GridEX.GridEXColumn
+            Dim ColType As String
+            For Each col In GridINV.RootTable.Columns
+                ColType = col.EditType
+                col.EditType = EditType.NoEdit
+                col.FilterEditType = ColType
+            Next
+            GridINV.RootTable.Columns("checked").EditType = EditType.CheckBox
+            FillColsGRID(GridINV.CurrentRow.Cells("id").Value.ToString, Colid)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
 
     End Sub
     Private Sub FillColsGRID(ByVal invhid As String, Optional ByVal ColHid As String = "0")
@@ -659,6 +666,12 @@ Public Class frmCollections
             GROUPFIELD = value
         End Set
     End Property
+    Public WriteOnly Property AlreadyPrinted As Boolean
+        Set(value As Boolean)
+            APrinted = value
+        End Set
+    End Property
+
     Public WriteOnly Property GRPVALUE As String
         Set(value As String)
             GROUPVALUE = value
@@ -697,19 +710,19 @@ Public Class frmCollections
         '        End If
         '    End If
         'Else
-        If AlreadyPrinted Then
+        If APrinted Then
             If MessageBox.Show("Να γίνει επανεκτύπωση της είσπραξης?", "VanManager", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                 frmCollection.Mode = Mode
                 frmCollection.ISALREADYPRINTED = True
                 frmCollection.COLID = Colid
-                frmCollection.Show()
+                frmCollection.ShowDialog()
             End If
         Else
             If MessageBox.Show("Να γίνει εκτύπωση της είσπραξης?", "VanManager", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                 frmCollection.Mode = Mode
                 frmCollection.ISALREADYPRINTED = False
                 frmCollection.COLID = Colid
-                frmCollection.Show()
+                frmCollection.ShowDialog()
             End If
         End If
         'End If

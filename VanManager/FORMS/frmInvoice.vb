@@ -48,7 +48,7 @@ Public Class frmInvoice
                                             ,R.FCusLastname ,R.FCusName ,R.FAFM ,R.TCusLastname 
                                       ,R.TCusName ,R.TAFM ,R.MAINCUSLastname ,R.MAINCUSname
                                       ,R.MAINCusAFM ,DrvLastname ,DrvName ,R.cost ,R.plate,R.fpacost,R.gentot,R.code,R.MAINCusID  
-                                            ,INVH.ID AS INVHID
+                                            ,INVH.ID AS INVHID,INVH.Prosv
                                             FROM vw_ROUTES R
                                             LEFT JOIN INVH ON INVH.routeID = R.ID
                                             where R.ID = '" & RID & "'", cn)
@@ -56,7 +56,7 @@ Public Class frmInvoice
                     cmd = New OleDbCommand("Select R.FAreaName ,R.TAreaName ,R.FCusLastname ,R.FCusName ,
                                         R.FAFM ,R.TCusLastname ,R.TCusName ,R.TAFM ,R.MAINCUSLastname ,R.MAINCUSname,
                                         R.MAINCusAFM ,DrvLastname ,DrvName ,R.cost ,R.plate,R.fpacost,R.gentot,R.code,
-                                        R.MAINCusID ,INVH.ID AS INVHID
+                                        R.MAINCusID ,INVH.ID AS INVHID,INVH.Prosv
                                         From vw_ROUTES R
 				                        inner Join INVH on invh.routeID=r.id
                                         inner join vw_seires vs on vs.sdtid=INVH.sdtid " & IIf(IsAk = True, " and VS.iscancel=1 ", " and VS.iscancel=0 ") &
@@ -83,9 +83,10 @@ Public Class frmInvoice
                         If sdr.IsDBNull(sdr.GetOrdinal("gentot")) = False Then txtTotal.Value = sdr.GetDecimal(sdr.GetOrdinal("gentot"))
                         If sdr.IsDBNull(sdr.GetOrdinal("code")) = False Then txtRoute.Value = sdr.GetInt32(sdr.GetOrdinal("code"))
                         If sdr.IsDBNull(sdr.GetOrdinal("MainCusID")) = False Then txtMCusL.Tag = sdr.GetGuid(sdr.GetOrdinal("MainCusID"))
-                        If sdr.IsDBNull(sdr.GetOrdinal("INVHID")) = False Then INVH_ID = sdr.GetGuid(sdr.GetOrdinal("INVHID")).ToString
-                        'Εαν αφορά ακυρωτικό τιμολόγιο
-                        If IsAk Then
+                    If sdr.IsDBNull(sdr.GetOrdinal("INVHID")) = False Then INVH_ID = sdr.GetGuid(sdr.GetOrdinal("INVHID")).ToString
+                    If sdr.IsDBNull(sdr.GetOrdinal("Prosv")) = False Then txtProsvasis.Text = sdr.GetString(sdr.GetOrdinal("Prosv"))
+                    'Εαν αφορά ακυρωτικό τιμολόγιο
+                    If IsAk Then
                             txtAxia.Value = txtAxia.Value * (-1) : txtAxia.ForeColor = Color.Red
                             txtFPA.Value = txtFPA.Value * (-1) : txtFPA.ForeColor = Color.Red
                             txtTotal.Value = txtTotal.Value * (-1) : txtTotal.ForeColor = Color.Red
@@ -147,7 +148,7 @@ Public Class frmInvoice
                     cmd = New OleDbCommand("Select R.MainCusID,R.MAINCUSLastname ,R.MAINCUSname,R.MAINCusAFM,sum(cost) As cost,sum(R.fpacost) As fpacost,
                                             sum(R.gentot) As gentot,INVHSYG.Tarea,INVHSYG.Farea,INVHSYG.Tarea,INVHSYG.Farea,INVHSYG.dosname,
                                             INVHSYG.docnumber,INVHSYG.payID,INVHSYG.description,INVHSYG.printed,INVHSYG.holloprice,INVHSYG.invdate,INVHSYG.skopos, 
-                                            INVHSYG.FilePath,vs.ishand 
+                                            INVHSYG.FilePath,vs.ishand,INVHSYG.Prosv 
                                             From vw_ROUTES R
 				                            inner Join INVH on invh.routeID=r.id
                                             inner Join INVHSYG  on INVHSYG.id=invh.invhsygid 
@@ -155,7 +156,7 @@ Public Class frmInvoice
                                            "where INVHSYG.id = ('" & SYGINVHID & "' ) 
                                             group by R.MainCusID,R.MAINCUSLastname , R.MAINCUSname, R.MAINCusAFM,INVHSYG.Tarea,
                                             INVHSYG.Farea,INVHSYG.dosname,INVHSYG.docnumber,INVHSYG.payID,INVHSYG.description,INVHSYG.printed,
-                                            INVHSYG.holloprice,	INVHSYG.invdate,INVHSYG.skopos ,INVHSYG.FilePath,vs.ishand     ", cn)
+                                            INVHSYG.holloprice,	INVHSYG.invdate,INVHSYG.skopos ,INVHSYG.FilePath,vs.ishand,INVHSYG.Prosv      ", cn)
                 Else
                     cmd = New OleDbCommand("SELECT	R.MainCusID,R.MAINCUSLastname ,R.MAINCUSname,R.MAINCusAFM,sum(cost) as cost,sum(fpacost) as fpacost,sum(gentot) as gentot
                                     From vw_ROUTES R
@@ -192,6 +193,7 @@ Public Class frmInvoice
                         If sdr.IsDBNull(sdr.GetOrdinal("invdate")) = False Then dtinvdate.Value = sdr.GetDateTime(sdr.GetOrdinal("invdate"))
                         If sdr.IsDBNull(sdr.GetOrdinal("skopos")) = False Then txtSkopos.Text = sdr.GetString(sdr.GetOrdinal("skopos"))
                         If sdr.IsDBNull(sdr.GetOrdinal("FilePath")) = False Then txtdeltPath.Text = sdr.GetString(sdr.GetOrdinal("FilePath"))
+                        If sdr.IsDBNull(sdr.GetOrdinal("Prosv")) = False Then txtProsvasis.Text = sdr.GetString(sdr.GetOrdinal("Prosv"))
                         LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
                     Else
                         txtHolloPrice.Text = ConvertNumToWords.ConvertNumInGR(txtTotal.Value)
@@ -307,7 +309,7 @@ Public Class frmInvoice
 
                     'Καταχώρηση Δεδομένων
                     sSQL = "INSERT INTO INVHSYG ([ID], [code], [docnumber], [invdate], [description], [holloprice], [payid], [sdtID], [dosname],
-                                [kAxia], [fpacost], [gentot], [CusID], [FArea], [Tarea], [printed], [skopos], [filepath]) " &
+                                [kAxia], [fpacost], [gentot], [CusID], [FArea], [Tarea], [printed], [skopos], [filepath],[Prosv]) " &
                        "values (" & "'" & INVHSYGID & "'," &
                                  InvHSYGcode & "," &
                                 txtNumber.Value & ", " &
@@ -324,7 +326,8 @@ Public Class frmInvoice
                                     toSQLValueJ(txtFArea) & "," &
                                     toSQLValueJ(txtTArea) & ",1," &
                                     toSQLValueJ(txtSkopos) & "," &
-                                    toSQLValueJ(txtdeltPath) & ")"
+                                    toSQLValueJ(txtdeltPath) & "," &
+                                    toSQLValueJ(txtProsvasis) & ")"
                     Using oCmd As New OleDbCommand(sSQL, cn)
                         oCmd.ExecuteNonQuery()
                     End Using
@@ -439,7 +442,8 @@ Public Class frmInvoice
                    "fpacost = '" & Replace(txtFPA.Value, ",", ".") & "', " &
                    "gentot = '" & Replace(txtTotal.Value, ",", ".") & "', " &
                    "cusid = '" & txtMCusL.Tag.ToString & "'," &
-                   "FilePath =  " & toSQLValueJ(txtdeltPath) &
+                   "FilePath =  " & toSQLValueJ(txtdeltPath) & ", " &
+                   "Prosv = " & toSQLValueJ(txtProsvasis) &
                     " where INVH.ID = '" & I & "'"
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()
@@ -468,7 +472,7 @@ Public Class frmInvoice
                     SI = "'" & SI & "'"
 
                     sSQL = "INSERT INTO INVH ([ID],[routeid],[code],[invdate],[description],[holloprice],[payid],[sdtid],[dosname],[kAxia],[fpacost],
-                            [gentot],[invhsygid],[docnumber],[cusid],[printed]) " &
+                            [gentot],[invhsygid],[docnumber],[cusid],[printed],[Prosv]) " &
                             "values (" & "'" & I & "'," &
                           "'" & R & "'," &
                              InvHcode & ", " &
@@ -483,14 +487,15 @@ Public Class frmInvoice
                             Replace(FilteredRows(0).Item("C4"), ",", ".") & "," &
                               SI & "," &
                              txtNumber.Value & "," &
-                            "'" & txtMCusL.Tag.ToString & "'," & "1)"
+                            "'" & txtMCusL.Tag.ToString & "', 1 ," &
+                            toSQLValueJ(txtProsvasis) & ")"
                 Else
                     If CheckIfHandInvoiceExist(sdtID, txtNumber.Value) Then
                         MessageBox.Show("Έχει εκδοθεί τιμολόγιο με αυτόν τον αριθμό.", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Return False
                     End If
                     sSQL = "INSERT INTO INVH ([ID],[routeid],[code],[invdate],[description],[holloprice],[payid],[sdtid],[dosname],[kAxia],[fpacost],
-                            [gentot],[invhsygid],[docnumber],[printed],[cusid],[FilePath]) " &
+                            [gentot],[invhsygid],[docnumber],[printed],[cusid],[FilePath],[Prosv]) " &
                             "values (" & "'" & I & "'," &
                           "'" & R & "'," &
                              InvHcode & ", " &
@@ -506,7 +511,8 @@ Public Class frmInvoice
                               SI & "," &
                              txtNumber.Value & ",1" & "," &
                             "'" & txtMCusL.Tag.ToString & "'," &
-                            toSQLValueJ(txtdeltPath) & ")"
+                            toSQLValueJ(txtdeltPath) & "," &
+                            toSQLValueJ(txtProsvasis) & ")"
                 End If
                 Using oCmd As New OleDbCommand(sSQL, cn)
                     oCmd.ExecuteNonQuery()

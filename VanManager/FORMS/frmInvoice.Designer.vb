@@ -91,6 +91,8 @@ Partial Class frmInvoice
         Me.cmdAttach = New Janus.Windows.EditControls.UIButton()
         Me.txtdeltPath = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.dlgDeltia = New System.Windows.Forms.OpenFileDialog()
+        Me.txtProsvasis = New Janus.Windows.GridEX.EditControls.EditBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         CType(Me.UiGroupBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.UiGroupBox3.SuspendLayout()
         CType(Me.UiGroupBox4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -463,6 +465,8 @@ Partial Class frmInvoice
         '
         'UiGroupBox1
         '
+        Me.UiGroupBox1.Controls.Add(Me.Label13)
+        Me.UiGroupBox1.Controls.Add(Me.txtProsvasis)
         Me.UiGroupBox1.Controls.Add(Me.Label12)
         Me.UiGroupBox1.Controls.Add(Me.txtSkopos)
         Me.UiGroupBox1.Controls.Add(Me.txtRoute)
@@ -489,7 +493,7 @@ Partial Class frmInvoice
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(512, 25)
+        Me.Label12.Location = New System.Drawing.Point(603, 25)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(102, 13)
         Me.Label12.TabIndex = 156
@@ -497,9 +501,9 @@ Partial Class frmInvoice
         '
         'txtSkopos
         '
-        Me.txtSkopos.Location = New System.Drawing.Point(513, 41)
+        Me.txtSkopos.Location = New System.Drawing.Point(601, 41)
         Me.txtSkopos.Name = "txtSkopos"
-        Me.txtSkopos.Size = New System.Drawing.Size(222, 20)
+        Me.txtSkopos.Size = New System.Drawing.Size(134, 20)
         Me.txtSkopos.TabIndex = 155
         Me.txtSkopos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
         '
@@ -597,7 +601,7 @@ Partial Class frmInvoice
         Me.cboPay.DesignTimeLayout = cboPay_DesignTimeLayout
         Me.cboPay.DisplayMember = "Name"
         Me.cboPay.HoverMode = Janus.Windows.GridEX.HoverMode.Highlight
-        Me.cboPay.Location = New System.Drawing.Point(151, 41)
+        Me.cboPay.Location = New System.Drawing.Point(246, 41)
         Me.cboPay.Name = "cboPay"
         Me.cboPay.OfficeColorScheme = Janus.Windows.GridEX.OfficeColorScheme.Black
         Me.cboPay.SelectedIndex = -1
@@ -611,7 +615,7 @@ Partial Class frmInvoice
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(295, 25)
+        Me.Label15.Location = New System.Drawing.Point(381, 25)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(62, 13)
         Me.Label15.TabIndex = 143
@@ -619,7 +623,7 @@ Partial Class frmInvoice
         '
         'txtDescr
         '
-        Me.txtDescr.Location = New System.Drawing.Point(296, 41)
+        Me.txtDescr.Location = New System.Drawing.Point(382, 41)
         Me.txtDescr.Name = "txtDescr"
         Me.txtDescr.Size = New System.Drawing.Size(211, 20)
         Me.txtDescr.TabIndex = 2
@@ -638,7 +642,7 @@ Partial Class frmInvoice
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(148, 25)
+        Me.Label2.Location = New System.Drawing.Point(243, 25)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(96, 13)
         Me.Label2.TabIndex = 132
@@ -824,6 +828,24 @@ Partial Class frmInvoice
         '
         Me.dlgDeltia.FileName = "OpenFileDialog1"
         '
+        'txtProsvasis
+        '
+        Me.txtProsvasis.BackColor = System.Drawing.Color.Coral
+        Me.txtProsvasis.Location = New System.Drawing.Point(144, 42)
+        Me.txtProsvasis.Name = "txtProsvasis"
+        Me.txtProsvasis.Size = New System.Drawing.Size(68, 20)
+        Me.txtProsvasis.TabIndex = 157
+        Me.txtProsvasis.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(141, 25)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(71, 13)
+        Me.Label13.TabIndex = 158
+        Me.Label13.Text = "Αρ. Prosvasis"
+        '
         'frmInvoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -939,4 +961,6 @@ Partial Class frmInvoice
     Friend WithEvents cmdAttach As Janus.Windows.EditControls.UIButton
     Friend WithEvents txtdeltPath As Janus.Windows.GridEX.EditControls.EditBox
     Friend WithEvents dlgDeltia As OpenFileDialog
+    Friend WithEvents txtProsvasis As Janus.Windows.GridEX.EditControls.EditBox
+    Friend WithEvents Label13 As Label
 End Class
