@@ -323,7 +323,6 @@ Public Class FrmRoute
             If Mode = FormMode.EditRecord Then
                 ' Ενημέρωση Δεδομένων
                 sSQL = "UPDATE ROUTES set " &
-                   "code =  " & toSQLValueJ(txtCode, True) & "," &
                    "dtCreated = " & "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
                    "DrvID = " & boSQLValuej(cboJDRV) & ", " &
                    "VehID = " & boSQLValuej(cboJVEH) & ", " &
@@ -395,10 +394,9 @@ Public Class FrmRoute
                 End If
             ElseIf Mode = FormMode.NewRecord Then
                 'Καταχώρηση Δεδομένων
-                sSQL = "INSERT INTO ROUTES ([id],[code],[dtCreated],[DrvID],[VehID],[CusID],[FromCusID],[ToCusID],[FromCouID],[ToCouID],[FromAreaID],[ToAreaID] " &
+                sSQL = "INSERT INTO ROUTES ([id],[dtCreated],[DrvID],[VehID],[CusID],[FromCusID],[ToCusID],[FromCouID],[ToCouID],[FromAreaID],[ToAreaID] " &
                ",[comments],[DrvPrice],[cost],[collection],[temp],[Descr],[kg],[pal],[kola],[stiid],[Paid]) " &
                "values (" & "'" & ID.ToString & "'," &
-                            toSQLValueJ(txtCode, True) & ", " &
                       "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
                             boSQLValuej(cboJDRV) & ", " &
                             boSQLValuej(cboJVEH) & ", " &

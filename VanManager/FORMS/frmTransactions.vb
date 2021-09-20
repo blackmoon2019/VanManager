@@ -67,12 +67,12 @@ Public Class frmTransactions
         table.Columns.Clear()
         GridMain.DataSource = Nothing
         table.Clear()
-        adapter.SelectCommand = New OleDb.OleDbCommand("SELECT  '1' as sKey, id ,(SELECT NAME FROM SDT_TYPES WHERE CODE = 1) AS InvType ,Seira,  invdate,  MainCusFullname,  kAxia,  fpacost,  gentot,  COLS,  paid, 
+        adapter.SelectCommand = New OleDb.OleDbCommand("SELECT  '1' as sKey, id ,(SELECT NAME FROM SDT_TYPES WHERE CODE = 1) AS InvType ,Seira,  invdate,  MainCusFullname,  kAxia,  round(fpacost,2) as fpacost,  round(gentot,2) as gentot ,  round(COLS,2) as cols,  paid, 
                                                                     ypol,  MAINCUSPrfName,  MAINCusAFM,  MAINCUSAddress,  MAINCUSDoyname,idakiromeno,RouteID
                                                             FROM  dbo.vw_INVOICES where " & IIf(Not cboMainCus.SelectedItem Is Nothing, "  MainCusID = " & boSQLValuej(cboMainCus) & "AND ", "") &
                                                         "invhsygid IS NULL and invdate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and invdate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'" &
                                                         "union " &
-                                                        "Select '2' as sKey, id , (SELECT NAME FROM SDT_TYPES WHERE CODE = 2) AS InvType,Seira,  invdate,  MainCusFullname,  kAxia,  fpacost,  gentot,  COLS,  paid, 
+                                                        "Select '2' as sKey, id , (SELECT NAME FROM SDT_TYPES WHERE CODE = 2) AS InvType,Seira,  invdate,  MainCusFullname,  kAxia,  round(fpacost,2) as fpacost,  round(gentot,2) as gentot ,  round(COLS,2) as cols,  paid, 
                                                                    ypol,  MAINCUSPrfName,  MAINCusAFM,  MAINCUSAddress,  MAINCUSDoyname,idakiromeno,RouteID
                                                             from   dbo.vw_INVOICESSYG where " & IIf(Not cboMainCus.SelectedItem Is Nothing, "  MainCusID = " & boSQLValuej(cboMainCus) & "AND ", "") &
                                                         " invdate >= '" & Format(dtFromDate.Value, "yyyy/MM/dd 00:00:00") & "' and invdate <= '" & Format(dtToDate.Value, "yyyy/MM/dd 23:59:59") & "'" &

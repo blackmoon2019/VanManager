@@ -60,6 +60,8 @@ Partial Class frmInvoice
         Me.Label30 = New System.Windows.Forms.Label()
         Me.txtMCusL = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.UiGroupBox1 = New Janus.Windows.EditControls.UIGroupBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtProsvasis = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtSkopos = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.txtRoute = New Janus.Windows.GridEX.EditControls.NumericEditBox()
@@ -91,8 +93,7 @@ Partial Class frmInvoice
         Me.cmdAttach = New Janus.Windows.EditControls.UIButton()
         Me.txtdeltPath = New Janus.Windows.GridEX.EditControls.EditBox()
         Me.dlgDeltia = New System.Windows.Forms.OpenFileDialog()
-        Me.txtProsvasis = New Janus.Windows.GridEX.EditControls.EditBox()
-        Me.Label13 = New System.Windows.Forms.Label()
+        Me.cmdSygAnal = New Janus.Windows.EditControls.UIButton()
         CType(Me.UiGroupBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.UiGroupBox3.SuspendLayout()
         CType(Me.UiGroupBox4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -490,6 +491,24 @@ Partial Class frmInvoice
         Me.UiGroupBox1.Text = "Στοιχεία Τιμολογίου"
         Me.UiGroupBox1.VisualStyle = Janus.Windows.UI.Dock.PanelVisualStyle.Office2010
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(141, 25)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(71, 13)
+        Me.Label13.TabIndex = 158
+        Me.Label13.Text = "Αρ. Prosvasis"
+        '
+        'txtProsvasis
+        '
+        Me.txtProsvasis.BackColor = System.Drawing.Color.Coral
+        Me.txtProsvasis.Location = New System.Drawing.Point(144, 42)
+        Me.txtProsvasis.Name = "txtProsvasis"
+        Me.txtProsvasis.Size = New System.Drawing.Size(68, 20)
+        Me.txtProsvasis.TabIndex = 157
+        Me.txtProsvasis.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
+        '
         'Label12
         '
         Me.Label12.AutoSize = True
@@ -828,23 +847,15 @@ Partial Class frmInvoice
         '
         Me.dlgDeltia.FileName = "OpenFileDialog1"
         '
-        'txtProsvasis
+        'cmdSygAnal
         '
-        Me.txtProsvasis.BackColor = System.Drawing.Color.Coral
-        Me.txtProsvasis.Location = New System.Drawing.Point(144, 42)
-        Me.txtProsvasis.Name = "txtProsvasis"
-        Me.txtProsvasis.Size = New System.Drawing.Size(68, 20)
-        Me.txtProsvasis.TabIndex = 157
-        Me.txtProsvasis.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(141, 25)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(71, 13)
-        Me.Label13.TabIndex = 158
-        Me.Label13.Text = "Αρ. Prosvasis"
+        Me.cmdSygAnal.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.cmdSygAnal.Location = New System.Drawing.Point(2, 477)
+        Me.cmdSygAnal.Name = "cmdSygAnal"
+        Me.cmdSygAnal.Size = New System.Drawing.Size(120, 23)
+        Me.cmdSygAnal.TabIndex = 215
+        Me.cmdSygAnal.Text = "Εκτύπωση Ανάλυσης"
+        Me.cmdSygAnal.VisualStyle = Janus.Windows.UI.VisualStyle.VS2010
         '
         'frmInvoice
         '
@@ -852,6 +863,7 @@ Partial Class frmInvoice
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.cmdExit
         Me.ClientSize = New System.Drawing.Size(748, 512)
+        Me.Controls.Add(Me.cmdSygAnal)
         Me.Controls.Add(Me.UiGroupBox8)
         Me.Controls.Add(Me.pInv)
         Me.Controls.Add(Me.UiGroupBox7)
@@ -963,4 +975,5 @@ Partial Class frmInvoice
     Friend WithEvents dlgDeltia As OpenFileDialog
     Friend WithEvents txtProsvasis As Janus.Windows.GridEX.EditControls.EditBox
     Friend WithEvents Label13 As Label
+    Friend WithEvents cmdSygAnal As Janus.Windows.EditControls.UIButton
 End Class

@@ -73,7 +73,6 @@ Public Class frmEX
             If Mode = FormMode.EditRecord Then
                 ' Ενημέρωση Δεδομένων
                 sSQL = "UPDATE EX set " &
-                   "code =  " & toSQLValueJ(txtCode, True) & "," &
                    "dtCreated = " & "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
                    "ExCatID = " & boSQLValuej(cboEXCat) & ", " &
                    "price = " & Replace(txtPrice.Value, ",", ".") & "," &
@@ -98,9 +97,8 @@ Public Class frmEX
                 MessageBox.Show("Το έξοδο αποθηκεύθηκε με επιτυχία", "VanManager", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf Mode = FormMode.NewRecord Then
                 'Καταχώρηση Δεδομένων
-                sSQL = "INSERT INTO EX ([code],[dtCreated],[ExCatID],[price],[paid],[monkey],[FilePath],[vehID],[DrvID],[exType],[descr],[price2],[fpa],[InvoiceNum],[SupID],[Receipt]) " &
-               "values (" & toSQLValueJ(txtCode, True) & ", " &
-                      "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
+                sSQL = "INSERT INTO EX ([dtCreated],[ExCatID],[price],[paid],[monkey],[FilePath],[vehID],[DrvID],[exType],[descr],[price2],[fpa],[InvoiceNum],[SupID],[Receipt]) " &
+               "values (" & "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
                             boSQLValuej(cboEXCat) & ", " &
                             Replace(txtPrice.Value, ",", ".") & ", " &
                             IIf(chkPaid.Checked = True, 1, 0) & ", " &

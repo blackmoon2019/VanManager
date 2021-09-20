@@ -41,7 +41,7 @@ Public Class frmInvoice
                     If Mode = FormMode.NewRecord Then txtNumber.Value = txtNumber.Value + 1
                     'Sen = GetSen(DosID)
                 Else
-                    LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
+                    LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True : cmdSygAnal.Enabled = True
                 End If
                 If INVH_ID = Nothing Then
                     cmd = New OleDbCommand("SELECT	 R.FAreaName ,R.TAreaName 
@@ -120,8 +120,8 @@ Public Class frmInvoice
                             Sen = txtNumber.Value
                         End If
                         sdr.Close()
-                        LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
-                    End If
+                    LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True : cmdSygAnal.Enabled = True
+                End If
                 Else
                     If Mode = FormMode.NewRecord Then
                     cmd = New OleDbCommand("Select dosname as name ,sdtid ,dosid ,isnull(number,0) as number
@@ -141,7 +141,7 @@ Public Class frmInvoice
                     txtFArea.ReadOnly = False
                     txtTArea.ReadOnly = False
                 Else
-                    LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
+                    LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True : cmdSygAnal.Enabled = True
                 End If
                 'Συγκεντρωτικό Τιμολόγιο
                 If SYGINVHID <> "" Then
@@ -194,7 +194,7 @@ Public Class frmInvoice
                         If sdr.IsDBNull(sdr.GetOrdinal("skopos")) = False Then txtSkopos.Text = sdr.GetString(sdr.GetOrdinal("skopos"))
                         If sdr.IsDBNull(sdr.GetOrdinal("FilePath")) = False Then txtdeltPath.Text = sdr.GetString(sdr.GetOrdinal("FilePath"))
                         If sdr.IsDBNull(sdr.GetOrdinal("Prosv")) = False Then txtProsvasis.Text = sdr.GetString(sdr.GetOrdinal("Prosv"))
-                        LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True
+                        LockUnlockAllControls(Me, True) : cmdExit.Enabled = True : cmdSave.Enabled = True : cmdSygAnal.Enabled = True
                     Else
                         txtHolloPrice.Text = ConvertNumToWords.ConvertNumInGR(txtTotal.Value)
                     End If
@@ -600,5 +600,10 @@ Public Class frmInvoice
 
     End Function
 
-
+    Private Sub cmdSygAnal_Click(sender As Object, e As EventArgs) Handles cmdSygAnal.Click
+        frmPrintPreview.sTable = "SYGWITHDELT"
+        frmPrintPreview.SYGHID = SYGINVHID
+        frmPrintPreview.IsAkirotiko = IsAk
+        frmPrintPreview.Show()
+    End Sub
 End Class

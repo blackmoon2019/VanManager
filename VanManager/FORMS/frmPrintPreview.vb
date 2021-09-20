@@ -232,6 +232,44 @@ Public Class frmPrintPreview
 
                     Me.ReportViewer1.LocalReport.DataSources.Add(rptDataSource)
                     Me.ReportViewer1.LocalReport.DataSources.Add(rptDataSource2)
+                Case "SYGWITHDELT"
+                    With Me.ReportViewer1.LocalReport
+                        .ReportPath = Application.StartupPath & "\Reports\SYGWITHDELT.rdl"
+                        .DataSources.Clear()
+                    End With
+
+                    sql = "SELECT C.code,C.CusName,C.PRFNAME,C.CusAddress,C.AreasName + ' ' + C.TK AS A,C.afm,C.DoyName,
+					S.Farea,S.Tarea,S.holloprice ,S.description ,P.NAME as Payname,s.kAxia,s.fpacost,s.gentot ,
+					case when s.idakiromeno is  null then  sdt.descr else sdt.descrak end  AS sdtDescr,s.dosname ,s.docnumber,convert(varchar(10), s.invdate , 108) as InvTime,
+					CONVERT(VARCHAR(10), s.invdate, 103) as invdate, S.skopos,P.code AS PayCode,
+                    ISNULL(S.cusInvbalance,0) AS cusInvbalance,ISNULL(S.cusInvPrevBalance ,0) AS cusInvPrevBalance
+					FROM INVHSYG S
+					INNER JOIN SDT ON SDT.id=S.sdtid 
+		            inner join sts on sts.sdtid = sdt.id 
+                    inner join dos on dos.id = sts.dosid " & IIf(IsAk = True, " and dos.iscancel=1 ", "and dos.iscancel=0") &
+                    "INNER JOIN vw_CUS C ON C.id = S.cusid 
+					INNER JOIN vw_PAY P ON S.payID = P.id
+                    WHERE  S.id = '" & SID & "'"
+                    adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+                    adapter.Fill(table)
+                    bs1.DataSource = table
+                    '' Use the same name as defined in the report Data Source Definition
+                    rptDataSource = New ReportDataSource("HEADER", table)
+                    sql = "SELECT R.code,R.Descr ,CONVERT(nVARCHAR(10), r.dtCreated , 103) as dtCreated  , r.FCusLastname as FCus, r.tCusLastname As TCus,
+                           p.arDelt,(isnull(p.address,'') + ' ' + isnull(p.ar,'')) as DeltAddress,p.Lastname 
+                           FROM vw_INVOICES  SYG
+                           INNER JOIN vw_ROUTES R ON R.ID =SYG.RouteID 
+                           inner join vw_POI P on p.routeID = R.id
+                           where SYG.invhsygid = '" & SID & "'
+                           order by r.code,p.arDelt "
+
+                    adapter.SelectCommand = New OleDb.OleDbCommand(sql, cn)
+                    adapter.Fill(table2)
+                    bs1.DataSource = table2
+                    rptDataSource2 = New ReportDataSource("DETAILS", table2)
+
+                    Me.ReportViewer1.LocalReport.DataSources.Add(rptDataSource)
+                    Me.ReportViewer1.LocalReport.DataSources.Add(rptDataSource2)
 
             End Select
             'Dim parameters(0) As ReportParameter
