@@ -340,9 +340,8 @@ Public Class frmInvoice
                         End If
                     Next i
                     ' Καταχώρηση ποσόυ εξόδου (ΦΠΑ)
-                    sSQL = "INSERT INTO EX ([code],[dtCreated],[price],[invhsygid],[excatid],[FilePath]) " &
-                              "values (" & GetNewCode("EX") & ", " &
-                                     "'" & Format(dtinvdate.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
+                    sSQL = "INSERT INTO EX ([dtCreated],[price],[invhsygid],[excatid],[FilePath]) " &
+                              "values ('" & Format(dtinvdate.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
                                            Replace(txtFPA.Value, ",", ".") & "," &
                                            "'" & INVHSYGID & "'" & ",'F2FC308E-A583-4DD7-829D-6626819E106F'," &
                                            toSQLValueJ(txtdeltPath) & ")"
