@@ -98,7 +98,7 @@ Public Class frmEX
             ElseIf Mode = FormMode.NewRecord Then
                 'Καταχώρηση Δεδομένων
                 sSQL = "INSERT INTO EX ([dtCreated],[ExCatID],[price],[paid],[monkey],[FilePath],[vehID],[DrvID],[exType],[descr],[price2],[fpa],[InvoiceNum],[SupID],[Receipt]) " &
-               "values (" & "'" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
+               "values ('" & Format(dtDateCreated.Value, "yyyy/MM/dd HH:mm:ss") & "'," &
                             boSQLValuej(cboEXCat) & ", " &
                             Replace(txtPrice.Value, ",", ".") & ", " &
                             IIf(chkPaid.Checked = True, 1, 0) & ", " &
